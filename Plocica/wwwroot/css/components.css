@@ -72,35 +72,29 @@
 
 .hero-frame.is-active { opacity: 1; }
 
-.plate-caption {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 0.85rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+/* hero hexagon grid — hover-fill canvas, replaces the old hero photo slot */
+.hero-grid {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line);
+  overflow: hidden;
 }
 
-.plate-frame.is-revealed + .plate-caption,
-.plate-frame.is-revealed .plate-caption {
-  opacity: 1;
-  transform: translateY(0);
+.hero-grid canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; }
   .plate-frame .plate-img-wrap { height: min(50vh, 440px); }
+  .hero-grid { max-width: min(80vw, 480px); margin-inline: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .plate-frame .plate-img-wrap,
-  .hero-frame,
-  .plate-caption {
+  .hero-frame {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;

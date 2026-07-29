@@ -18,7 +18,13 @@
         </div>
     </div>
 
-    <div>
+    <div class="hero-grid" aria-hidden="true"></div>
+</section>
+
+<section class="section hairline-top">
+    <div class="container">
+        <p class="eyebrow">Izbliza</p>
+        <h2>Iz naše ponude</h2>
         <div class="plate-frame">
             <div class="plate-img-wrap">
                 <img class="hero-frame is-active" src="~/img/hero/arabeskHERO.jpg" alt="Arabesque pločice u ružičastoj glazuri.">
@@ -29,10 +35,6 @@
                 <img class="hero-frame" src="~/img/hero/moduleHERO.jpg" alt="Module pločice u tamnoplavoj i bijeloj glazuri." loading="lazy">
             </div>
         </div>
-        <p class="plate-caption">
-            <span>Oblici · @(Model.HeroShape?.Name ?? "Arabesque")</span>
-            <span>@Model.HeroShape?.Price</span>
-        </p>
     </div>
 </section>
 
@@ -140,6 +142,7 @@
 </section>
 
 @section Scripts {
+    <script src="~/js/hero-grid.js" asp-append-version="true"></script>
     <script src="~/js/hero.js" asp-append-version="true"></script>
     <script src="~/js/craft-video.js" asp-append-version="true"></script>
 }

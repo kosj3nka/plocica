@@ -12,8 +12,8 @@
 
 - No npm, React, or any bundler — this repo has zero JS tooling by deliberate project decision (`docs/02-DESIGN.md`: "Bez JS frameworka"). Every new file is plain `.js`/`.css` referenced directly by Razor `<script>`/`<link>` tags.
 - Colors must come from the existing CSS custom properties in `wwwroot/css/tokens.css` (`--line: #C9C4B8`, `--glz-sun: #E3B23C`) — read via `getComputedStyle`, with the literal hex as a fallback only, never hardcoded as the primary source.
-- This project has **no git repository** (`git status` confirms "not a git repository"). Skip all commit steps — there is nothing to commit to.
-- This project has **no automated test suite**. Verification steps are manual: run `dotnet run` from `Plocica/`, open the page in a browser, and check the described behavior.
+- This project was just git-initialized specifically to support this plan's subagent-driven execution (it had no repository before). Commit normally after each task, as usual for this workflow.
+- This project has **no automated test suite**. Verification steps are manual: run `dotnet run` from `Plocica/`, open the page in a browser, and check the described behavior. Do not treat the absence of automated tests as a defect to fix — commit the manual verification results as described in each task's steps.
 - Preserve the existing accessibility quality floor: keyboard focus visibility, `prefers-reduced-motion` support, alt text on all photos — don't regress any of it.
 - `hero.js` and the `.plate-frame`/`.plate-img-wrap`/`.hero-frame`/`.is-active` CSS/JS are reused completely unchanged — only their container's position in the page moves. Do not rename these classes; there is no naming collision with the new `.hero-grid`.
 

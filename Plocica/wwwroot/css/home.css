@@ -1,0 +1,5 @@
+/* Home-specifične dorade — dijeljene komponente su u components.css */
+
+@media (max-width: 640px) {
+  .craft-copy h2 { max-width: 16ch; }
+}

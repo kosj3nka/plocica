@@ -1,0 +1,227 @@
+/* Header, navigacija, footer — vidi docs/06-COPY.md za sadrzaj navigacije */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 84px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+}
+
+.brand img {
+  height: 32px;
+  width: auto;
+}
+
+.nav-primary {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-primary > li {
+  position: relative;
+}
+
+.nav-link {
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  padding: 0.5em 0;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  border-bottom-color: var(--ink);
+}
+
+/* Kolekcije dropdown */
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.5em 0;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle:focus-visible {
+  border-bottom-color: var(--ink);
+}
+
+.nav-dropdown-toggle .chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  margin-top: -3px;
+}
+
+.nav-item-dropdown[aria-expanded="true"] .chevron,
+.nav-item-dropdown:hover .chevron,
+.nav-item-dropdown:focus-within .chevron {
+  transform: rotate(-135deg);
+  margin-top: 3px;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 260px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 0.5rem 0;
+  margin-top: 1px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+.nav-item-dropdown:hover .nav-dropdown,
+.nav-item-dropdown:focus-within .nav-dropdown,
+.nav-item-dropdown[aria-expanded="true"] .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown a {
+  display: block;
+  padding: 0.6em 1.25em;
+  font-size: 0.9375rem;
+}
+
+.nav-dropdown a:hover,
+.nav-dropdown a:focus-visible {
+  background: var(--paper-2);
+}
+
+.nav-dropdown .num {
+  color: var(--ink-soft);
+  margin-right: 0.5em;
+}
+
+.nav-dropdown-sep {
+  height: 1px;
+  background: var(--line);
+  margin: 0.5rem 1.25em;
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--ink);
+  padding: 0.5em 0.75em;
+  font: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 860px) {
+  .nav-toggle { display: inline-flex; }
+
+  .nav-primary {
+    position: fixed;
+    inset: 84px 0 0 0;
+    background: var(--paper);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 1rem var(--gutter) 2rem;
+    overflow-y: auto;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+
+  .nav-primary.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-primary > li {
+    width: 100%;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-link,
+  .nav-dropdown-toggle {
+    width: 100%;
+    padding: 1em 0;
+    justify-content: space-between;
+  }
+
+  .nav-dropdown {
+    position: static;
+    border: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none;
+    padding: 0 0 0.5em 1em;
+    min-width: 0;
+  }
+
+  .nav-item-dropdown[aria-expanded="true"] .nav-dropdown {
+    display: block;
+  }
+
+  .nav-dropdown a { padding: 0.6em 0; }
+
+  .nav-cta { border-bottom: none !important; margin-top: 0.75rem; }
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 3rem 0;
+  margin-top: 4rem;
+}
+
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--ink);
+}

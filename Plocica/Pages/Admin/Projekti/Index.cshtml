@@ -1,0 +1,64 @@
+@page
+@model Plocica.Pages.Admin.Projekti.IndexModel
+@{
+    ViewData["Title"] = "Projekti";
+}
+
+<div class="admin-container">
+    <div class="admin-list-header">
+        <h1>Projekti</h1>
+        <a asp-page="Edit" class="btn btn-cta">Novi</a>
+    </div>
+
+    @if (Model.Message is not null)
+    {
+        <p class="admin-success">@Model.Message</p>
+    }
+
+    <div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Naziv</th>
+                <th>Lokacija</th>
+                <th>Slike</th>
+                <th>Redoslijed</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects)
+            {
+                var firstImage = project.Images.OrderBy(i => i.SortOrder).FirstOrDefault();
+                <tr>
+                    <td>
+                        @if (firstImage is not null)
+                        {
+                            <img src="@firstImage.Url" alt="" class="admin-thumb" />
+                        }
+                        else
+                        {
+                            <span class="admin-thumb admin-thumb-empty"></span>
+                        }
+                    </td>
+                    <td>@project.Title</td>
+                    <td>@project.Location</td>
+                    <td>@project.Images.Count</td>
+                    <td>@project.SortOrder</td>
+                    <td class="admin-row-actions">
+                        <a asp-page="Edit" asp-route-id="@project.Id">Uredi</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@project.Id" class="admin-delete-form" data-confirm="Obrisati projekt &quot;@project.Title&quot;?">
+                            <button type="submit" class="admin-delete-btn">Obriši</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+}

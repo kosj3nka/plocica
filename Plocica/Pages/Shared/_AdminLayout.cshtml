@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] · Admin · Pločica</title>
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="admin-body">
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <header class="admin-header">
+            <div class="admin-header-inner">
+                <a class="admin-brand" asp-page="/Admin/Index">Pločica <span>admin</span></a>
+                <nav class="admin-nav">
+                    <a asp-page="/Admin/Oblici/Index">Oblici</a>
+                    <a asp-page="/Admin/Boje/Index">Boje</a>
+                    <a asp-page="/Admin/Projekti/Index">Projekti</a>
+                </nav>
+                <div class="admin-header-right">
+                    <a href="/" target="_blank" rel="noopener" class="admin-view-site">Pogledaj stranicu ↗</a>
+                    <form method="post" asp-page="/Admin/Logout">
+                        <button type="submit" class="admin-logout-btn">Odjava</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+    }
+
+    <main class="admin-main">
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,281 @@
+/* Admin panel — isti dizajn tokeni kao javna stranica, ali gusto i funkcionalno. */
+
+.admin-body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+}
+
+.admin-header {
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.admin-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.admin-brand span { color: var(--ink-soft); font-weight: 400; }
+
+.admin-nav { display: flex; gap: 1.5rem; flex: 1; }
+
+.admin-nav a {
+  font-size: 0.9375rem;
+  padding: 0.3em 0;
+  border-bottom: 1px solid transparent;
+}
+
+.admin-nav a:hover { border-bottom-color: var(--ink); }
+
+.admin-header-right { display: flex; align-items: center; gap: 1rem; }
+
+.admin-view-site { font-size: 0.8125rem; color: var(--ink-soft); }
+
+.admin-logout-btn {
+  background: none;
+  border: 1px solid var(--line);
+  padding: 0.4em 0.9em;
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.admin-logout-btn:hover { border-color: var(--ink); }
+
+.admin-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.admin-container h1 { font-size: 1.75rem; margin: 0 0 1.5rem; }
+
+/* ---------- Login ---------- */
+
+.admin-login {
+  max-width: 340px;
+  margin: 12vh auto 0;
+  padding: 0 1.5rem;
+}
+
+.admin-login h1 {
+  font-size: 1.375rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ---------- Forme ---------- */
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  font: inherit;
+  font-size: 0.9375rem;
+  padding: 0.65em 0.75em;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  width: 100%;
+  max-width: 480px;
+}
+
+.admin-login input {
+  font: inherit;
+  font-size: 0.9375rem;
+  padding: 0.65em 0.75em;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  width: 100%;
+}
+
+.admin-form textarea { max-width: 640px; resize: vertical; }
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus,
+.admin-login input:focus {
+  outline: 2px solid var(--glz-indigo);
+  outline-offset: 1px;
+  border-color: var(--glz-indigo);
+}
+
+.admin-form input[type="file"] { border: 1px dashed var(--line); padding: 0.75em; max-width: 480px; }
+.admin-form input[type="color"] { padding: 0.25em; height: 44px; width: 80px; }
+.admin-form input[type="number"] { max-width: 120px; }
+.admin-form input[type="checkbox"] { width: auto; }
+
+.admin-field { margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; }
+
+.admin-field > label:first-child {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.admin-field-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.admin-field-row .admin-field { flex: 1; min-width: 200px; }
+
+.admin-hint { font-size: 0.75rem; color: var(--ink-soft); margin: 0; }
+.admin-field-error { font-size: 0.8125rem; color: var(--glz-clay); }
+.admin-field-error:empty { display: none; }
+
+.admin-alert:empty { display: none; }
+.admin-alert {
+  background: rgba(192, 107, 74, 0.1);
+  border: 1px solid var(--glz-clay);
+  color: var(--ink);
+  padding: 0.75em 1em;
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-success {
+  background: rgba(124, 138, 91, 0.12);
+  border: 1px solid var(--glz-sage);
+  padding: 0.75em 1em;
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-actions { display: flex; gap: 1rem; margin-top: 2rem; }
+
+.admin-toggle { display: flex; gap: 1.5rem; }
+.admin-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.9375rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+.admin-toggle input { width: auto; }
+
+/* ---------- Liste / tablice ---------- */
+
+.admin-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.admin-list-header h1 { margin: 0; }
+
+.admin-table-wrap { overflow-x: auto; }
+
+.admin-table { width: 100%; min-width: 480px; border-collapse: collapse; }
+
+.admin-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  padding: 0.6em 0.75em;
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-table td {
+  padding: 0.6em 0.75em;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.admin-row-actions { display: flex; gap: 1rem; align-items: center; }
+.admin-delete-form { display: inline; margin: 0; }
+
+.admin-delete-btn {
+  background: none;
+  border: none;
+  color: var(--glz-clay);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.admin-thumb { width: 44px; height: 44px; object-fit: cover; display: block; border: 1px solid var(--line); }
+.admin-thumb-empty { background: var(--paper-2); border: 1px dashed var(--line); }
+.admin-thumb-preview { width: 120px; height: 120px; object-fit: cover; border: 1px solid var(--line); margin-bottom: 0.5rem; display: block; }
+
+.admin-back { font-size: 0.875rem; color: var(--ink-soft); display: inline-block; margin-bottom: 1rem; }
+.admin-back:hover { color: var(--ink); }
+
+/* ---------- Nadzorna ploča ---------- */
+
+.admin-dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.admin-dash-card {
+  background: var(--paper);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-dash-card:hover { background: var(--paper-2); }
+
+.admin-dash-count { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; }
+.admin-dash-label { font-size: 0.9375rem; color: var(--ink-soft); }
+.admin-dash-link { font-size: 0.8125rem; margin-top: 0.5rem; }
+
+/* ---------- Slike projekta ---------- */
+
+.admin-image-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.admin-image-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--line);
+  padding: 0.75rem;
+}
+
+.admin-image-sort {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.admin-image-sort input { max-width: 80px; }
+
+.admin-image-delete {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.875rem;
+  color: var(--glz-clay);
+}

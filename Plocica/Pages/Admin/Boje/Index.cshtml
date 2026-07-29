@@ -1,0 +1,65 @@
+@page
+@model Plocica.Pages.Admin.Boje.IndexModel
+@{
+    ViewData["Title"] = "Boje";
+}
+
+<div class="admin-container">
+    <div class="admin-list-header">
+        <h1>Boje</h1>
+        <a asp-page="Edit" class="btn btn-cta">Nova</a>
+    </div>
+
+    @if (Model.Message is not null)
+    {
+        <p class="admin-success">@Model.Message</p>
+    }
+
+    <div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Kod</th>
+                <th>Naziv</th>
+                <th>Redoslijed</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var color in Model.Colors)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(color.ImageUrl))
+                        {
+                            <img src="@color.ImageUrl" alt="" class="admin-thumb" />
+                        }
+                        else if (!string.IsNullOrEmpty(color.Hex))
+                        {
+                            <span class="admin-thumb" style="background: @color.Hex;"></span>
+                        }
+                        else
+                        {
+                            <span class="admin-thumb admin-thumb-empty"></span>
+                        }
+                    </td>
+                    <td>@color.Code</td>
+                    <td>@color.Name</td>
+                    <td>@color.SortOrder</td>
+                    <td class="admin-row-actions">
+                        <a asp-page="Edit" asp-route-id="@color.Id">Uredi</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@color.Id" class="admin-delete-form" data-confirm="Obrisati boju &quot;@color.Code&quot;?">
+                            <button type="submit" class="admin-delete-btn">Obriši</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+}

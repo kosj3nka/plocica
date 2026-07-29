@@ -1,0 +1,72 @@
+@page "{id:int?}"
+@model Plocica.Pages.Admin.Projekti.EditModel
+@{
+    ViewData["Title"] = Model.Id is null ? "Novi projekt" : "Uredi projekt";
+}
+
+<div class="admin-container">
+    <a class="admin-back" asp-page="Index">← Projekti</a>
+    <h1>@(Model.Id is null ? "Novi projekt" : "Uredi projekt")</h1>
+
+    <form method="post" enctype="multipart/form-data" class="admin-form">
+        <div asp-validation-summary="ModelOnly" class="admin-alert"></div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Title">Naziv</label>
+            <input asp-for="Input.Title" />
+            <span asp-validation-for="Input.Title" class="admin-field-error"></span>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Location">Lokacija (opcionalno)</label>
+            <input asp-for="Input.Location" />
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Text">Tekst</label>
+            <textarea asp-for="Input.Text" rows="5"></textarea>
+            <span asp-validation-for="Input.Text" class="admin-field-error"></span>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.SortOrder">Redoslijed</label>
+            <input asp-for="Input.SortOrder" type="number" />
+        </div>
+
+        @if (Model.Input.ExistingImages.Any())
+        {
+            <div class="admin-field">
+                <label>Postojeće slike</label>
+                <div class="admin-image-list">
+                    @for (var i = 0; i < Model.Input.ExistingImages.Count; i++)
+                    {
+                        <div class="admin-image-row">
+                            <img src="@Model.Input.ExistingImages[i].Url" alt="" class="admin-thumb-preview" />
+                            <input type="hidden" asp-for="Input.ExistingImages[i].Id" />
+                            <input type="hidden" asp-for="Input.ExistingImages[i].Url" />
+                            <label class="admin-image-sort">
+                                Redoslijed
+                                <input asp-for="Input.ExistingImages[i].SortOrder" type="number" />
+                            </label>
+                            <label class="admin-image-delete">
+                                <input asp-for="Input.ExistingImages[i].Delete" type="checkbox" /> Obriši
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="admin-field">
+            <label asp-for="Input.NewImageFiles">Dodaj slike</label>
+            <input asp-for="Input.NewImageFiles" type="file" accept=".jpg,.jpeg,.png,.webp" multiple />
+            <span asp-validation-for="Input.NewImageFiles" class="admin-field-error"></span>
+            <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB po slici. Moguć višestruki odabir.</p>
+        </div>
+
+        <div class="admin-actions">
+            <button type="submit" class="btn btn-cta">Spremi</button>
+            <a asp-page="Index" class="btn">Odustani</a>
+        </div>
+    </form>
+</div>

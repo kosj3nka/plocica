@@ -1,0 +1,49 @@
+@page
+@model Plocica.Pages.RadoviModel
+@{
+    ViewData["Title"] = "Radovi";
+}
+
+<section class="section container">
+    <p class="eyebrow">Custom projekti</p>
+    <h1>Radovi</h1>
+</section>
+
+<section class="container">
+    @for (int i = 0; i < Model.Projects.Count; i++)
+    {
+        var project = Model.Projects[i];
+        <article class="project">
+            <div class="project-header">
+                <p class="eyebrow">@((i + 1).ToString("00"))</p>
+                <h2>@project.Title</h2>
+                @if (!string.IsNullOrEmpty(project.Location))
+                {
+                    <p class="project-location">@project.Location</p>
+                }
+                <p class="project-text">@project.Text</p>
+            </div>
+
+            @if (project.Images.Any())
+            {
+                <div class="project-gallery">
+                    @foreach (var image in project.Images)
+                    {
+                        <img src="@image.Url" alt="@project.Title" loading="lazy">
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="project-placeholder">Fotografije dolaze uskoro</div>
+            }
+        </article>
+    }
+</section>
+
+<section class="section section-invert">
+    <div class="container cta-row">
+        <h2>Stvorimo nešto zajedno.</h2>
+        <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Javite nam se</a>
+    </div>
+</section>

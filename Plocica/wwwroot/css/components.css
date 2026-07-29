@@ -1,0 +1,651 @@
+/* Komponente dijeljene kroz javne stranice: hero plate-frame, kartice kolekcija,
+   video sekcija, invertirana CTA traka, FAQ, proces narudžbe. */
+
+/* ---------- Hero: tekst + carousel u hairline "blueprint" okviru ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  padding-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.hero-copy .eyebrow { margin-bottom: 1.25rem; }
+
+.hero-copy h1 { margin-bottom: 1.5rem; }
+
+.hero-copy p {
+  max-width: 34ch;
+  color: var(--ink-soft);
+  font-size: 1.0625rem;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-actions .text-link {
+  font-size: 0.9375rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.15em;
+}
+
+.hero-actions .text-link:hover,
+.hero-actions .text-link:focus-visible {
+  border-bottom-color: var(--ink);
+}
+
+.plate-frame {
+  position: relative;
+}
+
+.plate-frame .plate-img-wrap {
+  position: relative;
+  width: 100%;
+  height: min(66vh, 620px);
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.9s ease, transform 1.1s ease;
+}
+
+.plate-frame.is-revealed .plate-img-wrap {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* carousel — crossfade između slika iz /img/hero, prirodni omjer, bez izrezivanja */
+.hero-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.hero-frame.is-active { opacity: 1; }
+
+.plate-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 0.85rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+}
+
+.plate-frame.is-revealed + .plate-caption,
+.plate-frame.is-revealed .plate-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .plate-frame .plate-img-wrap { height: min(50vh, 440px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate-frame .plate-img-wrap,
+  .hero-frame,
+  .plate-caption {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---------- Manifesto strip ---------- */
+
+.manifesto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.manifesto .quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.manifesto .quote .accent-mark {
+  color: var(--accent, var(--glz-clay));
+}
+
+.manifesto-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.manifesto-list li {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 760px) {
+  .manifesto { grid-template-columns: 1fr; }
+}
+
+/* ---------- Craft / video section ---------- */
+
+.craft-section {
+  position: relative;
+  overflow: hidden;
+  color: var(--paper);
+}
+
+.craft-media {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.craft-media video,
+.craft-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.craft-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(26,26,23,0.72) 0%, rgba(26,26,23,0.15) 55%, rgba(26,26,23,0.35) 100%);
+}
+
+.craft-copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(1.5rem, 4vw, 3rem) var(--gutter);
+  z-index: 1;
+}
+
+.craft-copy .eyebrow { color: var(--paper); opacity: 0.8; }
+
+.craft-copy h2 {
+  color: var(--paper);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  max-width: 20ch;
+}
+
+/* ---------- Collections cards ---------- */
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.collection-card {
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+
+.collection-card figure {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.collection-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.collection-card:hover img,
+.collection-card:focus-within img {
+  transform: scale(1.04);
+}
+
+.collection-card .card-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.collection-card .num {
+  font-size: 0.75rem;
+  color: var(--accent, var(--ink-soft));
+}
+
+.collection-card h3 {
+  font-size: 1.375rem;
+  margin: 0.35em 0 0.6em;
+}
+
+.collection-card p {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  flex: 1;
+}
+
+.collection-card .card-link {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--line);
+  padding-top: 0.85rem;
+  margin-top: 1rem;
+  display: block;
+}
+
+.collection-card .card-link:hover,
+.collection-card .card-link:focus-visible {
+  color: var(--accent, var(--ink));
+}
+
+@media (max-width: 860px) {
+  .collections-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Colour-map teaser ---------- */
+
+.palette-teaser {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.palette-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.palette-swatch {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.5em;
+  background: var(--paper);
+}
+
+.palette-swatch span {
+  font-size: 0.6875rem;
+  color: var(--ink-soft);
+  background: rgba(242,240,234,0.85);
+  padding: 0.1em 0.35em;
+}
+
+.palette-figure {
+  position: relative;
+}
+
+.palette-figure img {
+  width: 68%;
+  filter: drop-shadow(0 18px 28px rgba(26,26,23,0.18));
+  transform: rotate(-6deg);
+}
+
+@media (max-width: 860px) {
+  .palette-teaser { grid-template-columns: 1fr; }
+  .palette-figure { order: -1; text-align: center; }
+  .palette-figure img { width: 42%; margin: 0 auto; }
+}
+
+/* ---------- O nama teaser ---------- */
+
+.people-teaser {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.people-teaser figure {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.people-teaser img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 860px) {
+  .people-teaser { grid-template-columns: 1fr; }
+  .people-teaser figure { order: -1; }
+}
+
+/* ---------- Invertirana CTA traka ---------- */
+
+.section-invert {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.section-invert .eyebrow { color: rgba(242,240,234,0.6); }
+.section-invert h2 { color: var(--paper); }
+
+.section-invert .cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.section-invert .btn-cta {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+.section-invert .btn-cta:hover,
+.section-invert .btn-cta:focus-visible {
+  background: var(--glz-sun);
+  border-color: var(--glz-sun);
+  color: var(--ink);
+}
+
+/* ---------- Proces narudžbe (steps) ---------- */
+
+.process-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.process-list li {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.process-list .num {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+}
+
+.process-list h3 {
+  font-size: 1.0625rem;
+  margin: 0 0 0.35em;
+}
+
+.process-list p { margin: 0; color: var(--ink-soft); }
+
+/* ---------- FAQ ---------- */
+
+.faq-list {
+  border-top: 1px solid var(--line);
+  max-width: 68ch;
+}
+
+.faq-list details {
+  border-bottom: 1px solid var(--line);
+  padding: 1.15rem 0;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.faq-list summary::-webkit-details-marker { display: none; }
+
+.faq-list summary::after {
+  content: "+";
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.faq-list details[open] summary::after { content: "\2212"; }
+
+.faq-list p {
+  margin: 0.85rem 0 0;
+  color: var(--ink-soft);
+  max-width: 58ch;
+}
+
+/* ---------- Kolekcije: spec lista + puna karta boja ---------- */
+
+.collection-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.collection-intro figure {
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.collection-intro img { width: 100%; height: 100%; object-fit: cover; }
+
+.spec-list {
+  border-top: 1px solid var(--line);
+}
+
+.spec-row {
+  display: grid;
+  grid-template-columns: 8ch 1fr 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+}
+
+.spec-row .spec-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  grid-column: 1 / -1;
+}
+
+.spec-row .spec-dim,
+.spec-row .spec-price {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  white-space: pre-line;
+}
+
+.spec-row .spec-label {
+  display: block;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--line);
+  margin-bottom: 0.35em;
+}
+
+@media (min-width: 640px) {
+  .spec-row { grid-template-columns: 1fr 1fr 1fr; }
+  .spec-row .spec-name { grid-column: auto; }
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 560px) {
+  .color-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 860px) {
+  .color-grid { grid-template-columns: repeat(7, 1fr); }
+}
+
+.color-chip {
+  aspect-ratio: 1;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.6em;
+}
+
+.color-chip .swatch {
+  flex: 1;
+  margin-bottom: 0.6em;
+  background-size: cover;
+  background-position: center;
+}
+
+.color-chip .swatch-empty {
+  border: 1px dashed var(--line);
+  background: var(--paper-2);
+}
+
+.color-chip .code {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.color-chip .name {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--line);
+}
+
+/* ---------- Kolekcije gallery stub ---------- */
+
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 1.5rem;
+}
+
+.shape-tile {
+  background: var(--paper);
+}
+
+.shape-tile figure {
+  margin: 0;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.shape-tile img { width: 100%; height: 100%; object-fit: cover; }
+
+.shape-tile figcaption {
+  padding: 0.85rem 1rem;
+  font-size: 0.875rem;
+}
+
+.coming-soon-note {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Radovi: projekti ---------- */
+
+.project {
+  padding: clamp(2.5rem, 6vw, 5rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.project:first-child { border-top: none; }
+
+.project-header { max-width: 70ch; }
+
+.project-location {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-top: 0.5em;
+}
+
+.project-text {
+  margin-top: 1.25rem;
+  color: var(--ink-soft);
+  font-size: 1.0625rem;
+  max-width: 65ch;
+}
+
+.project-gallery {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.project-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.project-placeholder {
+  margin-top: 2rem;
+  aspect-ratio: 21 / 9;
+  border: 1px dashed var(--line);
+  background: var(--paper-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}

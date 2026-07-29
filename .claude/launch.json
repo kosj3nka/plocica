@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "plocica-web",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "Plocica", "--urls", "http://localhost:5003"],
+      "port": 5003
+    }
+  ]
+}

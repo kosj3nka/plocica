@@ -1,0 +1,86 @@
+@page "{id:int?}"
+@model Plocica.Pages.Admin.Oblici.EditModel
+@{
+    ViewData["Title"] = Model.Id is null ? "Novi oblik" : "Uredi oblik";
+}
+
+<div class="admin-container">
+    <a class="admin-back" asp-page="Index">← Oblici</a>
+    <h1>@(Model.Id is null ? "Novi oblik" : "Uredi oblik")</h1>
+
+    <form method="post" enctype="multipart/form-data" class="admin-form">
+        <div asp-validation-summary="ModelOnly" class="admin-alert"></div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Name">Naziv</label>
+            <input asp-for="Input.Name" />
+            <span asp-validation-for="Input.Name" class="admin-field-error"></span>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Collection">Kolekcija</label>
+            <select asp-for="Input.Collection">
+                <option value="oblici">Oblici</option>
+                <option value="oslikane">Ručno oslikane</option>
+                <option value="reljefne">Reljefne</option>
+            </select>
+        </div>
+
+        <div class="admin-field-row">
+            <div class="admin-field">
+                <label asp-for="Input.Thickness">Debljina</label>
+                <input asp-for="Input.Thickness" placeholder="npr. 0,8 cm" />
+            </div>
+            <div class="admin-field">
+                <label asp-for="Input.Dimensions">Dimenzija</label>
+                <input asp-for="Input.Dimensions" placeholder="npr. 14,5 × 14,5 cm" />
+            </div>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.LayoutScheme">Shema slaganja</label>
+            <input asp-for="Input.LayoutScheme" />
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Finish">Završna obrada</label>
+            <input asp-for="Input.Finish" placeholder="npr. mat i sjajno" />
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.AvailableColors">Dostupne boje</label>
+            <input asp-for="Input.AvailableColors" placeholder="npr. vidi Karta boja" />
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.OtherInfo">Ostali info</label>
+            <textarea asp-for="Input.OtherInfo" rows="3"></textarea>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Price">Cijena</label>
+            <textarea asp-for="Input.Price" rows="3" placeholder="Više redaka dopušteno"></textarea>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.SortOrder">Redoslijed</label>
+            <input asp-for="Input.SortOrder" type="number" />
+        </div>
+
+        <div class="admin-field">
+            <label>Slika</label>
+            @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
+            {
+                <img src="@Model.ExistingImageUrl" alt="" class="admin-thumb-preview" />
+            }
+            <input asp-for="Input.ImageFile" type="file" accept=".jpg,.jpeg,.png,.webp" />
+            <span asp-validation-for="Input.ImageFile" class="admin-field-error"></span>
+            <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB.</p>
+        </div>
+
+        <div class="admin-actions">
+            <button type="submit" class="btn btn-cta">Spremi</button>
+            <a asp-page="Index" class="btn">Odustani</a>
+        </div>
+    </form>
+</div>

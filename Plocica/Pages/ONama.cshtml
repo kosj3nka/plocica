@@ -1,0 +1,66 @@
+@page "/o-nama"
+@model Plocica.Pages.ONamaModel
+@{
+    ViewData["Title"] = "O nama";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/onama.css" asp-append-version="true" />
+}
+
+<section class="section container about-hero">
+    <p class="eyebrow">O nama</p>
+    <h1>Lorena &amp; Mihael</h1>
+    <p class="lede">Mi smo Lorena i Mihael, duo iza studija Pločica. Kroz spoj kreativnog i tehničkog pristupa razvijamo keramičke pločice.</p>
+
+    <figure>
+        <img src="~/img/vlasniciHorizontal.jpg" alt="Lorena i Mihael leže na podu prekrivenom šarenim geometrijskim pločicama, gledajući ravno u kameru." loading="lazy">
+    </figure>
+</section>
+
+<section class="section section-alt hairline-top hairline-bottom">
+    <div class="container about-grid">
+        <div>
+            <p class="eyebrow">Pristup</p>
+            <ul class="role-list">
+                <li>
+                    <span class="role-name">Lorena — forma i boja</span>
+                    <p>Dolazi iz umjetničkog svijeta i fokus stavlja na formu, boju, kompoziciju i detalje.</p>
+                </li>
+                <li>
+                    <span class="role-name">Mihael — proces i izvedba</span>
+                    <p>Razvija proizvodni proces i tehničku izvedbu koja omogućuje da svaka ideja zaživi u prostoru.</p>
+                </li>
+            </ul>
+        </div>
+        <figure>
+            <img src="~/img/vlasniciRad.jpg" alt="Lorena i Mihael u studiju, za radnim stolom s alatima za oblikovanje gline i glazurama." loading="lazy">
+        </figure>
+    </div>
+</section>
+
+<section class="section container">
+    <p class="eyebrow">Filozofija</p>
+    <h2 style="max-width: 20ch;">Kreativnost nije rezervirana samo za umjetnike i dizajnere.</h2>
+    <p style="max-width: 62ch; color: var(--ink-soft); font-size: 1.0625rem;">Kroz handmade proces i mogućnost kombiniranja boja i formata stvaramo pločice koje ljudima daju slobodu da oblikuju prostor na osoban način i unesu vlastiti karakter u prostor u kojem žive.</p>
+
+    <div class="hairline-top" style="margin-top: 3rem; padding-top: 1.5rem;">
+        <p class="eyebrow">Pločica u medijima</p>
+        <div class="media-row">
+            <span>Journal</span>
+            <span>Buro</span>
+            <span>D&amp;D</span>
+            <span>InDizajn</span>
+            <span>Dom na kvadrat</span>
+            <span>Gradiona</span>
+            <span>Vizkultura</span>
+        </div>
+    </div>
+</section>
+
+<section class="section section-invert">
+    <div class="container cta-row">
+        <h2>Stvorimo nešto zajedno.</h2>
+        <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Javite nam se</a>
+    </div>
+</section>

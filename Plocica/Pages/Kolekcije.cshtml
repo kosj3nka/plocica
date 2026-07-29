@@ -1,0 +1,134 @@
+@page
+@model Plocica.Pages.KolekcijeModel
+@{
+    ViewData["Title"] = "Kolekcije";
+}
+
+<section class="section container">
+    <h1>Kolekcije</h1>
+</section>
+
+<section id="oblici" class="section section-alt hairline-top hairline-bottom accent-clay">
+    <div class="container">
+        <div class="collection-intro">
+            <div>
+                <p class="eyebrow">01 · Oblici · Signature kolekcija</p>
+                <h2>Oblici</h2>
+                <p style="color: var(--ink-soft);">Ručno rađene pločice dostupne u definiranim oblicima, uz mogućnost odabira boja i završnog finiša. Zbog procesa ručne izrade moguće su manje varijacije u dimenzijama i nijansi.</p>
+            </div>
+            <figure>
+                <img src="~/img/mermaid.jpeg" alt="Krupni plan glaziranih pločica u obliku riblje ljuske, u tonovima tirkizne i mente." loading="lazy">
+            </figure>
+        </div>
+
+        <div class="spec-list">
+            @foreach (var shape in Model.ObliciShapes)
+            {
+                <div class="spec-row">
+                    <span class="spec-name">@shape.Name</span>
+                    <span class="spec-dim"><span class="spec-label">Dimenzija</span>@shape.Dimensions</span>
+                    <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="oslikane" class="section hairline-bottom accent-sage">
+    <div class="container">
+        <div class="collection-intro">
+            <div>
+                <p class="eyebrow">02 · Ručno oslikane · Signature kolekcija</p>
+                <h2>Ručno oslikane</h2>
+                <p style="color: var(--ink-soft);">Pločice s unaprijed osmišljenim motivima i mogućnošću prilagodbe boje i kombinacije motiva. Svaka pločica oslikava se s posebnom pažnjom, ručno, dio po dio, boja po boja.</p>
+            </div>
+            <figure>
+                <img src="~/img/cvijece.jpg" alt="Pločice s ručno oslikanim cvjetnim motivima u više boja." loading="lazy">
+            </figure>
+        </div>
+
+        <div class="spec-list">
+            @foreach (var shape in Model.OslikaneShapes)
+            {
+                <div class="spec-row">
+                    <span class="spec-name">@shape.Name</span>
+                    <span class="spec-dim"><span class="spec-label">Dimenzija</span>@shape.Dimensions</span>
+                    <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
+                </div>
+            }
+        </div>
+        <p class="coming-soon-note">Moguće su kombinacije raznih oblika. Zatražite svoju digitalnu skicu. Cijena na upit.</p>
+    </div>
+</section>
+
+<section id="reljefne" class="section section-alt hairline-bottom accent-sun">
+    <div class="container">
+        <div class="collection-intro">
+            <div>
+                <p class="eyebrow">03 · Reljefne · Premium kolekcija</p>
+                <h2>Reljefne pločice</h2>
+                <p style="color: var(--ink-soft);">Reljefne pločice i kompleksniji projekti za prostore koji traže izrađeniji, autorski pristup.</p>
+            </div>
+            <figure>
+                <img src="~/img/tekstura.jpg" alt="Krupni plan reljefnih glaziranih pločica u smeđim i zlatnim tonovima." loading="lazy">
+            </figure>
+        </div>
+
+        <div class="spec-list">
+            @foreach (var shape in Model.ReljefneShapes)
+            {
+                <div class="spec-row">
+                    <span class="spec-name">@shape.Name</span>
+                    <span class="spec-dim">@shape.OtherInfo</span>
+                    <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
+                </div>
+            }
+        </div>
+        <p class="coming-soon-note">Potpuno jedinstvene.</p>
+    </div>
+</section>
+
+<section id="boje" class="section">
+    <div class="container">
+        <p class="eyebrow">Karta boja</p>
+        <p class="quote">Sve pločice iz ponude moguće je izraditi u nekoj od 28 boja iz Karte boja.</p>
+
+        <div class="color-grid">
+            @foreach (var color in Model.Colors)
+            {
+                <div class="color-chip">
+                    @if (!string.IsNullOrEmpty(color.ImageUrl))
+                    {
+                        <div class="swatch" style="background-image: url('@color.ImageUrl');"></div>
+                    }
+                    else if (!string.IsNullOrEmpty(color.Hex))
+                    {
+                        <div class="swatch" style="background: @color.Hex;"></div>
+                    }
+                    else
+                    {
+                        <div class="swatch swatch-empty"></div>
+                    }
+                    <span class="code">@color.Code</span>
+                    @if (!string.IsNullOrEmpty(color.Name))
+                    {
+                        <span class="name">@color.Name</span>
+                    }
+                </div>
+            }
+        </div>
+        <p class="coming-soon-note">Glazure se dodaju kroz admin panel (faza 5).</p>
+
+        <div class="hairline-top" style="margin-top: 2.5rem; padding-top: 1.5rem;">
+            <p class="eyebrow">Posebna opcija: prilagodba boja prema prostoru</p>
+            <p style="max-width: 56ch; color: var(--ink-soft);">Po potrebi razvijamo pločice u točno određenom tonu kako bi se uskladile s kuhinjom, namještajem ili drugim elementima interijera. Uz nadoplatu, ovisno o projektu.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-invert">
+    <div class="container cta-row">
+        <h2>Stvorimo nešto zajedno.</h2>
+        <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Javite nam se</a>
+    </div>
+</section>

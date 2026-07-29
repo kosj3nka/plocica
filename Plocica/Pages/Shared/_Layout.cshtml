@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] · Pločica</title>
+    <meta name="description" content="Pločica — ručno rađene keramičke pločice. Zagreb." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <a class="skip-link" href="#main">Preskoči na sadržaj</a>
+
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" asp-page="/Index">
+                <img src="~/img/plocicaLogo.png" alt="Pločica" />
+            </a>
+
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-primary">
+                Izbornik
+            </button>
+
+            <ul class="nav-primary" id="nav-primary">
+                <li class="nav-item-dropdown" aria-expanded="false">
+                    <a class="nav-dropdown-toggle" asp-page="/Kolekcije" aria-haspopup="true">
+                        Kolekcije <span class="chevron" aria-hidden="true"></span>
+                    </a>
+                    <ul class="nav-dropdown">
+                        <li><a asp-page="/Kolekcije" asp-fragment="oblici"><span class="num">01</span>Oblici</a></li>
+                        <li><a asp-page="/Kolekcije" asp-fragment="oslikane"><span class="num">02</span>Ručno oslikane</a></li>
+                        <li><a asp-page="/Kolekcije" asp-fragment="reljefne"><span class="num">03</span>Reljefne</a></li>
+                        <li class="nav-dropdown-sep" role="separator"></li>
+                        <li><a asp-page="/Kolekcije" asp-fragment="boje">Karta boja</a></li>
+                    </ul>
+                </li>
+                <li><a class="nav-link" asp-page="/Radovi">Radovi</a></li>
+                <li><a class="nav-link" asp-page="/ONama">O nama</a></li>
+                <li><a class="nav-link" asp-page="/Faq">FAQ</a></li>
+                <li class="nav-cta"><a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Stvorimo nešto zajedno</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <span>&copy; @DateTime.Now.Year Pločica</span>
+            <span><a href="mailto:plocica.info@gmail.com">plocica.info@gmail.com</a> · <a href="https://instagram.com/plocica_" target="_blank" rel="noopener">@@plocica_</a> · Zagreb</span>
+        </div>
+    </footer>
+
+    <script src="~/js/nav.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

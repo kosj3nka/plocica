@@ -24,7 +24,7 @@ mechanically to a plain JS module with no behavior loss.
 ## Architecture
 
 ```
-Pages/Index.cshtml          — hero markup updated; new "Proces izrade" section added
+Pages/Index.cshtml          — hero markup updated; new "Izbliza / Iz naše ponude" section added
 wwwroot/css/components.css  — .hero-grid panel styles; relocated .hero-frame styles
                                renamed for the new process section
 wwwroot/js/hero-grid.js     — new: ported ShapeGrid canvas module (vanilla JS)
@@ -128,7 +128,7 @@ static image list currently hardcoded in `Index.cshtml`.
   from missing pointer events.
 - Manual: enable "reduce motion" at the OS level, confirm no ambient drift but
   (on desktop) hover-fill still responds.
-- Manual: confirm the new "Proces izrade" section shows the same crossfade
+- Manual: confirm the new "Izbliza / Iz naše ponude" section shows the same crossfade
   previously in the hero, unchanged in behavior.
 - No automated test suite exists in this project currently; this stays consistent
   with that (no tests added).

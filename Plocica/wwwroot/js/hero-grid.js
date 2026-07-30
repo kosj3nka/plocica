@@ -26,8 +26,10 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function resizeCanvas() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   function drawHex(cx, cy, size) {
@@ -43,14 +45,16 @@
   }
 
   function drawGrid() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var width = canvas.offsetWidth;
+    var height = canvas.offsetHeight;
+    ctx.clearRect(0, 0, width, height);
 
     var colShift = Math.floor(gridOffset.x / hexHoriz);
     var offsetX = ((gridOffset.x % hexHoriz) + hexHoriz) % hexHoriz;
     var offsetY = ((gridOffset.y % hexVert) + hexVert) % hexVert;
 
-    var cols = Math.ceil(canvas.width / hexHoriz) + 3;
-    var rows = Math.ceil(canvas.height / hexVert) + 3;
+    var cols = Math.ceil(width / hexHoriz) + 3;
+    var rows = Math.ceil(height / hexVert) + 3;
 
     for (var col = -2; col < cols; col++) {
       for (var row = -2; row < rows; row++) {

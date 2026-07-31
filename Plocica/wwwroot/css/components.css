@@ -4,11 +4,26 @@
 /* ---------- Hero: tekst + carousel u hairline "blueprint" okviru ---------- */
 
 .hero {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(2rem, 5vw, 5rem);
+  position: relative;
+  display: flex;
   align-items: center;
-  padding-top: clamp(2.5rem, 6vw, 5rem);
+  justify-content: center;
+  min-height: clamp(26rem, 65vh, 42rem);
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
+  /* lets hover-fill on the hexagon grid respond even where this panel's
+     empty space overlaps it — only the actual links stay clickable */
+  pointer-events: none;
 }
 
 .hero-copy .eyebrow { margin-bottom: 1.25rem; }
@@ -17,6 +32,7 @@
 
 .hero-copy p {
   max-width: 34ch;
+  margin-inline: auto;
   color: var(--ink-soft);
   font-size: 1.0625rem;
 }
@@ -24,9 +40,11 @@
 .hero-actions {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
   margin-top: 2rem;
   flex-wrap: wrap;
+  pointer-events: auto;
 }
 
 .hero-actions .text-link {
@@ -72,12 +90,12 @@
 
 .hero-frame.is-active { opacity: 1; }
 
-/* hero hexagon grid — hover-fill canvas, replaces the old hero photo slot */
+/* hero hexagon grid — hover-fill canvas, fills the whole hero as its background */
 .hero-grid {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  border: 1px solid var(--line);
-  overflow: hidden;
+  --hex-hover: #D3BD86; /* neutral warm beige — less yellow than --glz-sun */
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
 .hero-grid canvas {
@@ -87,9 +105,8 @@
 }
 
 @media (max-width: 860px) {
-  .hero { grid-template-columns: 1fr; }
+  .hero { min-height: clamp(22rem, 75vh, 34rem); }
   .plate-frame .plate-img-wrap { height: min(50vh, 440px); }
-  .hero-grid { max-width: min(80vw, 480px); margin-inline: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -9,8 +9,9 @@
   if (!ctx) return;
 
   var rootStyle = getComputedStyle(document.documentElement);
+  var containerStyle = getComputedStyle(container);
   var borderColor = rootStyle.getPropertyValue("--line").trim() || "#C9C4B8";
-  var hoverFillColor = rootStyle.getPropertyValue("--glz-sun").trim() || "#E3B23C";
+  var hoverFillColor = containerStyle.getPropertyValue("--hex-hover").trim() || "#D3BD86";
   var squareSize = 45;
   var hoverTrailAmount = 6;
 

@@ -6,6 +6,7 @@
     toggle.addEventListener("click", function () {
       var isOpen = nav.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      toggle.setAttribute("aria-label", isOpen ? "Zatvori izbornik" : "Otvori izbornik");
     });
   }
 

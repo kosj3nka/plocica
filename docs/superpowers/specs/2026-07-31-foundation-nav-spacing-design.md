@@ -202,6 +202,17 @@ starting hidden at `translate(4px,4px)`) slides to `translate(0,0)` — reading 
 technical pen's double-stroke. `:active` adds `scale(0.98)` for a physical-press feel.
 Both transitions use `--ease-spring` / `--dur-fast`.
 
+(Correction — the outline does not slide as shipped. Verified empirically during Task 7's
+review and the final whole-branch review via headless-Chrome rendering: animating the
+`::after`'s own transform composes with — and cancels against — the parent `.btn`'s hover
+transform, so no slide is ever perceived. The shipped implementation keeps the `::after` at
+a fixed `translate(6px, 6px)` and animates **only its opacity** 0 → 1. It also draws only
+its right and bottom borders, not a full rectangle, and carries no `z-index: -1` /
+`isolation: isolate`: a 4-sided negative-z-index outline painted its top/left edges *over*
+the button's own fill per CSS2.1 painting order. Hover lift is `translate(-3px, -3px)`,
+`:active` is `translate(-3px, -3px) scale(0.98)`. The static-offset, opacity-only version
+is the intended final behavior — do not re-add a slide.)
+
 ### Nav / header (`layout.css`, `_Layout.cshtml`, `nav.js`)
 
 - **Hamburger → X morph:** `.nav-toggle`'s "Izbornik" text label is replaced with a

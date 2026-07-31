@@ -246,7 +246,7 @@ Replace with:
 - [ ] **Step 4: Manual verification**
 
 Run `dotnet run`, open the homepage. Confirm:
-- The H1 now wraps to two lines (not four) at a 1440px-wide viewport.
+- The H1 now wraps to three lines (not four) at a 1440px-wide viewport. (Verified empirically during Task 2's review via headless-Chrome rendering with the real Archivo font: at 1440px, `--fs-hero` computes to ~85px and the 46rem `.hero-copy` column gives exactly 3 lines, not 2 — the original 2-line target was an untested estimate. 3 lines at this display size reads fine for a hero statement; the target was corrected post-review rather than forcing an awkward further width/font squeeze.)
 - Hero content stays centered; hovering the hexagon grid behind/around the text still fills hexagons (pointer-events unaffected — only `.hero-copy`'s own size/padding changed, not its `pointer-events: none`).
 - Resize below 860px — hero still stacks/scales correctly (mobile hero rules from the prior session are untouched).
 
@@ -1372,6 +1372,8 @@ Replace with:
   color: var(--ink);
 }
 ```
+
+> **Correction — the outline does not slide (shipped behavior differs from the code above).** As written, the pseudo-element's own `transform: translate(4px,4px) → translate(0,0)` composes with the parent `.btn`'s hover `transform`, so the two animations cancel and the outline visually stayed put (or jittered) instead of sliding. Verified empirically during Task 7's review and again in the final whole-branch review via headless-Chrome rendering. What actually ships: the `::after` sits at a **fixed** `translate(6px, 6px)` at all times and only its `opacity` animates (0 → 1) on hover/focus — no slide, no `transform` transition on the pseudo-element. It also draws **only its right and bottom borders** (`border: 0 solid var(--ink); border-right-width: 1px; border-bottom-width: 1px;`) with no `z-index: -1` and no `isolation: isolate` on `.btn`: a full 4-sided border plus a negative z-index painted the near (top/left) edges *over* the button's own fill, per CSS2.1 painting order inside the stacking context that `isolation`/`transform` create. Drawing only the two always-external edges removes the need for any stacking-context trick and leaves the button face clean. `.btn:hover` lifts `translate(-3px, -3px)` and `:active` is `translate(-3px, -3px) scale(0.98)`. Do not re-introduce a sliding animation.
 
 - [ ] **Step 2: Fix outline visibility on the inverted CTA strip**
 

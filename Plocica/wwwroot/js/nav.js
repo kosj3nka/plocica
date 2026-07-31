@@ -6,6 +6,7 @@
     toggle.addEventListener("click", function () {
       var isOpen = nav.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      toggle.setAttribute("aria-label", isOpen ? "Zatvori izbornik" : "Otvori izbornik");
     });
   }
 
@@ -33,5 +34,15 @@
         dropdownItem.setAttribute("aria-expanded", "false");
       }
     });
+  }
+
+  var header = document.querySelector(".site-header");
+  var sentinel = document.getElementById("header-sentinel");
+
+  if (header && sentinel && "IntersectionObserver" in window) {
+    var headerObserver = new IntersectionObserver(function (entries) {
+      header.classList.toggle("is-compact", !entries[0].isIntersecting);
+    });
+    headerObserver.observe(sentinel);
   }
 })();

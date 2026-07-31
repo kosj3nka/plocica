@@ -35,4 +35,14 @@
       }
     });
   }
+
+  var header = document.querySelector(".site-header");
+  var sentinel = document.getElementById("header-sentinel");
+
+  if (header && sentinel && "IntersectionObserver" in window) {
+    var headerObserver = new IntersectionObserver(function (entries) {
+      header.classList.toggle("is-compact", !entries[0].isIntersecting);
+    });
+    headerObserver.observe(sentinel);
+  }
 })();

@@ -45,15 +45,18 @@
 }
 
 .nav-link {
+  display: inline-block;
   font-size: 0.9375rem;
   letter-spacing: 0.01em;
   padding: 0.5em 0;
   border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-fast) var(--ease-spring), transform var(--dur-fast) var(--ease-spring);
 }
 
 .nav-link:hover,
 .nav-link:focus-visible {
   border-bottom-color: var(--ink);
+  transform: translateY(-1px);
 }
 
 /* Kolekcije dropdown */
@@ -70,11 +73,13 @@
   cursor: pointer;
   padding: 0.5em 0;
   border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-fast) var(--ease-spring), transform var(--dur-fast) var(--ease-spring);
 }
 
 .nav-dropdown-toggle:hover,
 .nav-dropdown-toggle:focus-visible {
   border-bottom-color: var(--ink);
+  transform: translateY(-1px);
 }
 
 .nav-dropdown-toggle .chevron {

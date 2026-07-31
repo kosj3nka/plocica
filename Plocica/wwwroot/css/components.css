@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   min-height: clamp(26rem, 65vh, 42rem);
-  padding-block: clamp(2.5rem, 6vw, 5rem);
+  padding-block: var(--space-fluid-lg);
   border: 1px solid var(--line);
   overflow: hidden;
 }
@@ -17,18 +17,18 @@
 .hero-copy {
   position: relative;
   z-index: 1;
-  max-width: 42rem;
+  max-width: 46rem;
   margin-inline: auto;
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: var(--space-fluid-sm);
   text-align: center;
   /* lets hover-fill on the hexagon grid respond even where this panel's
      empty space overlaps it — only the actual links stay clickable */
   pointer-events: none;
 }
 
-.hero-copy .eyebrow { margin-bottom: 1.25rem; }
+.hero-copy .eyebrow { margin-bottom: var(--space-5); }
 
-.hero-copy h1 { margin-bottom: 1.5rem; }
+.hero-copy h1 { margin-bottom: var(--space-6); }
 
 .hero-copy p {
   max-width: 34ch;
@@ -41,8 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: var(--space-6);
+  margin-top: var(--space-7);
   flex-wrap: wrap;
   pointer-events: auto;
 }

@@ -246,7 +246,7 @@ Replace with:
 - [ ] **Step 4: Manual verification**
 
 Run `dotnet run`, open the homepage. Confirm:
-- The H1 now wraps to two lines (not four) at a 1440px-wide viewport.
+- The H1 now wraps to three lines (not four) at a 1440px-wide viewport. (Verified empirically during Task 2's review via headless-Chrome rendering with the real Archivo font: at 1440px, `--fs-hero` computes to ~85px and the 46rem `.hero-copy` column gives exactly 3 lines, not 2 — the original 2-line target was an untested estimate. 3 lines at this display size reads fine for a hero statement; the target was corrected post-review rather than forcing an awkward further width/font squeeze.)
 - Hero content stays centered; hovering the hexagon grid behind/around the text still fills hexagons (pointer-events unaffected — only `.hero-copy`'s own size/padding changed, not its `pointer-events: none`).
 - Resize below 860px — hero still stacks/scales correctly (mobile hero rules from the prior session are untouched).
 

@@ -104,6 +104,19 @@
   height: 100%;
 }
 
+/* ---------- Nested hairline frame — foundation utility, not yet used on any page ---------- */
+
+.hairline-frame {
+  padding: var(--space-2);
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+}
+
+.hairline-frame > .hairline-frame-inner {
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
 @media (max-width: 860px) {
   .hero { min-height: clamp(22rem, 75vh, 34rem); }
   .plate-frame .plate-img-wrap { height: min(50vh, 440px); }

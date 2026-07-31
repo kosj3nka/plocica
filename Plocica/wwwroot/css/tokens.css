@@ -138,6 +138,7 @@ img, video { max-width: 100%; display: block; }
 /* Buttons */
 .btn {
   position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
@@ -158,28 +159,26 @@ img, video { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   border: 1px solid var(--ink);
-  transform: translate(4px, 4px);
+  transform: translate(6px, 6px);
   z-index: -1;
   opacity: 0;
-  transition: opacity var(--dur-fast) var(--ease-spring),
-    transform var(--dur-base) var(--ease-spring);
+  transition: opacity var(--dur-fast) var(--ease-spring);
 }
 
 .btn:hover,
 .btn:focus-visible {
   background: var(--ink);
   color: var(--paper);
-  transform: translate(-2px, -2px);
+  transform: translate(-3px, -3px);
 }
 
 .btn:hover::after,
 .btn:focus-visible::after {
   opacity: 1;
-  transform: translate(0, 0);
 }
 
 .btn:active {
-  transform: translate(0, 0) scale(0.98);
+  transform: translate(-3px, -3px) scale(0.98);
 }
 
 .btn-cta {

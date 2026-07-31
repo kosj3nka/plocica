@@ -138,7 +138,6 @@ img, video { max-width: 100%; display: block; }
 /* Buttons */
 .btn {
   position: relative;
-  isolation: isolate;
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
@@ -158,9 +157,10 @@ img, video { max-width: 100%; display: block; }
   content: "";
   position: absolute;
   inset: 0;
-  border: 1px solid var(--ink);
+  border: 0 solid var(--ink);
+  border-right-width: 1px;
+  border-bottom-width: 1px;
   transform: translate(6px, 6px);
-  z-index: -1;
   opacity: 0;
   transition: opacity var(--dur-fast) var(--ease-spring);
 }
@@ -223,7 +223,9 @@ input:focus-visible,
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
+    animation-delay: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    transition-delay: 0.001ms !important;
   }
 }

@@ -1,5 +1,10 @@
 /* Header, navigacija, footer — vidi docs/06-COPY.md za sadrzaj navigacije */
 
+:root {
+  --header-h: 84px;
+  --header-h-compact: var(--space-10);
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -13,12 +18,12 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-7);
-  min-height: 84px;
+  min-height: var(--header-h);
   transition: min-height var(--dur-base) var(--ease-spring);
 }
 
 .site-header.is-compact .container {
-  min-height: var(--space-10);
+  min-height: var(--header-h-compact);
 }
 
 .brand {
@@ -93,7 +98,7 @@
   border-right: 1px solid currentColor;
   border-bottom: 1px solid currentColor;
   transform: rotate(45deg);
-  transition: transform 0.2s ease;
+  transition: transform var(--dur-fast) var(--ease-spring);
   margin-top: -3px;
 }
 
@@ -116,7 +121,8 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(4px);
-  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  transition: opacity var(--dur-fast) var(--ease-spring),
+    transform var(--dur-fast) var(--ease-spring), visibility var(--dur-fast);
 }
 
 .nav-item-dropdown:hover .nav-dropdown,
@@ -129,7 +135,7 @@
 
 .nav-dropdown a {
   display: block;
-  padding: 0.6rem var(--space-5);
+  padding: 0.6em var(--space-5);
   font-size: 0.9375rem;
 }
 
@@ -205,7 +211,7 @@
 
   .nav-primary {
     position: fixed;
-    inset: 84px 0 0 0;
+    inset: var(--header-h) 0 0 0;
     background: rgba(242, 240, 234, 0.82);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
@@ -218,7 +224,8 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity var(--dur-base) var(--ease-spring),
-      transform var(--dur-base) var(--ease-spring), visibility var(--dur-base);
+      transform var(--dur-base) var(--ease-spring), visibility var(--dur-base),
+      inset var(--dur-base) var(--ease-spring);
   }
 
   .nav-primary.is-open {
@@ -241,7 +248,7 @@
   }
 
   .site-header.is-compact .nav-primary {
-    inset: var(--space-10) 0 0 0;
+    inset: var(--header-h-compact) 0 0 0;
   }
 
   .nav-primary > li:nth-child(1) { transition-delay: 40ms; }

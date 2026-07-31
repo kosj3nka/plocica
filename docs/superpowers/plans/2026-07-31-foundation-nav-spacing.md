@@ -1373,6 +1373,8 @@ Replace with:
 }
 ```
 
+> **Correction — the outline does not slide (shipped behavior differs from the code above).** As written, the pseudo-element's own `transform: translate(4px,4px) → translate(0,0)` composes with the parent `.btn`'s hover `transform`, so the two animations cancel and the outline visually stayed put (or jittered) instead of sliding. Verified empirically during Task 7's review and again in the final whole-branch review via headless-Chrome rendering. What actually ships: the `::after` sits at a **fixed** `translate(6px, 6px)` at all times and only its `opacity` animates (0 → 1) on hover/focus — no slide, no `transform` transition on the pseudo-element. It also draws **only its right and bottom borders** (`border: 0 solid var(--ink); border-right-width: 1px; border-bottom-width: 1px;`) with no `z-index: -1` and no `isolation: isolate` on `.btn`: a full 4-sided border plus a negative z-index painted the near (top/left) edges *over* the button's own fill, per CSS2.1 painting order inside the stacking context that `isolation`/`transform` create. Drawing only the two always-external edges removes the need for any stacking-context trick and leaves the button face clean. `.btn:hover` lifts `translate(-3px, -3px)` and `:active` is `translate(-3px, -3px) scale(0.98)`. Do not re-introduce a sliding animation.
+
 - [ ] **Step 2: Fix outline visibility on the inverted CTA strip**
 
 `.section-invert` sits on a near-black background, so the offset outline (which defaults to `var(--ink)`, near-black) would be invisible against it. In `Plocica/wwwroot/css/components.css`, find:

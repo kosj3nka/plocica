@@ -137,6 +137,7 @@ img, video { max-width: 100%; display: block; }
 
 /* Buttons */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
@@ -147,13 +148,38 @@ img, video { max-width: 100%; display: block; }
   letter-spacing: 0.02em;
   background: transparent;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background var(--dur-fast) var(--ease-spring),
+    color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--ink);
+  transform: translate(4px, 4px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-spring),
+    transform var(--dur-base) var(--ease-spring);
 }
 
 .btn:hover,
 .btn:focus-visible {
   background: var(--ink);
   color: var(--paper);
+  transform: translate(-2px, -2px);
+}
+
+.btn:hover::after,
+.btn:focus-visible::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.btn:active {
+  transform: translate(0, 0) scale(0.98);
 }
 
 .btn-cta {

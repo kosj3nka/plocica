@@ -392,6 +392,10 @@
   border-color: var(--paper);
 }
 
+.section-invert .btn-cta::after {
+  border-color: var(--paper);
+}
+
 .section-invert .btn-cta:hover,
 .section-invert .btn-cta:focus-visible {
   background: var(--glz-sun);

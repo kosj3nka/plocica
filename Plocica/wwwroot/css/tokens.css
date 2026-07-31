@@ -18,7 +18,7 @@
   --font-display: "Archivo", sans-serif;
   --font-body: "IBM Plex Sans", sans-serif;
 
-  --fs-hero: clamp(3.5rem, 8vw, 7rem);
+  --fs-hero: clamp(2.75rem, 6vw, 5.5rem);
   --fs-h2: clamp(2rem, 4vw, 3.25rem);
   --fs-body: 1.0625rem;
   --lh-body: 1.6;
@@ -29,6 +29,33 @@
 
   --container-max: 1440px;
   --gutter: clamp(1.25rem, 5vw, 4rem);
+
+  /* spacing scale — fixed steps (docs/superpowers/specs/2026-07-31-foundation-nav-spacing-design.md) */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-7:  2rem;
+  --space-8:  2.5rem;
+  --space-9:  3rem;
+  --space-10: 4rem;
+  --space-11: 5rem;
+  --space-12: 6rem;
+  --space-13: 8rem;
+
+  /* spacing scale — fluid tiers, for gaps/padding that should ease with viewport width */
+  --space-fluid-sm: clamp(1.5rem, 4vw, 2.5rem);
+  --space-fluid-md: clamp(2rem, 5vw, 4rem);
+  --space-fluid-lg: clamp(2.5rem, 6vw, 5rem);
+  --space-fluid-xl: clamp(3.5rem, 9vw, 8rem);
+
+  /* motion tokens — spring-style easing instead of linear/ease-in-out */
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast: 200ms;
+  --dur-base: 400ms;
+  --dur-slow: 700ms;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -101,7 +128,7 @@ img, video { max-width: 100%; display: block; }
 .accent-rose   { --accent: var(--glz-rose); }
 
 .section {
-  padding: clamp(3rem, 8vw, 7rem) 0;
+  padding: var(--space-fluid-xl) 0;
 }
 
 .section-alt {

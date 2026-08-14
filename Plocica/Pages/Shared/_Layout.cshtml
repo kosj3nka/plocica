@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/tokens.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
@@ -23,7 +23,7 @@
     <header class="site-header">
         <div class="container">
             <a class="brand" asp-page="/Index">
-                <img src="~/img/plocicaLogo.png" alt="Pločica" />
+                <img src="~/img/logoNavbar.svg" alt="Pločica" />
             </a>
 
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-primary" aria-label="Otvori izbornik">
@@ -40,7 +40,7 @@
                         <li><a asp-page="/Kolekcije" asp-fragment="oslikane"><span class="num">02</span>Ručno oslikane</a></li>
                         <li><a asp-page="/Kolekcije" asp-fragment="reljefne"><span class="num">03</span>Reljefne</a></li>
                         <li class="nav-dropdown-sep" role="separator"></li>
-                        <li><a asp-page="/Kolekcije" asp-fragment="boje">Karta boja</a></li>
+                        <li><a asp-page="/Kolekcije" asp-fragment="boje"><span class="num"></span>Karta boja</a></li>
                     </ul>
                 </li>
                 <li><a class="nav-link" asp-page="/Radovi">Radovi</a></li>
@@ -57,6 +57,7 @@
 
     <footer class="site-footer">
         <div class="container">
+            <img class="footer-logo" src="~/img/plocicaCeramicLogo.png" alt="Pločica" />
             <span>&copy; @DateTime.Now.Year Pločica</span>
             <span><a href="mailto:plocica.info@gmail.com">plocica.info@gmail.com</a> · <a href="https://instagram.com/plocica_" target="_blank" rel="noopener">@@plocica_</a> · Zagreb</span>
         </div>

@@ -1,65 +1,37 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Pločica — ručno rađene keramičke pločice";
+    ViewData["Title"] = "Pločica | ručno rađene keramičke pločice";
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 }
 
-<section class="container hero">
+<section class="hero">
     <div class="hero-copy">
-        <h1>Gdje detalji postaju ono što svi primjete.</h1>
-        <p>Svaka pločica prolazi kroz ručni proces izrade. Male razlike u teksturi i nijansama dio su procesa. To je ono što svaku pločicu čini jedinstvenom.</p>
-        <div class="hero-actions">
-            <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Stvorimo nešto zajedno</a>
-            <a class="text-link" asp-page="/Kolekcije">Kolekcije</a>
-        </div>
+        <h1>Gdje <span class="highlight-word" style="--highlight-img: url('@Url.Content("~/img/highlight.png")')">detalji</span> postaju ono što svi primijete.</h1>
+        <p class="hero-subline">Ručni rad. Osjeti se.</p>
     </div>
 
-    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-tiles" aria-hidden="true" style="--hero-tiles-img: url('@Url.Content("~/img/tilesHero.jpg")')" data-hero-tiles-src="@Url.Content("~/img/tilesHero.jpg")">
+        <canvas class="hero-tiles-canvas"></canvas>
+    </div>
 </section>
 
-<section class="section hairline-top">
-    <div class="container">
-        <p class="eyebrow">Izbliza</p>
-        <h2>Iz naše ponude</h2>
-        <div class="plate-frame">
-            <div class="plate-img-wrap">
-                <img class="hero-frame is-active" src="~/img/hero/arabeskHERO.jpg" alt="Arabesque pločice u ružičastoj glazuri.">
-                <img class="hero-frame" src="~/img/hero/curveHERO.jpg" alt="Curve pločice u narančastoj glazuri." loading="lazy">
-                <img class="hero-frame" src="~/img/hero/curve1HERO.jpg" alt="Curve pločice u tamnozelenoj i bež glazuri." loading="lazy">
-                <img class="hero-frame" src="~/img/hero/kombinacijaOblikaHERO.jpg" alt="Kombinacija oblika u bež i tamnozelenoj glazuri." loading="lazy">
-                <img class="hero-frame" src="~/img/hero/lineaHERO.jpg" alt="Linea pločice u bež glazuri." loading="lazy">
-                <img class="hero-frame" src="~/img/hero/moduleHERO.jpg" alt="Module pločice u tamnoplavoj i bijeloj glazuri." loading="lazy">
+<section class="section craft-section section-alt hairline-top hairline-bottom accent-clay">
+    <div class="container craft-intro">
+        <div class="craft-row">
+            <div class="craft-copy">
+                <p class="eyebrow">Sudjelovanje u stvaranju</p>
+                <p class="quote">Ne kupujete gotov, generičan proizvod već sudjelujete u procesu stvaranja kroz odabir svakog detalja.</p>
             </div>
-        </div>
-    </div>
-</section>
 
-<section class="section section-alt hairline-top hairline-bottom accent-clay">
-    <div class="container manifesto">
-        <div>
-            <p class="eyebrow">Sudjelovanje u stvaranju</p>
-            <p class="quote">Ne kupujete gotov, generičan proizvod već sudjelujete u procesu stvaranja kroz odabir svakog detalja.</p>
-        </div>
-        <ul class="manifesto-list">
-            <li>Boja</li>
-            <li>Finiš</li>
-            <li>Konačni dojam</li>
-        </ul>
-    </div>
-</section>
-
-<section class="craft-section">
-    <div class="craft-media">
-        <video autoplay muted loop playsinline poster="~/img/rukeRade.jpg" id="craft-video">
-            <source src="~/img/rucniRadVideo.mp4" type="video/mp4">
-        </video>
-        <div class="craft-copy">
-            <p class="eyebrow">Ručni rad.</p>
-            <h2>Osjeti se.</h2>
+            <div class="craft-process-row">
+                <img src="~/img/room1.jpg" alt="Prostor uređen ručno rađenim keramičkim pločicama." loading="lazy">
+                <img src="~/img/_DSC6339.jpg" alt="Detalj ručno rađenih keramičkih pločica." loading="lazy">
+                <img src="~/img/shank.JPEG" alt="Detalj ručne izrade keramičke pločice." loading="lazy">
+            </div>
         </div>
     </div>
 </section>
@@ -73,7 +45,7 @@
                 <img src="~/img/mermaid.jpeg" alt="Krupni plan glaziranih pločica u obliku riblje ljuske, u tonovima tirkizne i mente." loading="lazy">
             </figure>
             <div class="card-body">
-                <p class="num">01 · Oblici</p>
+                
                 <h3>Oblici</h3>
                 <p>Ručno rađene pločice dostupne u definiranim oblicima, uz mogućnost odabira boja i završnog finiša.</p>
                 <a class="card-link" asp-page="/Kolekcije" asp-fragment="oblici">@string.Join(" · ", Model.ObliciShapes.Select(s => s.Name))</a>
@@ -85,7 +57,7 @@
                 <img src="~/img/cvijece.jpg" alt="Pločice s ručno oslikanim cvjetnim motivima u više boja." loading="lazy">
             </figure>
             <div class="card-body">
-                <p class="num">02 · Ručno oslikane</p>
+                
                 <h3>Ručno oslikane</h3>
                 <p>Pločice s unaprijed osmišljenim motivima i mogućnošću prilagodbe boje i kombinacije motiva.</p>
                 <a class="card-link" asp-page="/Kolekcije" asp-fragment="oslikane">@string.Join(" · ", Model.OslikaneShapes.Select(s => s.Name))</a>
@@ -97,7 +69,7 @@
                 <img src="~/img/tekstura.jpg" alt="Krupni plan reljefnih glaziranih pločica u smeđim i zlatnim tonovima." loading="lazy">
             </figure>
             <div class="card-body">
-                <p class="num">03 · Reljefne</p>
+                
                 <h3>Reljefne</h3>
                 <p>Reljefne pločice i kompleksniji projekti za prostore koji traže izrađeniji, autorski pristup.</p>
                 <a class="card-link" asp-page="/Kolekcije" asp-fragment="reljefne">@string.Join(" · ", Model.ReljefneShapes.Select(s => s.Name))</a>
@@ -106,19 +78,6 @@
     </div>
 </section>
 
-<section class="section section-alt hairline-top hairline-bottom">
-    <div class="container palette-teaser">
-        <div>
-            <p class="eyebrow">Karta boja</p>
-            <p class="quote">Sve pločice iz ponude moguće je izraditi u nekoj od 28 boja iz Karte boja.</p>
-            <p>Po potrebi razvijamo pločice u točno određenom tonu kako bi se uskladile s kuhinjom, namještajem ili drugim elementima interijera. Uz nadoplatu, ovisno o projektu.</p>
-            <a class="text-link" asp-page="/Kolekcije" asp-fragment="boje">Karta boja</a>
-        </div>
-        <div class="palette-figure">
-            <img src="~/img/arabesk1.png" alt="Izrezani uzorak arabeske pločice u crvenoj glazuri." loading="lazy">
-        </div>
-    </div>
-</section>
 
 <section class="section container">
     <div class="people-teaser">
@@ -132,6 +91,14 @@
             <img src="~/img/vlasniciHorizontal.jpg" alt="Lorena i Mihael leže na podu prekrivenom šarenim geometrijskim pločicama." loading="lazy">
         </figure>
     </div>
+
+    <div class="craft-process-row">
+        <img src="~/img/working4.jpg" alt="Nanošenje uzorka glazure sitotiskom na keramičku pločicu." loading="lazy">
+        <video class="craft-media" autoplay muted loop playsinline poster="~/img/rukeRade.jpg" id="craft-video">
+            <source src="~/img/rucniRadVideo.mp4" type="video/mp4">
+        </video>
+        <img src="~/img/working6.jpg" alt="Keramičarka ručno ukrašava pločicu detaljima glazure u radionici." loading="lazy">
+    </div>
 </section>
 
 <section class="section section-invert">
@@ -142,7 +109,7 @@
 </section>
 
 @section Scripts {
-    <script src="~/js/hero-grid.js" asp-append-version="true"></script>
+    <script src="~/js/hero-tiles.js" asp-append-version="true"></script>
     <script src="~/js/hero.js" asp-append-version="true"></script>
     <script src="~/js/craft-video.js" asp-append-version="true"></script>
 }

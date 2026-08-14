@@ -1,8 +1,8 @@
 /* Header, navigacija, footer — vidi docs/06-COPY.md za sadrzaj navigacije */
 
 :root {
-  --header-h: 84px;
-  --header-h-compact: var(--space-10);
+  --header-h: 80px;
+  --header-h-compact: 60px;
 }
 
 .site-header {
@@ -37,8 +37,13 @@
 }
 
 .brand img {
-  height: 32px;
+  height: 40px;
   width: auto;
+  transition: height var(--dur-base) var(--ease-spring);
+}
+
+.site-header.is-compact .brand img {
+  height: 44px;
 }
 
 .nav-primary {
@@ -67,6 +72,20 @@
 .nav-link:focus-visible {
   border-bottom-color: var(--ink);
   transform: translateY(-1px);
+}
+
+/* Nav CTA — sharp corners with the bottom-right corner cut off at rest;
+   hover/focus relax into the normal rounded button (see .btn-cta:hover
+   in tokens.css for the shade change) */
+.nav-cta .btn {
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.nav-cta .btn:hover,
+.nav-cta .btn:focus-visible {
+  border-radius: var(--radius);
+  clip-path: none;
 }
 
 /* Kolekcije dropdown */
@@ -145,6 +164,8 @@
 }
 
 .nav-dropdown .num {
+  display: inline-block;
+  width: 1.1em;
   color: var(--ink-soft);
   margin-right: 0.5em;
 }
@@ -294,10 +315,16 @@
 .site-footer .container {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
   font-size: 0.9375rem;
   color: var(--ink-soft);
+}
+
+.footer-logo {
+  height: 56px;
+  width: auto;
 }
 
 .site-footer a:hover,

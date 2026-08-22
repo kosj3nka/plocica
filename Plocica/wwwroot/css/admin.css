@@ -475,3 +475,5 @@
 .admin-dropzone-count { font-size: 0.75rem; color: var(--ink-soft); }
 
 .admin-image-delete .admin-icon { color: var(--glz-clay); }
+
+.admin-dash-card .admin-icon { width: 1.75em; height: 1.75em; color: var(--ink-soft); }

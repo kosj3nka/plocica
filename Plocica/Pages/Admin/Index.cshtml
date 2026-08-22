@@ -9,16 +9,19 @@
 
     <div class="admin-dash-grid">
         <a class="admin-dash-card" asp-page="/Admin/Kolekcija/Index">
+            <partial name="_AdminIcon" model="@("kolekcija")" />
             <span class="admin-dash-count">@Model.ShapeCount</span>
             <span class="admin-dash-label">Kolekcija</span>
             <span class="admin-dash-link">Uredi →</span>
         </a>
         <a class="admin-dash-card" asp-page="/Admin/Boje/Index">
+            <partial name="_AdminIcon" model="@("boje")" />
             <span class="admin-dash-count">@Model.ColorCount</span>
             <span class="admin-dash-label">Boje</span>
             <span class="admin-dash-link">Uredi →</span>
         </a>
         <a class="admin-dash-card" asp-page="/Admin/Projekti/Index">
+            <partial name="_AdminIcon" model="@("projekti")" />
             <span class="admin-dash-count">@Model.ProjectCount</span>
             <span class="admin-dash-label">Projekti</span>
             <span class="admin-dash-link">Uredi →</span>

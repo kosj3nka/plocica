@@ -21,6 +21,9 @@
             <input asp-for="Input.Password" type="password" autocomplete="current-password" />
             <span asp-validation-for="Input.Password" class="admin-field-error"></span>
         </div>
-        <button type="submit" class="admin-btn admin-btn-primary">Prijavi se</button>
+        <button type="submit" class="icon-btn icon-btn-primary">
+            <partial name="_AdminIcon" model="@("save")" />
+            Prijavi se
+        </button>
     </form>
 </div>

@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Shape> Shapes => Set<Shape>();
     public DbSet<ShapeExample> ShapeExamples => Set<ShapeExample>();
+    public DbSet<ShapeGalleryImage> ShapeGalleryImages => Set<ShapeGalleryImage>();
     public DbSet<ColorItem> Colors => Set<ColorItem>();
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<ProjectImage> ProjectImages => Set<ProjectImage>();

@@ -31,7 +31,6 @@ public static class DbInitializer
     {
         const string obliciOtherInfo = "Zbog procesa ručne izrade moguće su manje varijacije u dimenzijama i nijansi.";
         const string thickness = "0,8 cm";
-        const string finish = "mat i sjajno";
 
         return new List<Shape>
         {
@@ -41,7 +40,6 @@ public static class DbInitializer
                 Collection = "oblici",
                 Thickness = thickness,
                 Dimensions = "14,5 × 14,5 cm",
-                Finish = finish,
                 AvailableColors = "Warm Sun, Aqua, Moss, Indigo Gold, Sour Cherry, Clay Rose",
                 OtherInfo = obliciOtherInfo,
                 Price = "300 € / m²",
@@ -53,7 +51,6 @@ public static class DbInitializer
                 Collection = "oblici",
                 Thickness = thickness,
                 Dimensions = "17,5 × 5,3 cm",
-                Finish = finish,
                 AvailableColors = "White, Bisque, Beige, Bisque x Beige, Beige x Watergreen, Clay Rose x Moss",
                 OtherInfo = obliciOtherInfo,
                 Price = "315 € / m² jednobojne\n325 € / m² kombinacije dvije boje\nMoguća usluga ljepljenja na mrežice 30 € / m²",
@@ -65,7 +62,6 @@ public static class DbInitializer
                 Collection = "oblici",
                 Thickness = thickness,
                 Dimensions = "13 × 14,5 cm",
-                Finish = finish,
                 AvailableColors = "Deep Green, Honey, White, Deep Green x Beige, Clay Rose x Cherry, Cherry x Beige, Aquamarine x Watergreen x Petrolej, Rose x Beige x Green, Cobalt x Sky blue x Bluegrey",
                 OtherInfo = obliciOtherInfo,
                 Price = "310 € / m² jednobojne\n325 € / m² kombinacije dvije boje\n340 € / m² kombinacije tri boje\nMoguća usluga ljepljenja na mrežice 30 € / m²",
@@ -77,7 +73,6 @@ public static class DbInitializer
                 Collection = "oblici",
                 Thickness = thickness,
                 Dimensions = "15,5 × 0,8–1 cm",
-                Finish = finish,
                 AvailableColors = "Terra, Honey, White, Bisque, Warm Yellow, Deep Green",
                 OtherInfo = obliciOtherInfo,
                 Price = "340 € / m² jednobojne\nUsluga ljepljenja na mrežice uključena je u cijenu",
@@ -89,7 +84,6 @@ public static class DbInitializer
                 Collection = "oslikane",
                 Thickness = thickness,
                 Dimensions = "15,5 × 15,5 cm",
-                Finish = finish,
                 AvailableColors = "Black x White, White x Red matte, Blue x White matte",
                 OtherInfo = obliciOtherInfo,
                 Price = "430 € / m² kombinacija dvije boje\n460 € / m² kombinacije tri do četiri boje\n500 € / m² kombinacije pet do šest boja",
@@ -101,7 +95,6 @@ public static class DbInitializer
                 Collection = "oslikane",
                 Thickness = thickness,
                 Dimensions = "15,5 × 15,5 cm",
-                Finish = finish,
                 AvailableColors = "White x Red, Blue sky x Brown, White x Cobalt blue",
                 OtherInfo = obliciOtherInfo,
                 Price = "430 € / m² kombinacija dvije boje",
@@ -113,7 +106,6 @@ public static class DbInitializer
                 Collection = "oslikane",
                 Thickness = thickness,
                 Dimensions = "20 × 10 cm",
-                Finish = finish,
                 AvailableColors = "vidi Karta boja",
                 OtherInfo = obliciOtherInfo,
                 Price = "470 € / m² kombinacija dvije boje + dva motiva",

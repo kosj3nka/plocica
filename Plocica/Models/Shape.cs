@@ -9,11 +9,10 @@ public class Shape
     public string? Dimensions { get; set; }                 // dimenzija, npr. "14,5 × 14,5 cm"
     public string? ImageUrl { get; set; }                    // individualna slika (Blob URL) — ikona u mreži oblika
     public string? PhotoUrl { get; set; }                     // opća fotografija (Blob URL) — prikaz u tehničkim informacijama
-    public string? LayoutScheme { get; set; }                // shema slaganja (tekst ili slika URL)
-    public string? Finish { get; set; }                       // završna obrada, npr. "mat i sjajno"
-    public string? AvailableColors { get; set; }               // dostupne boje — slobodan tekst
+    public string? AvailableColors { get; set; }               // dostupne boje — koristi samo kategorija "reljefne"
     public string? OtherInfo { get; set; }                       // ostali info
     public string? Price { get; set; }                            // cijena — tekst, može biti višeredna
     public int SortOrder { get; set; }
     public List<ShapeExample> Examples { get; set; } = new();   // primjeri: naziv + fotografija (npr. "Blue")
+    public List<ShapeGalleryImage> GalleryImages { get; set; } = new(); // shema slaganja (Kind=Layout) i reljefne fotografije (Kind=Reljefna)
 }

@@ -372,3 +372,7 @@
   background: color-mix(in srgb, var(--ink) 88%, white);
   border-color: color-mix(in srgb, var(--ink) 88%, white);
 }
+
+/* ---------- Ikone ---------- */
+
+.admin-icon { width: 1em; height: 1em; flex-shrink: 0; }

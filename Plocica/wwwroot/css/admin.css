@@ -455,6 +455,7 @@
 
 .admin-dropzone-drop {
   flex: 1;
+  position: relative;
   border: 2px dashed var(--line);
   border-radius: 8px;
   padding: 0.9em 1em;
@@ -587,3 +588,5 @@
 
 .admin-color-popover[hidden] { display: none; }
 .icon-btn[hidden] { display: none; }
+
+#color-popover-error { margin-top: 0.75rem; }

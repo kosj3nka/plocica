@@ -19,7 +19,7 @@
          data-delete-url="@Url.Page("/Admin/Boje/Index", "DeleteColor")">
         @foreach (var color in Model.Colors)
         {
-            <div class="admin-color-chip" data-color-id="@color.Id" data-hex="@color.Hex" data-code="@color.Code" data-image-url="@color.ImageUrl">
+            <div class="admin-color-chip" tabindex="0" data-color-id="@color.Id" data-hex="@color.Hex" data-code="@color.Code" data-image-url="@color.ImageUrl">
                 <button type="button" class="admin-color-delete" data-role="delete" title="Obriši">
                     <partial name="_AdminIcon" model="@("cancel")" />
                 </button>
@@ -48,9 +48,9 @@
             </label>
             <button type="button" class="icon-btn" id="color-popover-remove-photo-btn" hidden>Ukloni fotografiju</button>
         </div>
-
-        <p class="admin-field-error" id="color-popover-error"></p>
     </div>
+
+    <p class="admin-field-error" id="color-popover-error"></p>
 </div>
 
 @section Scripts {

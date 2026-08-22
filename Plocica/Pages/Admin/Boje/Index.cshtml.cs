@@ -22,9 +22,6 @@ public class IndexModel : PageModel
 
     public List<ColorItem> Colors { get; set; } = new();
 
-    [TempData]
-    public string? Message { get; set; }
-
     public void OnGet()
     {
         Colors = _db.Colors.OrderBy(c => c.SortOrder).ToList();

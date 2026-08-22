@@ -87,6 +87,7 @@
       renderChip(chip, data);
       showError("");
     } catch (err) {
+      if (activeChip !== chip) return;
       hexInput.value = chip.getAttribute("data-hex");
       codeInput.value = chip.getAttribute("data-code");
       showError(err.message);
@@ -115,6 +116,7 @@
       var data = await res.json();
       if (!res.ok || !data.ok) throw new Error((data && data.error) || "Greška prilikom uploada.");
       renderChip(chip, data);
+      if (activeChip !== chip) return;
       removePhotoBtn.hidden = false;
       showError("");
     } catch (err) {
@@ -130,6 +132,7 @@
     try {
       var data = await postForm(urlFor("remove-image"), { id: id });
       renderChip(chip, data);
+      if (activeChip !== chip) return;
       removePhotoBtn.hidden = true;
       showError("");
     } catch (err) {
@@ -144,9 +147,12 @@
         var data = await postForm(urlFor("add"), {});
         var chip = document.createElement("div");
         chip.className = "admin-color-chip";
+        chip.tabIndex = 0;
         chip.setAttribute("data-color-id", data.id);
         chip.innerHTML =
-          '<button type="button" class="admin-color-delete" data-role="delete" title="Obriši">&times;</button>' +
+          '<button type="button" class="admin-color-delete" data-role="delete" title="Obriši">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="admin-icon"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+          '</button>' +
           '<div class="admin-color-swatch" data-role="swatch"></div>' +
           '<span class="admin-color-code" data-role="code-label"></span>';
         grid.insertBefore(chip, addBtn);
@@ -177,6 +183,15 @@
     if (chip) {
       openPopover(chip);
     }
+  });
+
+  grid.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+    if (!e.target.classList || !e.target.classList.contains("admin-color-chip")) return;
+    if (e.key !== "Enter") {
+      e.preventDefault();
+    }
+    openPopover(e.target);
   });
 
   document.addEventListener("click", function (e) {

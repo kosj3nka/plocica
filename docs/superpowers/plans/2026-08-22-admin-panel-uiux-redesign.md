@@ -53,6 +53,7 @@ Deleted files:
 
 **Files:**
 - Create: `Plocica/Pages/Shared/_AdminIcon.cshtml`
+- Modify: `Plocica/Pages/_ViewImports.cshtml`
 
 **Interfaces:**
 - Produces: `<partial name="_AdminIcon" model="@("edit")" />` (and `"delete"`, `"save"`, `"cancel"`, `"plus"`, `"upload"`, `"dashboard"`, `"kolekcija"`, `"boje"`, `"projekti"`, `"logout"`, `"external-link"`, `"camera"`) — renders a `<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">...</svg>` for the named icon, or nothing for an unrecognized name.
@@ -118,15 +119,23 @@ Append to `Plocica/wwwroot/css/admin.css`:
 .admin-icon { width: 1em; height: 1em; flex-shrink: 0; }
 ```
 
-- [ ] **Step 3: Build**
+- [ ] **Step 3: Add the shared view-model namespace to `_ViewImports.cshtml`**
+
+Later tasks add C# view-model classes under `Plocica.Pages.Shared` (e.g. `AdminActionButtonsViewModel`) that admin pages reference by short name. Add the using once, globally, instead of repeating it per page. Append to `Plocica/Pages/_ViewImports.cshtml`:
+
+```cshtml
+@using Plocica.Pages.Shared
+```
+
+- [ ] **Step 4: Build**
 
 Run: `dotnet build Plocica/Plocica.csproj`
 Expected: builds with no errors (a `@model string` partial with a `@switch` is valid Razor — no runtime check possible yet since nothing references it).
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
-git add Plocica/Pages/Shared/_AdminIcon.cshtml Plocica/wwwroot/css/admin.css
+git add Plocica/Pages/Shared/_AdminIcon.cshtml Plocica/Pages/_ViewImports.cshtml Plocica/wwwroot/css/admin.css
 git commit -m "feat: add shared admin icon partial"
 ```
 
@@ -155,31 +164,33 @@ git commit -m "feat: add shared admin icon partial"
 
     <a class="admin-sidebar-item @(IsActive("/Admin/Kolekcija") ? "active" : "")" asp-page="/Admin/Kolekcija/Index">
         <partial name="_AdminIcon" model="@("kolekcija")" />
-        Kolekcija
+        <span>Kolekcija</span>
     </a>
     <a class="admin-sidebar-item @(IsActive("/Admin/Boje") ? "active" : "")" asp-page="/Admin/Boje/Index">
         <partial name="_AdminIcon" model="@("boje")" />
-        Boje
+        <span>Boje</span>
     </a>
     <a class="admin-sidebar-item @(IsActive("/Admin/Projekti") ? "active" : "")" asp-page="/Admin/Projekti/Index">
         <partial name="_AdminIcon" model="@("projekti")" />
-        Projekti
+        <span>Projekti</span>
     </a>
 
     <div class="admin-sidebar-spacer"></div>
 
     <a href="/" target="_blank" rel="noopener" class="admin-sidebar-item admin-sidebar-view-site">
         <partial name="_AdminIcon" model="@("external-link")" />
-        Pogledaj stranicu
+        <span>Pogledaj stranicu</span>
     </a>
     <form method="post" asp-page="/Admin/Logout" class="admin-sidebar-logout-form">
         <button type="submit" class="admin-sidebar-item admin-sidebar-logout-btn">
             <partial name="_AdminIcon" model="@("logout")" />
-            Odjava
+            <span>Odjava</span>
         </button>
     </form>
 </nav>
 ```
+
+(Wrapping each label in `<span>` lets the narrow-viewport CSS in Step 3 hide just the text and keep the icon. The brand's own `<span>admin</span>` at the top is unrelated — `.admin-sidebar-item span` below only matches spans inside `.admin-sidebar-item`, not the brand link.)
 
 - [ ] **Step 2: Replace the top-bar layout with a sidebar layout shell**
 
@@ -281,13 +292,10 @@ In `Plocica/wwwroot/css/admin.css`, delete the `.admin-header`, `.admin-header-i
 
 @media (max-width: 860px) {
   .admin-sidebar { width: 64px; }
-  .admin-sidebar-brand,
-  .admin-sidebar-item span,
-  .admin-sidebar-item:not(.admin-sidebar-logout-btn) { }
   .admin-sidebar-brand { padding: 0 0 1rem; text-align: center; font-size: 0; }
   .admin-sidebar-brand::before { content: "P"; font-size: 1.1rem; }
   .admin-sidebar-item { justify-content: center; padding: 0.7em 0; }
-  .admin-sidebar-item:not(:has(.admin-icon)) { display: none; }
+  .admin-sidebar-item span { display: none; }
 }
 
 .admin-main {
@@ -364,7 +372,7 @@ public class AdminActionButtonsViewModel
 
 - [ ] **Step 3: Add icon-btn styles to `admin.css`, replacing `.admin-delete-btn`'s bare-link look**
 
-Replace the existing `.admin-delete-btn` rule with:
+`.admin-delete-btn` stays in `admin.css` — it's still used by the "Ukloni" (remove-row) button inside Kolekcija/Edit.cshtml's dynamic "Primjeri" template (`Plocica/Pages/Admin/Kolekcija/Edit.cshtml:133`, class `admin-delete-btn js-remove-example-row`), which this plan does not convert. Append the new rules after it instead of replacing it:
 
 ```css
 .icon-btn {
@@ -405,9 +413,7 @@ In `Plocica/Pages/Admin/Kolekcija/Index.cshtml`, replace each of the three `<td 
 </td>
 ```
 
-(Reljefne's confirm text in the current markup reads `"Obrisati stavku ..."` — keep that exact wording for that loop's instance, `"Obrisati oblik ..."` for the other two, matching today's copy.)
-
-Add `@using Plocica.Pages.Shared` to the top of the file (below `@model`).
+(Reljefne's confirm text in the current markup reads `"Obrisati stavku ..."` — keep that exact wording for that loop's instance, `"Obrisati oblik ..."` for the other two, matching today's copy. `AdminActionButtonsViewModel` is already in scope via the `@using Plocica.Pages.Shared` added to `_ViewImports.cshtml` in Task 1 — no per-file using needed.)
 
 - [ ] **Step 5: Wire into Projekti/Index.cshtml**
 
@@ -418,8 +424,6 @@ In `Plocica/Pages/Admin/Projekti/Index.cshtml`, replace the `<td class="admin-ro
     <partial name="_AdminActionButtons" model="@(new AdminActionButtonsViewModel { EditRouteId = project.Id, DeleteRouteId = project.Id, ConfirmText = $"Obrisati projekt \"{project.Title}\"?" })" />
 </td>
 ```
-
-Add `@using Plocica.Pages.Shared` to the top of the file.
 
 - [ ] **Step 6: Build and manually verify**
 
@@ -629,7 +633,7 @@ Replace the "Shema slaganja" new-files field (`Input.NewLayoutImageFiles`) and "
 </div>
 ```
 
-(and the `NewReljefneImageFiles` equivalent). Add `@using Plocica.Pages.Shared` to the top of the file.
+(and the `NewReljefneImageFiles` equivalent).
 
 - [ ] **Step 6: Convert the "Primjeri" template's file input to the same dropzone markup**
 
@@ -674,7 +678,7 @@ Replace the "Dodaj slike" field's `<input asp-for="Input.NewImageFiles" ... />` 
 </div>
 ```
 
-Add `@using Plocica.Pages.Shared` to the top of the file. Add `<script src="~/js/admin-upload.js" asp-append-version="true"></script>` to the `@section Scripts` block in Kolekcija/Edit.cshtml and Projekti/Edit.cshtml (Projekti/Edit currently has no `@section Scripts` block — add one).
+Add `<script src="~/js/admin-upload.js" asp-append-version="true"></script>` to the `@section Scripts` block in Kolekcija/Edit.cshtml and Projekti/Edit.cshtml (Projekti/Edit currently has no `@section Scripts` block — add one).
 
 - [ ] **Step 8: Build and manually verify**
 

@@ -5,61 +5,54 @@
 }
 
 <div class="admin-container">
-    <div class="admin-list-header">
-        <h1>Boje</h1>
-        <a asp-page="Edit" class="admin-btn admin-btn-primary">Nova</a>
+    <h1>Boje</h1>
+    <p class="admin-hint">Klikni ćeliju za promjenu boje. Klikni + za dodavanje nove.</p>
+
+    @Html.AntiForgeryToken()
+
+    <div class="admin-color-grid"
+         id="color-grid"
+         data-update-url="@Url.Page("/Admin/Boje/Index", "UpdateColor")"
+         data-update-image-url="@Url.Page("/Admin/Boje/Index", "UpdateColorImage")"
+         data-remove-image-url="@Url.Page("/Admin/Boje/Index", "RemoveColorImage")"
+         data-add-url="@Url.Page("/Admin/Boje/Index", "AddColor")"
+         data-delete-url="@Url.Page("/Admin/Boje/Index", "DeleteColor")">
+        @foreach (var color in Model.Colors)
+        {
+            <div class="admin-color-chip" data-color-id="@color.Id" data-hex="@color.Hex" data-code="@color.Code" data-image-url="@color.ImageUrl">
+                <button type="button" class="admin-color-delete" data-role="delete" title="Obriši">
+                    <partial name="_AdminIcon" model="@("cancel")" />
+                </button>
+                <div class="admin-color-swatch" data-role="swatch"
+                     style="@(!string.IsNullOrEmpty(color.ImageUrl) ? $"background-image:url('{color.ImageUrl}')" : $"background:{color.Hex}")"></div>
+                <span class="admin-color-code" data-role="code-label">@color.Code</span>
+            </div>
+        }
+        <button type="button" class="admin-color-add" data-role="add" title="Dodaj boju">
+            <partial name="_AdminIcon" model="@("plus")" />
+        </button>
     </div>
 
-    @if (Model.Message is not null)
-    {
-        <p class="admin-success">@Model.Message</p>
-    }
+    <div class="admin-color-popover" id="color-popover" hidden>
+        <label class="admin-hint" for="color-popover-hex">Boja</label>
+        <input type="color" id="color-popover-hex" />
 
-    <div class="admin-table-wrap">
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Kod</th>
-                <th>Naziv</th>
-                <th>Redoslijed</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var color in Model.Colors)
-            {
-                <tr>
-                    <td>
-                        @if (!string.IsNullOrEmpty(color.ImageUrl))
-                        {
-                            <img src="@color.ImageUrl" alt="" class="admin-thumb" />
-                        }
-                        else if (!string.IsNullOrEmpty(color.Hex))
-                        {
-                            <span class="admin-thumb" style="background: @color.Hex;"></span>
-                        }
-                        else
-                        {
-                            <span class="admin-thumb admin-thumb-empty"></span>
-                        }
-                    </td>
-                    <td>@color.Code</td>
-                    <td>@color.Name</td>
-                    <td>@color.SortOrder</td>
-                    <td class="admin-row-actions">
-                        <a asp-page="Edit" asp-route-id="@color.Id">Uredi</a>
-                        <form method="post" asp-page-handler="Delete" asp-route-id="@color.Id" class="admin-delete-form" data-confirm="Obrisati boju &quot;@color.Code&quot;?">
-                            <button type="submit" class="admin-delete-btn">Obriši</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <label class="admin-hint" for="color-popover-code">Kod</label>
+        <input type="text" id="color-popover-code" maxlength="10" />
+
+        <div class="admin-color-popover-photo">
+            <label class="icon-btn">
+                <partial name="_AdminIcon" model="@("camera")" />
+                Fotografija
+                <input type="file" id="color-popover-photo-input" accept=".jpg,.jpeg,.png,.webp" hidden />
+            </label>
+            <button type="button" class="icon-btn" id="color-popover-remove-photo-btn" hidden>Ukloni fotografiju</button>
+        </div>
+
+        <p class="admin-field-error" id="color-popover-error"></p>
     </div>
 </div>
 
 @section Scripts {
-    <script src="~/js/admin.js" asp-append-version="true"></script>
+    <script src="~/js/color-grid.js" asp-append-version="true"></script>
 }

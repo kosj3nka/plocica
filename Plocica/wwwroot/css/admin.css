@@ -477,3 +477,110 @@
 .admin-image-delete .admin-icon { color: var(--glz-clay); }
 
 .admin-dash-card .admin-icon { width: 1.75em; height: 1.75em; color: var(--ink-soft); }
+
+/* ---------- Boje — direct-edit grid ---------- */
+
+.admin-color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  max-width: 640px;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 560px) {
+  .admin-color-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 860px) {
+  .admin-color-grid { grid-template-columns: repeat(7, 1fr); }
+}
+
+.admin-color-chip {
+  aspect-ratio: 1;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.6em;
+  position: relative;
+  cursor: pointer;
+  border: none;
+}
+
+.admin-color-swatch {
+  flex: 1;
+  margin-bottom: 0.5em;
+  border-radius: 3px;
+  background-size: cover;
+  background-position: center;
+}
+
+.admin-color-code {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.admin-color-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ink);
+  color: var(--paper);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.admin-color-delete .admin-icon { width: 0.7em; height: 0.7em; }
+
+.admin-color-chip:hover .admin-color-delete,
+.admin-color-chip:focus-within .admin-color-delete { display: flex; }
+
+.admin-color-add {
+  aspect-ratio: 1;
+  background: var(--paper);
+  border: 1px dashed var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.admin-color-add:hover { background: var(--paper-2); color: var(--ink); }
+.admin-color-add .admin-icon { width: 1.4em; height: 1.4em; }
+
+.admin-color-popover {
+  position: fixed;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1em;
+  width: 220px;
+  box-shadow: 0 8px 20px rgba(26, 26, 23, 0.18);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.admin-color-popover input[type="color"] { width: 100%; height: 40px; padding: 2px; }
+.admin-color-popover input[type="text"] { width: 100%; }
+
+.admin-color-popover-photo {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.4em;
+  flex-wrap: wrap;
+}

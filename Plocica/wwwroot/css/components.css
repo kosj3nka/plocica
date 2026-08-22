@@ -711,6 +711,11 @@
   color: var(--ink-soft);
 }
 
+.spec-row .spec-gallery {
+  grid-column: 1 / -1;
+  margin-top: var(--space-4);
+}
+
 @media (min-width: 640px) {
   .spec-row { grid-template-columns: 1fr 1fr 1fr; }
   .spec-row .spec-name { grid-column: auto; }

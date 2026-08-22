@@ -21,7 +21,7 @@ public class KolekcijeModel : PageModel
 
     public void OnGet()
     {
-        var shapes = _db.Shapes.Include(s => s.Examples);
+        var shapes = _db.Shapes.Include(s => s.Examples).Include(s => s.GalleryImages);
         ObliciShapes = shapes.Where(s => s.Collection == "oblici").OrderBy(s => s.SortOrder).ToList();
         OslikaneShapes = shapes.Where(s => s.Collection == "oslikane").OrderBy(s => s.SortOrder).ToList();
         ReljefneShapes = shapes.Where(s => s.Collection == "reljefne").OrderBy(s => s.SortOrder).ToList();

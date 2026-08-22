@@ -20,6 +20,11 @@
 <div class="shape-details-wrap">
     @foreach (var shape in Model)
     {
+        var layoutImages = shape.GalleryImages
+            .Where(g => g.Kind == Plocica.Models.ShapeGalleryImage.KindLayout)
+            .OrderBy(g => g.SortOrder)
+            .ToList();
+
         <div class="shape-details" id="shape-details-@shape.Id" hidden>
             <div class="shape-details-grid">
                 @if (!string.IsNullOrEmpty(shape.PhotoUrl))
@@ -40,18 +45,6 @@
                         {
                             <div><dt>Dimenzija</dt><dd>@shape.Dimensions</dd></div>
                         }
-                        @if (!string.IsNullOrEmpty(shape.LayoutScheme))
-                        {
-                            <div><dt>Shema slaganja</dt><dd>@shape.LayoutScheme</dd></div>
-                        }
-                        @if (!string.IsNullOrEmpty(shape.Finish))
-                        {
-                            <div><dt>Završna obrada</dt><dd>@shape.Finish</dd></div>
-                        }
-                        @if (!string.IsNullOrEmpty(shape.AvailableColors))
-                        {
-                            <div><dt>Dostupne boje</dt><dd>@shape.AvailableColors</dd></div>
-                        }
                         @if (!string.IsNullOrEmpty(shape.OtherInfo))
                         {
                             <div><dt>Ostale info</dt><dd>@shape.OtherInfo</dd></div>
@@ -63,6 +56,21 @@
                     </dl>
                 </div>
             </div>
+
+            @if (layoutImages.Any())
+            {
+                <div class="shape-examples">
+                    <p class="eyebrow">Shema slaganja</p>
+                    <div class="shape-examples-grid">
+                        @foreach (var image in layoutImages)
+                        {
+                            <figure class="shape-example">
+                                <img src="@image.ImageUrl" alt="Shema slaganja @shape.Name" loading="lazy">
+                            </figure>
+                        }
+                    </div>
+                </div>
+            }
 
             @if (shape.Examples.Any())
             {

@@ -58,6 +58,11 @@
         <div class="spec-list">
             @foreach (var shape in Model.ReljefneShapes)
             {
+                var reljefneImages = shape.GalleryImages
+                    .Where(g => g.Kind == Plocica.Models.ShapeGalleryImage.KindReljefna)
+                    .OrderBy(g => g.SortOrder)
+                    .ToList();
+
                 <div class="spec-row">
                     <span class="spec-name">@shape.Name</span>
                     <span class="spec-dim">@shape.OtherInfo</span>
@@ -65,6 +70,17 @@
                     @if (!string.IsNullOrEmpty(shape.AvailableColors))
                     {
                         <span class="spec-colors"><span class="spec-label">Boje iz ponude</span>@shape.AvailableColors</span>
+                    }
+                    @if (reljefneImages.Any())
+                    {
+                        <div class="shape-examples-grid spec-gallery">
+                            @foreach (var image in reljefneImages)
+                            {
+                                <figure class="shape-example">
+                                    <img src="@image.ImageUrl" alt="@shape.Name" loading="lazy">
+                                </figure>
+                            }
+                        </div>
                     }
                 </div>
             }

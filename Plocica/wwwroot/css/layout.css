@@ -74,20 +74,6 @@
   transform: translateY(-1px);
 }
 
-/* Nav CTA — sharp corners with the bottom-right corner cut off at rest;
-   hover/focus relax into the normal rounded button (see .btn-cta:hover
-   in tokens.css for the shade change) */
-.nav-cta .btn {
-  border-radius: 0;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-}
-
-.nav-cta .btn:hover,
-.nav-cta .btn:focus-visible {
-  border-radius: var(--radius);
-  clip-path: none;
-}
-
 /* Kolekcije dropdown */
 .nav-dropdown-toggle {
   display: inline-flex;
@@ -132,7 +118,8 @@
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 260px;
+  min-width: 220px;
+  list-style: none;
   background: var(--paper);
   border: 1px solid var(--line);
   padding: var(--space-2) 0;
@@ -163,19 +150,6 @@
   background: var(--paper-2);
 }
 
-.nav-dropdown .num {
-  display: inline-block;
-  width: 1.1em;
-  color: var(--ink-soft);
-  margin-right: 0.5em;
-}
-
-.nav-dropdown-sep {
-  height: 1px;
-  background: var(--line);
-  margin: var(--space-2) var(--space-5);
-}
-
 /* Mobile nav toggle */
 .nav-toggle {
   display: none;
@@ -184,7 +158,7 @@
   width: 44px;
   height: 44px;
   background: none;
-  border: 1px solid var(--ink);
+  border: none;
   padding: 0;
   font: inherit;
   cursor: pointer;
@@ -307,27 +281,88 @@
 
 /* Footer */
 .site-footer {
+  display: flex;
+  align-items: stretch;
+  background: var(--paper-2);
   border-top: 1px solid var(--line);
-  padding: var(--space-9) 0;
-  margin-top: var(--space-10);
+  margin-top: var(--space-6);
 }
 
-.site-footer .container {
+.site-footer > picture {
+  display: block;
+  width: 25%;
+  flex-shrink: 0;
+}
+
+.footer-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.footer-content {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block: var(--space-9);
   font-size: 0.9375rem;
   color: var(--ink-soft);
 }
 
-.footer-logo {
-  height: 56px;
-  width: auto;
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-10);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.footer-social-link {
+  display: inline-flex;
+  color: var(--ink-soft);
+}
+
+.footer-social-link svg {
+  width: 1em;
+  height: 1em;
+}
+
+.footer-note {
+  max-width: 46ch;
+  line-height: 1.6;
+}
+
+.footer-copy {
+  font-size: 0.75rem;
+  opacity: 0.55;
 }
 
 .site-footer a:hover,
 .site-footer a:focus-visible {
   color: var(--ink);
 }
+
+@media (max-width: 860px) {
+  .site-footer > picture {
+    width: calc(100% / 3);
+  }
+}
+

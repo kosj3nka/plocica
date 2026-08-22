@@ -41,9 +41,19 @@
     }
 </section>
 
-<section class="section section-invert">
-    <div class="container cta-row">
-        <h2>Stvorimo nešto zajedno.</h2>
-        <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Javite nam se</a>
+<section class="section section-alt hairline-top">
+    <div class="container">
+        <div class="collection-intro">
+            <div>
+                <p class="eyebrow">Odabir posebnog motiva</p>
+                <h2 style="max-width: 20ch;">Za prostore koji traže više od standardnih rješenja.</h2>
+                <p style="max-width: 54ch; color: var(--ink-soft); font-size: 1.0625rem;">Razvijamo potpuno custom pločice i kolekcije prilagođene projektu. Svaki projekt prolazi zaseban proces razvoja, a rokovi i cijene definiraju se individualno prema kompleksnosti izvedbe.</p>
+            </div>
+            <figure>
+                <img src="~/img/motivCustom.jpg" alt="Ručno oslikane keramičke pločice s ornamentalnim motivom u crvenoj, žutoj i ljubičastoj boji." loading="lazy">
+            </figure>
+        </div>
     </div>
 </section>
+
+@await Html.PartialAsync("_CtaSection", "~/img/rawTiles.jpg")

@@ -71,7 +71,21 @@
   color: var(--ink-soft);
 }
 
+.philosophy-lede {
+  font-size: 1.0625rem;
+}
+
 @media (max-width: 780px) {
   .about-grid { grid-template-columns: 1fr; }
   .about-grid figure { order: -1; }
+}
+
+@media (max-width: 640px) {
+  .about-hero h1 { font-size: clamp(2rem, 9vw, 2.5rem); }
+  .about-hero .lede { font-size: 1rem; }
+  .philosophy-title { font-size: 1.5rem; }
+  .philosophy-lede { font-size: 0.9375rem; }
+  .role-list .role-name { font-size: 1rem; }
+  .role-list p { font-size: 0.9375rem; }
+  .media-row span { font-size: 0.9375rem; }
 }

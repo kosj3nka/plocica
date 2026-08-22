@@ -28,8 +28,27 @@
                     <span class="spec-name">@shape.Name</span>
                     <span class="spec-dim"><span class="spec-label">Dimenzija</span>@shape.Dimensions</span>
                     <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
+                    @if (!string.IsNullOrEmpty(shape.AvailableColors))
+                    {
+                        <span class="spec-colors"><span class="spec-label">Boje iz ponude</span>@shape.AvailableColors</span>
+                    }
                 </div>
             }
+        </div>
+
+        <div class="shape-grid">
+            <div class="shape-tile">
+                <figure><img src="~/img/arabeskk.jpg" alt="Arabesque pločice u tonu clay rose, oblik i instalirani prostor." loading="lazy"></figure>
+                <figcaption>Arabesque</figcaption>
+            </div>
+            <div class="shape-tile">
+                <figure><img src="~/img/oval.jpg" alt="Oval pločice u salvia i pijesak tonovima, oblik i instalirani prostor." loading="lazy"></figure>
+                <figcaption>Oval</figcaption>
+            </div>
+            <div class="shape-tile">
+                <figure><img src="~/img/linea.jpg" alt="Linea pločice u tonu pijeska, oblik i instalirani prostor." loading="lazy"></figure>
+                <figcaption>Linea</figcaption>
+            </div>
         </div>
     </div>
 </section>
@@ -54,9 +73,29 @@
                     <span class="spec-name">@shape.Name</span>
                     <span class="spec-dim"><span class="spec-label">Dimenzija</span>@shape.Dimensions</span>
                     <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
+                    @if (!string.IsNullOrEmpty(shape.AvailableColors))
+                    {
+                        <span class="spec-colors"><span class="spec-label">Boje iz ponude</span>@shape.AvailableColors</span>
+                    }
                 </div>
             }
         </div>
+
+        <div class="shape-grid">
+            <div class="shape-tile">
+                <figure><img src="~/img/wave.jpg" alt="Wave pločice u kombinaciji tamnoplave, senf i crvene, oblik i instalirani prostor." loading="lazy"></figure>
+                <figcaption>Wave</figcaption>
+            </div>
+            <div class="shape-tile">
+                <figure><img src="~/img/module.jpg" alt="Module pločice u kombinaciji tamnoplave i bijele, oblik i instalirani prostor." loading="lazy"></figure>
+                <figcaption>Module</figcaption>
+            </div>
+            <div class="shape-tile">
+                <figure><img src="~/img/curve.jpg" alt="Curve pločice u tonu crvene, oblik i instalirani prostor." loading="lazy"></figure>
+                <figcaption>Curve</figcaption>
+            </div>
+        </div>
+
         <p class="coming-soon-note">Moguće su kombinacije raznih oblika. Zatražite svoju digitalnu skicu. Cijena na upit.</p>
     </div>
 </section>
@@ -81,6 +120,10 @@
                     <span class="spec-name">@shape.Name</span>
                     <span class="spec-dim">@shape.OtherInfo</span>
                     <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
+                    @if (!string.IsNullOrEmpty(shape.AvailableColors))
+                    {
+                        <span class="spec-colors"><span class="spec-label">Boje iz ponude</span>@shape.AvailableColors</span>
+                    }
                 </div>
             }
         </div>
@@ -126,9 +169,4 @@
     </div>
 </section>
 
-<section class="section section-invert">
-    <div class="container cta-row">
-        <h2>Stvorimo nešto zajedno.</h2>
-        <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Javite nam se</a>
-    </div>
-</section>
+@await Html.PartialAsync("_CtaSection", "~/img/rawTiles.jpg")

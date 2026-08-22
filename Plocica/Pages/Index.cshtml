@@ -19,12 +19,26 @@
     </div>
 </section>
 
-<section class="section craft-section section-alt hairline-top hairline-bottom accent-clay">
+<section class="section process-section container">
+    <div class="collection-intro">
+        <div>
+            <p class="eyebrow">Ručni proces</p>
+            <h2 style="max-width: 22ch;">Svaka pločica prolazi kroz ručni proces izrade.</h2>
+            <p style="max-width: 48ch; color: var(--ink-soft); font-size: 1.0625rem;">Male razlike u teksturi i nijansama dio su procesa. To je ono što svaku pločicu čini jedinstvenom.</p>
+        </div>
+        <figure>
+            <img src="~/img/rucnaIzrada.jpg" alt="Ručna izrada keramičke pločice u radionici." loading="lazy">
+        </figure>
+    </div>
+</section>
+
+<section class="section craft-section section-alt accent-clay">
     <div class="container craft-intro">
         <div class="craft-row">
             <div class="craft-copy">
                 <p class="eyebrow">Sudjelovanje u stvaranju</p>
                 <p class="quote">Ne kupujete gotov, generičan proizvod već sudjelujete u procesu stvaranja kroz odabir svakog detalja.</p>
+                <p class="eyebrow" style="margin-top: var(--space-4);">Boja · Finiš · Konačni dojam</p>
             </div>
 
             <div class="craft-process-row">
@@ -36,63 +50,68 @@
     </div>
 </section>
 
+
+
 <section class="section container">
     <h2>Kolekcije</h2>
 
     <div class="collections-grid">
-        <article class="collection-card accent-clay">
+        <a class="collection-card accent-clay" asp-page="/Kolekcije" asp-fragment="oblici">
             <figure>
-                <img src="~/img/mermaid.jpeg" alt="Krupni plan glaziranih pločica u obliku riblje ljuske, u tonovima tirkizne i mente." loading="lazy">
+                <img src="~/img/oblik.jpg" alt="Arabesque izblica rozi." loading="lazy">
             </figure>
             <div class="card-body">
-                
+
                 <h3>Oblici</h3>
                 <p>Ručno rađene pločice dostupne u definiranim oblicima, uz mogućnost odabira boja i završnog finiša.</p>
-                <a class="card-link" asp-page="/Kolekcije" asp-fragment="oblici">@string.Join(" · ", Model.ObliciShapes.Select(s => s.Name))</a>
+                <span class="card-link">@IndexModel.TruncateAtWord(string.Join(" · ", Model.ObliciShapes.Select(s => s.Name)), 60)</span>
             </div>
-        </article>
+        </a>
 
-        <article class="collection-card accent-sage">
+        <a class="collection-card accent-sage" asp-page="/Kolekcije" asp-fragment="oslikane">
             <figure>
                 <img src="~/img/cvijece.jpg" alt="Pločice s ručno oslikanim cvjetnim motivima u više boja." loading="lazy">
             </figure>
             <div class="card-body">
-                
+
                 <h3>Ručno oslikane</h3>
                 <p>Pločice s unaprijed osmišljenim motivima i mogućnošću prilagodbe boje i kombinacije motiva.</p>
-                <a class="card-link" asp-page="/Kolekcije" asp-fragment="oslikane">@string.Join(" · ", Model.OslikaneShapes.Select(s => s.Name))</a>
+                <span class="card-link">@IndexModel.TruncateAtWord(string.Join(" · ", Model.OslikaneShapes.Select(s => s.Name)), 60)</span>
             </div>
-        </article>
+        </a>
 
-        <article class="collection-card accent-sun">
+        <a class="collection-card accent-sun" asp-page="/Kolekcije" asp-fragment="reljefne">
             <figure>
                 <img src="~/img/tekstura.jpg" alt="Krupni plan reljefnih glaziranih pločica u smeđim i zlatnim tonovima." loading="lazy">
             </figure>
             <div class="card-body">
-                
+
                 <h3>Reljefne</h3>
                 <p>Reljefne pločice i kompleksniji projekti za prostore koji traže izrađeniji, autorski pristup.</p>
-                <a class="card-link" asp-page="/Kolekcije" asp-fragment="reljefne">@string.Join(" · ", Model.ReljefneShapes.Select(s => s.Name))</a>
+                <span class="card-link">@IndexModel.TruncateAtWord(string.Join(" · ", Model.ReljefneShapes.Select(s => s.Name)), 60)</span>
             </div>
-        </article>
+        </a>
     </div>
 </section>
 
 
-<section class="section container">
-    <div class="people-teaser">
-        <div>
-            <p class="eyebrow">O nama</p>
-            <h2>Lorena &amp; Mihael</h2>
-            <p>Lorena dolazi iz umjetničkog svijeta i fokus stavlja na formu, boju, kompoziciju i detalje, dok Mihael razvija proizvodni proces i tehničku izvedbu koja omogućuje da svaka ideja zaživi u prostoru.</p>
-            <a class="text-link" asp-page="/ONama">O nama</a>
-        </div>
-        <figure>
-            <img src="~/img/vlasniciHorizontal.jpg" alt="Lorena i Mihael leže na podu prekrivenom šarenim geometrijskim pločicama." loading="lazy">
-        </figure>
+<section class="section-invert about-photo">
+    <img class="about-photo-img" src="~/img/vlasniciHorizontal.jpg" alt="Lorena i Mihael leže na podu prekrivenom šarenim geometrijskim pločicama." loading="lazy">
+    <div class="about-photo-overlay"></div>
+    <div class="container about-photo-content">
+        <p class="eyebrow">O nama</p>
+        <h2>Lorena &amp; Mihael</h2>
+        <p>Kroz spoj kreativnog i tehničkog pristupa razvijamo
+keramičke pločice. <br />
+Lorena dolazi iz umjetničkog svijeta i fokus stavlja na
+formu, boju, kompoziciju i detalje, dok Mihael razvija
+proizvodni proces i tehničku izvedbu koja omogućuje
+da svaka ideja zaživi u prostoru.</p>
     </div>
+</section>
 
-    <div class="craft-process-row">
+<section class="section section-alt" style="padding-top: 0; padding-bottom: 0;">
+    <div class="craft-process-row craft-process-row-compact">
         <img src="~/img/working4.jpg" alt="Nanošenje uzorka glazure sitotiskom na keramičku pločicu." loading="lazy">
         <video class="craft-media" autoplay muted loop playsinline poster="~/img/rukeRade.jpg" id="craft-video">
             <source src="~/img/rucniRadVideo.mp4" type="video/mp4">
@@ -101,12 +120,79 @@
     </div>
 </section>
 
-<section class="section section-invert">
-    <div class="container cta-row">
-        <h2>Stvorimo nešto zajedno.</h2>
-        <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Javite nam se</a>
+<section class="section section-alt hairline-bottom" style="padding-top: var(--space-fluid-lg); padding-bottom: 0;">
+    <div class="container">
+        <h2>Proces narudžbe</h2>
+
+        <ol class="process-list">
+            <li>
+                <span class="num">01</span>
+                <div>
+                    <h3>Odabir vrste pločice – oblika / motiva</h3>
+                </div>
+            </li>
+            <li>
+                <span class="num">02</span>
+                <div>
+                    <h3>Odabir boja i završnog finiša</h3>
+                    <p>Definira se kombinacija boja, tonovi i završna obrada (mat ili sjaj).</p>
+                </div>
+            </li>
+            <li>
+                <span class="num">03</span>
+                <div>
+                    <h3>Ponuda i potvrda</h3>
+                    <p>Na temelju odabira i kvadrature šalje se ponuda.</p>
+                </div>
+            </li>
+            <li>
+                <span class="num">04</span>
+                <div>
+                    <h3>Uplata i početak izrade</h3>
+                    <p>Nakon potvrde i uplate kreće proizvodnja.</p>
+                </div>
+            </li>
+            <li>
+                <span class="num">05</span>
+                <div>
+                    <h3>Isporuka ili preuzimanje</h3>
+                    <p>Pločice su spremne u dogovorenom roku, uz mogućnost dostave ili osobnog preuzimanja.</p>
+                </div>
+            </li>
+            <li class="process-list-note">
+                <p class="coming-soon-note">Okvirni rok: 6–8 tjedana. <br />
+                Okvirni kapacitet: do 15–20 m² u tom roku.
+                <br /> Napomena: radi se o ručnom procesu te rokovi ovise o opsegu projekta.</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="craft-process-row process-order-row" style="margin-top: var(--space-fluid-md);">
+        <img src="~/img/procesGlazure.jpg" alt="Police s ručno pripremljenim glazurama u različitim bojama i teksturama." loading="lazy">
+        <img src="~/img/designing1.jpg" alt="Preslikavanje oblika dizajna na pločicu." loading="lazy">
+        <img src="~/img/procesDetalj.jpg" alt="Odabir završnog finiša i oblika pločice u radionici." loading="lazy">
     </div>
 </section>
+
+<section class="section container" style="padding-top: calc(var(--space-fluid-md) + var(--space-6)); padding-bottom: var(--space-fluid-md);">
+    <div class="custom-spread">
+        <figure class="custom-spread-media">
+            <img src="~/img/lijepiRad.png" alt="Ručno rađene keramičke pločice s cvjetnim motivom." loading="lazy">
+        </figure>
+        <div class="custom-spread-content">
+            <figure class="custom-spread-thumb">
+                <img src="~/img/customArch.jpg" alt="Arhitektonski prostor s custom razvijenim pločicama prilagođenim projektu." loading="lazy">
+            </figure>
+            <div class="custom-spread-text">
+                <p class="eyebrow">Custom projekti</p>
+                <h2 style="max-width: 22ch;">Odabir posebnog motiva</h2>
+                <p style="width: 78%; color: var(--ink-soft); font-size: 1.0625rem;">Za prostore koji traže više od standardnih rješenja razvijamo potpuno custom pločice i kolekcije prilagođene projektu. Svaki projekt prolazi zaseban proces razvoja, a rokovi i cijene definiraju se individualno prema kompleksnosti izvedbe.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("_CtaSection", "~/img/rawTiles.jpg")
 
 @section Scripts {
     <script src="~/js/hero-tiles.js" asp-append-version="true"></script>

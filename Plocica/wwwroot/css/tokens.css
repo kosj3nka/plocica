@@ -46,7 +46,7 @@
 
   /* spacing scale — fluid tiers, for gaps/padding that should ease with viewport width */
   --space-fluid-sm: clamp(1.5rem, 4vw, 2.5rem);
-  --space-fluid-md: clamp(2rem, 5vw, 4rem);
+  --space-fluid-md: clamp(1rem, 3vw, 3rem);
   --space-fluid-lg: clamp(2.5rem, 6vw, 5rem);
   --space-fluid-xl: clamp(3.5rem, 9vw, 8rem);
 
@@ -60,7 +60,9 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
-
+::selection {
+  background-color: #cd8b67;
+}
 body {
   margin: 0;
   background: var(--paper);
@@ -194,16 +196,20 @@ img, video { max-width: 100%; display: block; }
 .btn-cta {
   background: var(--ink);
   color: var(--paper);
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
 }
 
 .btn-cta:hover,
 .btn-cta:focus-visible {
-  background: var(--ink-soft);
-  border-color: var(--ink-soft);
-  box-shadow:
-    inset 0 1px rgba(255, 255, 255, 0.35),
-    0 4px 6px -1px rgba(26, 26, 23, 0.18),
-    0 2px 4px -2px rgba(26, 26, 23, 0.12);
+  background: color-mix(in srgb, var(--ink) 88%, white);
+  border-radius: var(--radius);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+  box-shadow: none;
+}
+
+.btn-cta::before {
+  content: none;
 }
 
 .btn-cta:active {

@@ -160,6 +160,7 @@
 @media (max-width: 860px) {
   .hero { min-height: clamp(22rem, 75vh, 34rem); }
   .plate-frame .plate-img-wrap { height: min(50vh, 440px); }
+  .hero-subline { font-size: 1.25rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -174,9 +175,10 @@
 /* ---------- Craft intro: text + full-ratio video, process photos below ---------- */
 
 /* Tighter than the default .section padding so the paper-2 wash hugs the
-   row instead of leaving a lot of dead air above/below it. */
+   row instead of leaving dead air above/below it; no bottom padding so the
+   pictures sit flush against the section's edge. */
 .craft-section {
-  padding: var(--space-fluid-md) 0;
+  padding: var(--space-fluid-lg) 0 0;
 }
 
 .craft-intro .quote {
@@ -207,7 +209,18 @@
 .craft-process-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  height: min(70vh, 620px);
+  height: min(70vh, 440px);
+  gap: 0;
+}
+
+/* Break out of the surrounding .container so the strip runs edge-to-edge. */
+.craft-intro .craft-process-row {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .craft-process-row img,
@@ -215,13 +228,48 @@
   display: block;
   width: 100%;
   height: 100%;
+  min-height: 0;
   object-fit: cover;
+}
+
+/* Trailing space, used for the standalone working-shots row. Each tile
+   keeps a 3:4 ratio instead of a fixed row height. */
+.craft-process-row-compact {
+  height: auto;
+}
+
+.craft-process-row-compact img,
+.craft-process-row-compact video {
+  height: auto;
+  aspect-ratio: 3 / 4;
 }
 
 @media (max-width: 760px) {
   .craft-process-row { grid-template-columns: 1fr; height: auto; }
   .craft-process-row img,
-  .craft-process-row video { height: min(50vh, 420px); }
+  .craft-process-row video { height: min(40vh, 320px); }
+  .craft-process-row-compact img,
+  .craft-process-row-compact video { height: auto; aspect-ratio: 3 / 4; }
+  .craft-process-row img { object-position: top; }
+  .craft-process-row video { object-position: center; }
+  .craft-intro .craft-process-row img:nth-of-type(2) { object-position: center; }
+
+  .craft-process-row:has(video) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .craft-process-row:has(video) video {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .craft-process-row:has(video) img:nth-of-type(1) {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  .craft-process-row:has(video) img:nth-of-type(2) {
+    grid-row: 2;
+    grid-column: 2;
+  }
 }
 
 /* ---------- Collections cards ---------- */
@@ -230,7 +278,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-7);
-  margin-top: var(--space-fluid-sm);
+  margin-top: 30px;
 }
 
 .collection-card {
@@ -240,7 +288,7 @@
 
 .collection-card figure {
   margin: 0;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border: 1px solid var(--line);
 }
@@ -271,7 +319,6 @@
 .collection-card p {
   color: var(--ink-soft);
   font-size: 0.9375rem;
-  flex: 1;
 }
 
 .collection-card .card-link {
@@ -280,13 +327,8 @@
   letter-spacing: 0.06em;
   border-top: 1px solid var(--line);
   padding-top: var(--space-3);
-  margin-top: var(--space-4);
+  margin-top: var(--space-2);
   display: block;
-}
-
-.collection-card .card-link:hover,
-.collection-card .card-link:focus-visible {
-  color: var(--accent, var(--ink));
 }
 
 @media (max-width: 860px) {
@@ -339,27 +381,39 @@
   .palette-figure img { width: 42%; margin: 0 auto; }
 }
 
-/* ---------- O nama teaser ---------- */
+/* ---------- O nama: full-bleed photo, centered text on a dark overlay ---------- */
 
-.people-teaser {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-fluid-md);
-  align-items: center;
-}
-
-.people-teaser figure {
-  margin: 0;
-  aspect-ratio: 4 / 3;
+/* Photo sits in normal flow at its native ratio (width:100%, height:auto) so
+   the section's height is always exactly the photo's — full width, no crop,
+   no letterboxing. Tint and text are absolutely positioned on top of it. */
+.section-invert.about-photo {
+  position: relative;
   overflow: hidden;
-  border: 1px solid var(--line);
 }
 
-.people-teaser img { width: 100%; height: 100%; object-fit: cover; }
+.about-photo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
-@media (max-width: 860px) {
-  .people-teaser { grid-template-columns: 1fr; }
-  .people-teaser figure { order: -1; }
+.about-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 23, 0.35);
+}
+
+.about-photo-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 42rem;
+  margin-inline: auto;
+  transform: translateY(-8%);
 }
 
 /* ---------- Invertirana CTA traka ---------- */
@@ -367,6 +421,12 @@
 .section-invert {
   background: var(--ink);
   color: var(--paper);
+}
+
+.section-invert.cta-photo {
+  background-image: linear-gradient(rgba(26, 26, 23, 0.5), rgba(26, 26, 23, 0.5)), var(--cta-bg-image);
+  background-size: cover;
+  background-position: center;
 }
 
 .section-invert .eyebrow { color: rgba(242,240,234,0.6); }
@@ -378,6 +438,24 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .section-invert .cta-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+  }
+
+  .section-invert .cta-row h2 {
+    margin-bottom: 0;
+  }
+
+  .section-invert .cta-row .btn-cta {
+    padding: 0.5em 1em;
+    font-size: 0.8125rem;
+  }
 }
 
 .section-invert .btn-cta {
@@ -404,15 +482,43 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--line);
 }
 
 .process-list li {
   display: grid;
   grid-template-columns: 3.5rem 1fr;
+  align-items: center;
   gap: var(--space-6);
   padding: var(--space-6) 0;
   border-bottom: 1px solid var(--line);
+}
+
+.process-list li.process-list-note {
+  display: block;
+  padding: 0;
+  border-bottom: none;
+}
+
+.process-list-note .coming-soon-note {
+  border-top: none;
+}
+
+@media (min-width: 760px) {
+  .process-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+  }
+
+  .process-list li:nth-child(3) {
+    border-bottom: none;
+  }
+
+  .process-list li:nth-child(n+4) {
+    border-left: 1px solid var(--line);
+    padding-left: var(--space-fluid-lg);
+  }
 }
 
 .process-list .num {
@@ -491,6 +597,73 @@
 
 .collection-intro img { width: 100%; height: 100%; object-fit: cover; }
 
+@media (max-width: 860px) {
+  .collection-intro { grid-template-columns: 1fr; }
+}
+
+/* ---------- Custom projekti: tall photo left, floating thumb + copy right ---------- */
+
+.custom-spread {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  gap: var(--space-fluid-lg);
+  align-items: stretch;
+}
+
+.custom-spread-media {
+  margin: 0;
+  width: 75%;
+  justify-self: center;
+  overflow: hidden;
+}
+
+.custom-spread-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.custom-spread-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fluid-md);
+}
+
+.custom-spread-thumb {
+  margin: 0;
+  align-self: flex-start;
+  width: 78%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.custom-spread-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 860px) {
+  .custom-spread { grid-template-columns: 1fr; gap: var(--space-6); }
+
+  .custom-spread-media {
+    width: 100vw;
+    height: 70vw;
+    justify-self: stretch;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .custom-spread-media img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70vw;
+    height: 100vw;
+    max-width: none;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .custom-spread-text { order: 1; }
+  .custom-spread-thumb { order: 2; width: 100%; }
+}
+
 .spec-list {
   border-top: 1px solid var(--line);
 }
@@ -526,6 +699,12 @@
   letter-spacing: 0.06em;
   color: var(--line);
   margin-bottom: 0.35em;
+}
+
+.spec-row .spec-colors {
+  grid-column: 1 / -1;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
 }
 
 @media (min-width: 640px) {
@@ -587,7 +766,7 @@
 
 .shape-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);

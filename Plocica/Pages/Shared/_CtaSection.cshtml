@@ -1,0 +1,10 @@
+@model string?
+@{
+    var hasPhoto = !string.IsNullOrEmpty(Model);
+}
+<section class="section section-invert@(hasPhoto ? " cta-photo" : "")"@(hasPhoto ? Html.Raw($" style=\"--cta-bg-image: url('{Url.Content(Model!)}')\"") : null)>
+    <div class="container cta-row">
+        <h2>Stvorimo nešto zajedno.</h2>
+        <a class="btn btn-cta" href="@SiteLinks.ContactForm" target="_blank" rel="noopener noreferrer">Javite nam se</a>
+    </div>
+</section>

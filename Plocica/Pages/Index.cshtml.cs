@@ -27,4 +27,17 @@ public class IndexModel : PageModel
         OslikaneShapes = _db.Shapes.Where(s => s.Collection == "oslikane").OrderBy(s => s.SortOrder).ToList();
         ReljefneShapes = _db.Shapes.Where(s => s.Collection == "reljefne").OrderBy(s => s.SortOrder).ToList();
     }
+
+    // Caps card-link text at maxLength characters without cutting a word in
+    // half — backs off to the previous word boundary before appending "…".
+    public static string TruncateAtWord(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text) || text.Length <= maxLength) return text;
+
+        var truncated = text.Substring(0, maxLength);
+        var lastSpace = truncated.LastIndexOf(' ');
+        if (lastSpace > 0) truncated = truncated.Substring(0, lastSpace);
+
+        return truncated.TrimEnd(' ', '·') + "…";
+    }
 }

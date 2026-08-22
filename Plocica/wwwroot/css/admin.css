@@ -336,3 +336,39 @@
 .admin-example-field input { max-width: 260px; }
 
 .admin-add-btn { margin-top: 0.75rem; }
+
+/* ---------- Admin gumbi (jednostavni — stilizirana verzija ostaje samo na javnoj stranici) ---------- */
+
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.65em 1.25em;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-spring), background var(--dur-fast) var(--ease-spring);
+}
+
+.admin-btn:hover,
+.admin-btn:focus-visible {
+  border-color: var(--ink);
+  background: var(--paper-2);
+}
+
+.admin-btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.admin-btn-primary:hover,
+.admin-btn-primary:focus-visible {
+  background: color-mix(in srgb, var(--ink) 88%, white);
+  border-color: color-mix(in srgb, var(--ink) 88%, white);
+}

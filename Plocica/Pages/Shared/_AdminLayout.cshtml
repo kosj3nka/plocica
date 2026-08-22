@@ -17,27 +17,19 @@
 <body class="admin-body">
     @if (User.Identity?.IsAuthenticated == true)
     {
-        <header class="admin-header">
-            <div class="admin-header-inner">
-                <a class="admin-brand" asp-page="/Admin/Index">Pločica <span>admin</span></a>
-                <nav class="admin-nav">
-                    <a asp-page="/Admin/Kolekcija/Index">Kolekcija</a>
-                    <a asp-page="/Admin/Boje/Index">Boje</a>
-                    <a asp-page="/Admin/Projekti/Index">Projekti</a>
-                </nav>
-                <div class="admin-header-right">
-                    <a href="/" target="_blank" rel="noopener" class="admin-view-site">Pogledaj stranicu ↗</a>
-                    <form method="post" asp-page="/Admin/Logout">
-                        <button type="submit" class="admin-logout-btn">Odjava</button>
-                    </form>
-                </div>
-            </div>
-        </header>
+        <div class="admin-shell">
+            <partial name="_AdminNav" />
+            <main class="admin-main">
+                @RenderBody()
+            </main>
+        </div>
     }
-
-    <main class="admin-main">
-        @RenderBody()
-    </main>
+    else
+    {
+        <main class="admin-main">
+            @RenderBody()
+        </main>
+    }
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

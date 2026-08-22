@@ -1,0 +1,33 @@
+@{
+    var path = Context.Request.Path.Value ?? string.Empty;
+    bool IsActive(string prefix) => path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase);
+}
+<nav class="admin-sidebar">
+    <a class="admin-sidebar-brand" asp-page="/Admin/Index">Pločica <span>admin</span></a>
+
+    <a class="admin-sidebar-item @(IsActive("/Admin/Kolekcija") ? "active" : "")" asp-page="/Admin/Kolekcija/Index">
+        <partial name="_AdminIcon" model="@("kolekcija")" />
+        <span>Kolekcija</span>
+    </a>
+    <a class="admin-sidebar-item @(IsActive("/Admin/Boje") ? "active" : "")" asp-page="/Admin/Boje/Index">
+        <partial name="_AdminIcon" model="@("boje")" />
+        <span>Boje</span>
+    </a>
+    <a class="admin-sidebar-item @(IsActive("/Admin/Projekti") ? "active" : "")" asp-page="/Admin/Projekti/Index">
+        <partial name="_AdminIcon" model="@("projekti")" />
+        <span>Projekti</span>
+    </a>
+
+    <div class="admin-sidebar-spacer"></div>
+
+    <a href="/" target="_blank" rel="noopener" class="admin-sidebar-item admin-sidebar-view-site">
+        <partial name="_AdminIcon" model="@("external-link")" />
+        <span>Pogledaj stranicu</span>
+    </a>
+    <form method="post" asp-page="/Admin/Logout" class="admin-sidebar-logout-form">
+        <button type="submit" class="admin-sidebar-item admin-sidebar-logout-btn">
+            <partial name="_AdminIcon" model="@("logout")" />
+            <span>Odjava</span>
+        </button>
+    </form>
+</nav>

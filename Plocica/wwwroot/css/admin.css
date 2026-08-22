@@ -584,3 +584,6 @@
   margin-top: 0.4em;
   flex-wrap: wrap;
 }
+
+.admin-color-popover[hidden] { display: none; }
+.icon-btn[hidden] { display: none; }

@@ -27,8 +27,13 @@
     chip.setAttribute("data-code", data.code || "");
     chip.setAttribute("data-image-url", data.imageUrl || "");
     var swatch = chip.querySelector('[data-role="swatch"]');
-    swatch.style.backgroundImage = data.imageUrl ? "url('" + data.imageUrl + "')" : "";
-    swatch.style.background = data.imageUrl ? "" : data.hex;
+    if (data.imageUrl) {
+      swatch.style.background = "";
+      swatch.style.backgroundImage = "url('" + data.imageUrl + "')";
+    } else {
+      swatch.style.backgroundImage = "";
+      swatch.style.background = data.hex;
+    }
     chip.querySelector('[data-role="code-label"]').textContent = data.code;
   }
 
@@ -75,14 +80,15 @@
 
   async function saveColor() {
     if (!activeChip) return;
-    var id = activeChip.getAttribute("data-color-id");
+    var chip = activeChip;
+    var id = chip.getAttribute("data-color-id");
     try {
       var data = await postForm(urlFor("update"), { id: id, hex: hexInput.value, code: codeInput.value });
-      renderChip(activeChip, data);
+      renderChip(chip, data);
       showError("");
     } catch (err) {
-      hexInput.value = activeChip.getAttribute("data-hex");
-      codeInput.value = activeChip.getAttribute("data-code");
+      hexInput.value = chip.getAttribute("data-hex");
+      codeInput.value = chip.getAttribute("data-code");
       showError(err.message);
     }
   }
@@ -98,7 +104,8 @@
 
   photoInput.addEventListener("change", async function () {
     if (!activeChip || !photoInput.files.length) return;
-    var id = activeChip.getAttribute("data-color-id");
+    var chip = activeChip;
+    var id = chip.getAttribute("data-color-id");
     var body = new FormData();
     body.append("__RequestVerificationToken", token);
     body.append("id", id);
@@ -107,7 +114,7 @@
       var res = await fetch(urlFor("update-image"), { method: "POST", body: body });
       var data = await res.json();
       if (!res.ok || !data.ok) throw new Error((data && data.error) || "Greška prilikom uploada.");
-      renderChip(activeChip, data);
+      renderChip(chip, data);
       removePhotoBtn.hidden = false;
       showError("");
     } catch (err) {
@@ -118,10 +125,11 @@
 
   removePhotoBtn.addEventListener("click", async function () {
     if (!activeChip) return;
-    var id = activeChip.getAttribute("data-color-id");
+    var chip = activeChip;
+    var id = chip.getAttribute("data-color-id");
     try {
       var data = await postForm(urlFor("remove-image"), { id: id });
-      renderChip(activeChip, data);
+      renderChip(chip, data);
       removePhotoBtn.hidden = true;
       showError("");
     } catch (err) {

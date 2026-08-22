@@ -4,7 +4,7 @@ using Plocica.Data;
 using Plocica.Models;
 using Plocica.Services;
 
-namespace Plocica.Pages.Admin.Oblici;
+namespace Plocica.Pages.Admin.Kolekcija;
 
 public class IndexModel : PageModel
 {
@@ -17,14 +17,19 @@ public class IndexModel : PageModel
         _blob = blob;
     }
 
-    public List<Shape> Shapes { get; set; } = new();
+    public List<Shape> ObliciShapes { get; set; } = new();
+    public List<Shape> OslikaneShapes { get; set; } = new();
+    public List<Shape> ReljefneShapes { get; set; } = new();
 
     [TempData]
     public string? Message { get; set; }
 
     public void OnGet()
     {
-        Shapes = _db.Shapes.OrderBy(s => s.Collection).ThenBy(s => s.SortOrder).ToList();
+        var shapes = _db.Shapes.OrderBy(s => s.SortOrder).ToList();
+        ObliciShapes = shapes.Where(s => s.Collection == "oblici").ToList();
+        OslikaneShapes = shapes.Where(s => s.Collection == "oslikane").ToList();
+        ReljefneShapes = shapes.Where(s => s.Collection == "reljefne").ToList();
     }
 
     public async Task<IActionResult> OnPostDeleteAsync(int id)
@@ -35,7 +40,7 @@ public class IndexModel : PageModel
             await _blob.DeleteAsync(shape.ImageUrl);
             _db.Shapes.Remove(shape);
             await _db.SaveChangesAsync();
-            Message = $"Oblik \"{shape.Name}\" je obrisan.";
+            Message = $"\"{shape.Name}\" je obrisano.";
         }
 
         return RedirectToPage("Index");

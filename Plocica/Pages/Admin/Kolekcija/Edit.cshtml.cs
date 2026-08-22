@@ -6,7 +6,7 @@ using Plocica.Data;
 using Plocica.Models;
 using Plocica.Services;
 
-namespace Plocica.Pages.Admin.Oblici;
+namespace Plocica.Pages.Admin.Kolekcija;
 
 public class EditModel : PageModel
 {
@@ -31,13 +31,11 @@ public class EditModel : PageModel
         [Required(ErrorMessage = "Unesite naziv.")]
         public string Name { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Odaberite kolekciju.")]
+        [Required(ErrorMessage = "Odaberite kategoriju.")]
         public string Collection { get; set; } = "oblici";
 
         public string? Thickness { get; set; }
         public string? Dimensions { get; set; }
-        public string? LayoutScheme { get; set; }
-        public string? Finish { get; set; }
         public string? AvailableColors { get; set; }
         public string? OtherInfo { get; set; }
         public string? Price { get; set; }
@@ -47,6 +45,12 @@ public class EditModel : PageModel
 
         public List<ExistingExampleInput> ExistingExamples { get; set; } = new();
         public List<NewExampleInput> NewExamples { get; set; } = new();
+
+        public List<ExistingGalleryImageInput> ExistingLayoutImages { get; set; } = new();
+        public List<IFormFile>? NewLayoutImageFiles { get; set; }
+
+        public List<ExistingGalleryImageInput> ExistingReljefneImages { get; set; } = new();
+        public List<IFormFile>? NewReljefneImageFiles { get; set; }
     }
 
     public class ExistingExampleInput
@@ -63,13 +67,24 @@ public class EditModel : PageModel
         public IFormFile? ImageFile { get; set; }
     }
 
+    public class ExistingGalleryImageInput
+    {
+        public int Id { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
+        public int SortOrder { get; set; }
+        public bool Delete { get; set; }
+    }
+
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         Id = id;
 
         if (id is not null)
         {
-            var shape = await _db.Shapes.Include(s => s.Examples).FirstOrDefaultAsync(s => s.Id == id.Value);
+            var shape = await _db.Shapes
+                .Include(s => s.Examples)
+                .Include(s => s.GalleryImages)
+                .FirstOrDefaultAsync(s => s.Id == id.Value);
             if (shape is null)
             {
                 return RedirectToPage("Index");
@@ -81,8 +96,6 @@ public class EditModel : PageModel
                 Collection = shape.Collection,
                 Thickness = shape.Thickness,
                 Dimensions = shape.Dimensions,
-                LayoutScheme = shape.LayoutScheme,
-                Finish = shape.Finish,
                 AvailableColors = shape.AvailableColors,
                 OtherInfo = shape.OtherInfo,
                 Price = shape.Price,
@@ -90,6 +103,16 @@ public class EditModel : PageModel
                 ExistingExamples = shape.Examples
                     .OrderBy(e => e.SortOrder)
                     .Select(e => new ExistingExampleInput { Id = e.Id, Name = e.Name, ImageUrl = e.ImageUrl })
+                    .ToList(),
+                ExistingLayoutImages = shape.GalleryImages
+                    .Where(g => g.Kind == ShapeGalleryImage.KindLayout)
+                    .OrderBy(g => g.SortOrder)
+                    .Select(g => new ExistingGalleryImageInput { Id = g.Id, ImageUrl = g.ImageUrl, SortOrder = g.SortOrder })
+                    .ToList(),
+                ExistingReljefneImages = shape.GalleryImages
+                    .Where(g => g.Kind == ShapeGalleryImage.KindReljefna)
+                    .OrderBy(g => g.SortOrder)
+                    .Select(g => new ExistingGalleryImageInput { Id = g.Id, ImageUrl = g.ImageUrl, SortOrder = g.SortOrder })
                     .ToList(),
             };
             ExistingImageUrl = shape.ImageUrl;
@@ -106,7 +129,10 @@ public class EditModel : PageModel
 
         if (id is not null)
         {
-            shape = await _db.Shapes.Include(s => s.Examples).FirstOrDefaultAsync(s => s.Id == id.Value);
+            shape = await _db.Shapes
+                .Include(s => s.Examples)
+                .Include(s => s.GalleryImages)
+                .FirstOrDefaultAsync(s => s.Id == id.Value);
             if (shape is null)
             {
                 return RedirectToPage("Index");
@@ -171,8 +197,6 @@ public class EditModel : PageModel
         shape.Collection = Input.Collection;
         shape.Thickness = Input.Thickness;
         shape.Dimensions = Input.Dimensions;
-        shape.LayoutScheme = Input.LayoutScheme;
-        shape.Finish = Input.Finish;
         shape.AvailableColors = Input.AvailableColors;
         shape.OtherInfo = Input.OtherInfo;
         shape.Price = Input.Price;
@@ -201,7 +225,7 @@ public class EditModel : PageModel
         }
 
         // Dodavanje novih primjera.
-        var nextSortOrder = shape.Examples.Any() ? shape.Examples.Max(e => e.SortOrder) + 1 : 0;
+        var nextExampleSortOrder = shape.Examples.Any() ? shape.Examples.Max(e => e.SortOrder) + 1 : 0;
 
         foreach (var newExample in Input.NewExamples)
         {
@@ -225,14 +249,81 @@ public class EditModel : PageModel
             {
                 Name = newExample.Name ?? string.Empty,
                 ImageUrl = url,
-                SortOrder = nextSortOrder,
+                SortOrder = nextExampleSortOrder,
             });
-            nextSortOrder++;
+            nextExampleSortOrder++;
+        }
+
+        if (!await TryApplyGalleryAsync(shape, ShapeGalleryImage.KindLayout, Input.ExistingLayoutImages, Input.NewLayoutImageFiles, nameof(Input.NewLayoutImageFiles)))
+        {
+            return Page();
+        }
+
+        if (!await TryApplyGalleryAsync(shape, ShapeGalleryImage.KindReljefna, Input.ExistingReljefneImages, Input.NewReljefneImageFiles, nameof(Input.NewReljefneImageFiles)))
+        {
+            return Page();
         }
 
         await _db.SaveChangesAsync();
 
-        TempData["Message"] = $"Oblik \"{shape.Name}\" je spremljen.";
+        TempData["Message"] = $"\"{shape.Name}\" je spremljeno.";
         return RedirectToPage("Index");
+    }
+
+    private async Task<bool> TryApplyGalleryAsync(
+        Shape shape,
+        string kind,
+        List<ExistingGalleryImageInput> existingImages,
+        List<IFormFile>? newFiles,
+        string newFilesFieldName)
+    {
+        foreach (var existing in existingImages)
+        {
+            var image = shape.GalleryImages.FirstOrDefault(g => g.Id == existing.Id && g.Kind == kind);
+            if (image is null)
+            {
+                continue;
+            }
+
+            if (existing.Delete)
+            {
+                await _blob.DeleteAsync(image.ImageUrl);
+                _db.ShapeGalleryImages.Remove(image);
+            }
+            else
+            {
+                image.SortOrder = existing.SortOrder;
+            }
+        }
+
+        if (newFiles is not null)
+        {
+            var kindImages = shape.GalleryImages.Where(g => g.Kind == kind).ToList();
+            var nextSortOrder = kindImages.Any() ? kindImages.Max(g => g.SortOrder) + 1 : 0;
+
+            foreach (var file in newFiles.Where(f => f.Length > 0))
+            {
+                string url;
+                try
+                {
+                    url = await _blob.UploadAsync(file);
+                }
+                catch (ArgumentException ex)
+                {
+                    ModelState.AddModelError(newFilesFieldName, ex.Message);
+                    return false;
+                }
+
+                shape.GalleryImages.Add(new ShapeGalleryImage
+                {
+                    Kind = kind,
+                    ImageUrl = url,
+                    SortOrder = nextSortOrder,
+                });
+                nextSortOrder++;
+            }
+        }
+
+        return true;
     }
 }

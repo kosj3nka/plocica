@@ -1,0 +1,133 @@
+@page
+@model Plocica.Pages.Admin.Kolekcija.IndexModel
+@{
+    ViewData["Title"] = "Kolekcija";
+}
+
+<div class="admin-container">
+    <div class="admin-list-header">
+        <h1>Kolekcija</h1>
+        <a asp-page="Edit" class="admin-btn admin-btn-primary">Novi</a>
+    </div>
+
+    @if (Model.Message is not null)
+    {
+        <p class="admin-success">@Model.Message</p>
+    }
+
+    <div class="admin-section">
+        <p class="admin-section-label">Oblici</p>
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Naziv</th>
+                        <th>Redoslijed</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shape in Model.ObliciShapes)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(shape.ImageUrl))
+                                {
+                                    <img src="@shape.ImageUrl" alt="" class="admin-thumb" />
+                                }
+                                else
+                                {
+                                    <span class="admin-thumb admin-thumb-empty"></span>
+                                }
+                            </td>
+                            <td>@shape.Name</td>
+                            <td>@shape.SortOrder</td>
+                            <td class="admin-row-actions">
+                                <a asp-page="Edit" asp-route-id="@shape.Id">Uredi</a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@shape.Id" class="admin-delete-form" data-confirm="Obrisati oblik &quot;@shape.Name&quot;?">
+                                    <button type="submit" class="admin-delete-btn">Obriši</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="admin-section">
+        <p class="admin-section-label">Ručno oslikane</p>
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Naziv</th>
+                        <th>Redoslijed</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shape in Model.OslikaneShapes)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(shape.ImageUrl))
+                                {
+                                    <img src="@shape.ImageUrl" alt="" class="admin-thumb" />
+                                }
+                                else
+                                {
+                                    <span class="admin-thumb admin-thumb-empty"></span>
+                                }
+                            </td>
+                            <td>@shape.Name</td>
+                            <td>@shape.SortOrder</td>
+                            <td class="admin-row-actions">
+                                <a asp-page="Edit" asp-route-id="@shape.Id">Uredi</a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@shape.Id" class="admin-delete-form" data-confirm="Obrisati oblik &quot;@shape.Name&quot;?">
+                                    <button type="submit" class="admin-delete-btn">Obriši</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="admin-section">
+        <p class="admin-section-label">Reljefne</p>
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Naziv</th>
+                        <th>Redoslijed</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shape in Model.ReljefneShapes)
+                    {
+                        <tr>
+                            <td>@shape.Name</td>
+                            <td>@shape.SortOrder</td>
+                            <td class="admin-row-actions">
+                                <a asp-page="Edit" asp-route-id="@shape.Id">Uredi</a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@shape.Id" class="admin-delete-form" data-confirm="Obrisati stavku &quot;@shape.Name&quot;?">
+                                    <button type="submit" class="admin-delete-btn">Obriši</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+}

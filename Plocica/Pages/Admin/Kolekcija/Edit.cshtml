@@ -1,0 +1,206 @@
+@page "{id:int?}"
+@model Plocica.Pages.Admin.Kolekcija.EditModel
+@{
+    ViewData["Title"] = Model.Id is null ? "Nova stavka" : "Uredi stavku";
+}
+
+<div class="admin-container">
+    <a class="admin-back" asp-page="Index">← Kolekcija</a>
+    <h1>@(Model.Id is null ? "Nova stavka" : "Uredi stavku")</h1>
+
+    <form method="post" enctype="multipart/form-data" class="admin-form">
+        <div asp-validation-summary="ModelOnly" class="admin-alert"></div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Name">Naziv</label>
+            <input asp-for="Input.Name" />
+            <span asp-validation-for="Input.Name" class="admin-field-error"></span>
+        </div>
+
+        <div class="admin-field">
+            <label>Kategorija</label>
+            <div class="admin-toggle">
+                <label><input type="radio" asp-for="Input.Collection" value="oblici" data-toggle-target="puna" /> Oblici</label>
+                <label><input type="radio" asp-for="Input.Collection" value="oslikane" data-toggle-target="puna" /> Ručno oslikane</label>
+                <label><input type="radio" asp-for="Input.Collection" value="reljefne" data-toggle-target="reljefne" /> Reljefne</label>
+            </div>
+        </div>
+
+        <div class="admin-toggle-panel" data-panel="puna">
+            <div class="admin-field-row">
+                <div class="admin-field">
+                    <label asp-for="Input.Thickness">Debljina</label>
+                    <input asp-for="Input.Thickness" placeholder="npr. 0,8 cm" />
+                </div>
+                <div class="admin-field">
+                    <label asp-for="Input.Dimensions">Dimenzija</label>
+                    <input asp-for="Input.Dimensions" placeholder="npr. 14,5 × 14,5 cm" />
+                </div>
+            </div>
+
+            <div class="admin-field">
+                <label>Skica (ikona u mreži oblika)</label>
+                @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
+                {
+                    <img src="@Model.ExistingImageUrl" alt="" class="admin-thumb-preview" />
+                }
+                <input asp-for="Input.ImageFile" type="file" accept=".jpg,.jpeg,.png,.webp" />
+                <span asp-validation-for="Input.ImageFile" class="admin-field-error"></span>
+                <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB.</p>
+            </div>
+
+            <div class="admin-field">
+                <label>Opća fotografija</label>
+                @if (!string.IsNullOrEmpty(Model.ExistingPhotoUrl))
+                {
+                    <img src="@Model.ExistingPhotoUrl" alt="" class="admin-thumb-preview" />
+                }
+                <input asp-for="Input.PhotoFile" type="file" accept=".jpg,.jpeg,.png,.webp" />
+                <span asp-validation-for="Input.PhotoFile" class="admin-field-error"></span>
+                <p class="admin-hint">Prikazuje se uz tehničke informacije na javnoj stranici. JPG, PNG ili WEBP, do 5 MB.</p>
+            </div>
+
+            <div class="admin-section">
+                <p class="admin-section-label">Shema slaganja</p>
+                <p class="admin-hint">Dodajte jednu ili više fotografija sheme slaganja.</p>
+
+                @if (Model.Input.ExistingLayoutImages.Any())
+                {
+                    <div class="admin-image-list">
+                        @for (var i = 0; i < Model.Input.ExistingLayoutImages.Count; i++)
+                        {
+                            <div class="admin-image-row">
+                                <img src="@Model.Input.ExistingLayoutImages[i].ImageUrl" alt="" class="admin-thumb-preview" />
+                                <input type="hidden" asp-for="Input.ExistingLayoutImages[i].Id" />
+                                <input type="hidden" asp-for="Input.ExistingLayoutImages[i].ImageUrl" />
+                                <label class="admin-image-sort">
+                                    Redoslijed
+                                    <input asp-for="Input.ExistingLayoutImages[i].SortOrder" type="number" />
+                                </label>
+                                <label class="admin-image-delete">
+                                    <input asp-for="Input.ExistingLayoutImages[i].Delete" type="checkbox" /> Obriši
+                                </label>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <div class="admin-field">
+                    <label asp-for="Input.NewLayoutImageFiles">Dodaj fotografije</label>
+                    <input asp-for="Input.NewLayoutImageFiles" type="file" accept=".jpg,.jpeg,.png,.webp" multiple />
+                    <span asp-validation-for="Input.NewLayoutImageFiles" class="admin-field-error"></span>
+                    <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB po slici. Moguć višestruki odabir.</p>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <p class="admin-section-label">Primjeri</p>
+                <p class="admin-hint">Svaki primjer je naziv (npr. "Blue") i fotografija te varijante. Dodajte ih klikom na "+ Dodaj primjer".</p>
+
+                @if (Model.Input.ExistingExamples.Any())
+                {
+                    <div class="admin-example-list" id="existing-example-list">
+                        @for (var i = 0; i < Model.Input.ExistingExamples.Count; i++)
+                        {
+                            <div class="admin-example-row">
+                                <img src="@Model.Input.ExistingExamples[i].ImageUrl" alt="" class="admin-thumb-preview" />
+                                <input type="hidden" asp-for="Input.ExistingExamples[i].Id" />
+                                <input type="hidden" asp-for="Input.ExistingExamples[i].ImageUrl" />
+                                <div class="admin-example-field">
+                                    <label>Naziv</label>
+                                    <input asp-for="Input.ExistingExamples[i].Name" />
+                                </div>
+                                <label class="admin-image-delete">
+                                    <input asp-for="Input.ExistingExamples[i].Delete" type="checkbox" /> Obriši
+                                </label>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <div class="admin-example-list" id="new-example-list"></div>
+
+                <template id="new-example-template">
+                    <div class="admin-example-row admin-new-example-row">
+                        <div class="admin-example-field">
+                            <label>Naziv</label>
+                            <input type="text" class="js-new-example-name" placeholder="npr. Blue" />
+                        </div>
+                        <div class="admin-example-field">
+                            <label>Fotografija</label>
+                            <input type="file" accept=".jpg,.jpeg,.png,.webp" class="js-new-example-file" />
+                        </div>
+                        <button type="button" class="admin-delete-btn js-remove-example-row">Ukloni</button>
+                    </div>
+                </template>
+
+                <button type="button" id="add-example-btn" class="admin-btn admin-add-btn">+ Dodaj primjer</button>
+            </div>
+        </div>
+
+        <div class="admin-toggle-panel" data-panel="reljefne">
+            <div class="admin-field">
+                <label asp-for="Input.AvailableColors">Dostupne boje</label>
+                <input asp-for="Input.AvailableColors" placeholder="npr. vidi Karta boja" />
+            </div>
+
+            <div class="admin-section">
+                <p class="admin-section-label">Fotografije</p>
+                <p class="admin-hint">Dodajte jednu ili više fotografija.</p>
+
+                @if (Model.Input.ExistingReljefneImages.Any())
+                {
+                    <div class="admin-image-list">
+                        @for (var i = 0; i < Model.Input.ExistingReljefneImages.Count; i++)
+                        {
+                            <div class="admin-image-row">
+                                <img src="@Model.Input.ExistingReljefneImages[i].ImageUrl" alt="" class="admin-thumb-preview" />
+                                <input type="hidden" asp-for="Input.ExistingReljefneImages[i].Id" />
+                                <input type="hidden" asp-for="Input.ExistingReljefneImages[i].ImageUrl" />
+                                <label class="admin-image-sort">
+                                    Redoslijed
+                                    <input asp-for="Input.ExistingReljefneImages[i].SortOrder" type="number" />
+                                </label>
+                                <label class="admin-image-delete">
+                                    <input asp-for="Input.ExistingReljefneImages[i].Delete" type="checkbox" /> Obriši
+                                </label>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <div class="admin-field">
+                    <label asp-for="Input.NewReljefneImageFiles">Dodaj fotografije</label>
+                    <input asp-for="Input.NewReljefneImageFiles" type="file" accept=".jpg,.jpeg,.png,.webp" multiple />
+                    <span asp-validation-for="Input.NewReljefneImageFiles" class="admin-field-error"></span>
+                    <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB po slici. Moguć višestruki odabir.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.OtherInfo">Ostali info</label>
+            <textarea asp-for="Input.OtherInfo" rows="3"></textarea>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.Price">Cijena</label>
+            <textarea asp-for="Input.Price" rows="3" placeholder="Više redaka dopušteno"></textarea>
+        </div>
+
+        <div class="admin-field">
+            <label asp-for="Input.SortOrder">Redoslijed</label>
+            <input asp-for="Input.SortOrder" type="number" />
+        </div>
+
+        <div class="admin-actions">
+            <button type="submit" class="admin-btn admin-btn-primary">Spremi</button>
+            <a asp-page="Index" class="admin-btn">Odustani</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin-toggle.js" asp-append-version="true"></script>
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+}

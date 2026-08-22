@@ -278,4 +278,61 @@
   gap: 0.4em;
   font-size: 0.875rem;
   color: var(--glz-clay);
+  white-space: nowrap;
 }
+
+/* ---------- Primjeri oblika (naziv + fotografija, dodaju se dinamički) ---------- */
+
+.admin-section { margin-bottom: 1.75rem; }
+
+.admin-section-label {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  margin: 0 0 0.4rem;
+}
+
+.admin-example-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.admin-example-list:empty { margin-top: 0; }
+
+.admin-example-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+  padding: 0.75rem;
+}
+
+.admin-example-row .admin-thumb-preview {
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.admin-example-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  flex: 1;
+  min-width: 160px;
+}
+
+.admin-example-field label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.admin-example-field input { max-width: 260px; }
+
+.admin-add-btn { margin-top: 0.75rem; }

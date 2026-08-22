@@ -1,0 +1,86 @@
+@model List<Plocica.Models.Shape>
+
+<div class="shape-icon-grid">
+    @foreach (var shape in Model)
+    {
+        <button type="button" class="shape-icon-tile" aria-expanded="false" aria-controls="shape-details-@shape.Id">
+            @if (!string.IsNullOrEmpty(shape.ImageUrl))
+            {
+                <img src="@shape.ImageUrl" alt="@shape.Name oblik" loading="lazy">
+            }
+            else
+            {
+                <div class="shape-icon-empty"></div>
+            }
+            <span class="shape-icon-name">@shape.Name</span>
+        </button>
+    }
+</div>
+
+<div class="shape-details-wrap">
+    @foreach (var shape in Model)
+    {
+        <div class="shape-details" id="shape-details-@shape.Id" hidden>
+            <div class="shape-details-grid">
+                @if (!string.IsNullOrEmpty(shape.PhotoUrl))
+                {
+                    <figure class="shape-details-photo">
+                        <img src="@shape.PhotoUrl" alt="@shape.Name u prostoru" loading="lazy">
+                    </figure>
+                }
+                <div class="shape-details-info">
+                    <p class="eyebrow">Tehničke informacije</p>
+                    <h3>@shape.Name</h3>
+                    <dl class="spec-dl">
+                        @if (!string.IsNullOrEmpty(shape.Thickness))
+                        {
+                            <div><dt>Debljina</dt><dd>@shape.Thickness</dd></div>
+                        }
+                        @if (!string.IsNullOrEmpty(shape.Dimensions))
+                        {
+                            <div><dt>Dimenzija</dt><dd>@shape.Dimensions</dd></div>
+                        }
+                        @if (!string.IsNullOrEmpty(shape.LayoutScheme))
+                        {
+                            <div><dt>Shema slaganja</dt><dd>@shape.LayoutScheme</dd></div>
+                        }
+                        @if (!string.IsNullOrEmpty(shape.Finish))
+                        {
+                            <div><dt>Završna obrada</dt><dd>@shape.Finish</dd></div>
+                        }
+                        @if (!string.IsNullOrEmpty(shape.AvailableColors))
+                        {
+                            <div><dt>Dostupne boje</dt><dd>@shape.AvailableColors</dd></div>
+                        }
+                        @if (!string.IsNullOrEmpty(shape.OtherInfo))
+                        {
+                            <div><dt>Ostale info</dt><dd>@shape.OtherInfo</dd></div>
+                        }
+                        @if (!string.IsNullOrEmpty(shape.Price))
+                        {
+                            <div><dt>Cijena</dt><dd>@shape.Price</dd></div>
+                        }
+                    </dl>
+                </div>
+            </div>
+
+            @if (shape.Examples.Any())
+            {
+                <div class="shape-examples">
+                    <p class="eyebrow">Primjeri</p>
+                    <div class="shape-examples-grid">
+                        @foreach (var example in shape.Examples.OrderBy(e => e.SortOrder))
+                        {
+                            <figure class="shape-example">
+                                <img src="@example.ImageUrl" alt="@example.Name" loading="lazy">
+                                <figcaption>@example.Name</figcaption>
+                            </figure>
+                        }
+                    </div>
+                </div>
+            }
+
+            <button type="button" class="shape-details-close">Zatvori</button>
+        </div>
+    }
+</div>

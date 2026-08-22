@@ -29,7 +29,7 @@ Pravilo: svaka sekcija bira NAJVIŠE jednu glazuru kao accent (npr. numeracija, 
 
 Dvije uloge. Display = grotesk s karakterom (arhitektonski, ide uz logo). Body/tehnika = čist humanist sans.
 
-- **Display:** `Fraunces` u „Soft"/optičkom velikom stanju NE — previše serif/AI-default. Umjesto: **`Archivo`** ili **`Space Grotesk`** za naslove (širok, tehnički grotesk). Preferiraj **Archivo** (ima jaku expanded varijantu za velike naslove).
+- **Display:** `Fraunces` u „Soft"/optičkom velikom stanju NE — previše serif/AI-default. Naslovi koriste **`Fredoka`** — zaobljen, prijateljski grotesk koji omekšava tehnički okvir stranice bez gubitka čitljivosti (zamijenio Archivo, 2026-08).
 - **Body / tehničke informacije:** **`Inter`** ili **`IBM Plex Sans`**. Preferiraj **IBM Plex Sans** — ima inženjerski ton koji paše „tehničkom crtežu", uključujući tabelarne brojke za cijene i dimenzije.
 - Učitaj preko Google Fonts (`display=swap`). Utility/caption: isti Plex u manjem stupnju s `letter-spacing`.
 
@@ -39,7 +39,7 @@ Type scale (desktop): hero display clamp(3.5rem, 8vw, 7rem); H2 clamp(2rem,4vw,3
 
 - Široki vanjski margini, sadržaj u gridu s **vidljivim hairline linijama** kao na nacrtu (tanke `--line` granice između redaka spec tablica, oko kartica boja).
 - Numeracija je stvarna: boje `001–028`, kolekcije `01/02/03`, proces narudžbe `01–05`. Koristi tabelarne brojke.
-- Border-radius: minimalan. 0 za tehničke elemente; blagi 2–4px samo na fotkama ako treba.
+- Border-radius: samo na gumbima (`--radius: 10px`), blago zaobljen. Fotke, kartice i ostali elementi ostaju oštrih uglova s hairline linijom — bez border-radiusa, sjena ili dekorativnih ikona (promjena 2026-08: kartice kolekcija na naslovnici usklađene s ravnim stilom kataloga).
 - Karta boja: grid kvadrata (7 u redu na desktopu, 3–4 na mobitelu), svaki s brojem ispod — točno kao katalog str. 7.
 
 ## Signature element

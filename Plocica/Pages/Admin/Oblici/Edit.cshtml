@@ -68,7 +68,7 @@
         </div>
 
         <div class="admin-field">
-            <label>Slika</label>
+            <label>Slika (ikona u mreži oblika)</label>
             @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
             {
                 <img src="@Model.ExistingImageUrl" alt="" class="admin-thumb-preview" />
@@ -78,9 +78,68 @@
             <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB.</p>
         </div>
 
+        <div class="admin-field">
+            <label>Opća fotografija</label>
+            @if (!string.IsNullOrEmpty(Model.ExistingPhotoUrl))
+            {
+                <img src="@Model.ExistingPhotoUrl" alt="" class="admin-thumb-preview" />
+            }
+            <input asp-for="Input.PhotoFile" type="file" accept=".jpg,.jpeg,.png,.webp" />
+            <span asp-validation-for="Input.PhotoFile" class="admin-field-error"></span>
+            <p class="admin-hint">Prikazuje se uz tehničke informacije na javnoj stranici. JPG, PNG ili WEBP, do 5 MB.</p>
+        </div>
+
+        <div class="admin-section">
+            <p class="admin-section-label">Primjeri</p>
+            <p class="admin-hint">Svaki primjer je naziv (npr. "Blue") i fotografija te varijante. Dodajte ih klikom na "+ Dodaj primjer".</p>
+
+            @if (Model.Input.ExistingExamples.Any())
+            {
+                <div class="admin-example-list" id="existing-example-list">
+                    @for (var i = 0; i < Model.Input.ExistingExamples.Count; i++)
+                    {
+                        <div class="admin-example-row">
+                            <img src="@Model.Input.ExistingExamples[i].ImageUrl" alt="" class="admin-thumb-preview" />
+                            <input type="hidden" asp-for="Input.ExistingExamples[i].Id" />
+                            <input type="hidden" asp-for="Input.ExistingExamples[i].ImageUrl" />
+                            <div class="admin-example-field">
+                                <label>Naziv</label>
+                                <input asp-for="Input.ExistingExamples[i].Name" />
+                            </div>
+                            <label class="admin-image-delete">
+                                <input asp-for="Input.ExistingExamples[i].Delete" type="checkbox" /> Obriši
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="admin-example-list" id="new-example-list"></div>
+
+            <template id="new-example-template">
+                <div class="admin-example-row admin-new-example-row">
+                    <div class="admin-example-field">
+                        <label>Naziv</label>
+                        <input type="text" class="js-new-example-name" placeholder="npr. Blue" />
+                    </div>
+                    <div class="admin-example-field">
+                        <label>Fotografija</label>
+                        <input type="file" accept=".jpg,.jpeg,.png,.webp" class="js-new-example-file" />
+                    </div>
+                    <button type="button" class="admin-delete-btn js-remove-example-row">Ukloni</button>
+                </div>
+            </template>
+
+            <button type="button" id="add-example-btn" class="btn admin-add-btn">+ Dodaj primjer</button>
+        </div>
+
         <div class="admin-actions">
             <button type="submit" class="btn btn-cta">Spremi</button>
             <a asp-page="Index" class="btn">Odustani</a>
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+}

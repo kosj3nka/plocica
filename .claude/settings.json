@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p .azurite)",
+      "Bash(azurite --silent --location .azurite --debug .azurite/debug.log)",
+      "Bash(powershell -NoProfile -Command \"Get-NetTCPConnection -LocalPort 5003 -ErrorAction SilentlyContinue\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5003/)"
+    ]
+  }
+}

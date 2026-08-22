@@ -4,8 +4,12 @@
     ViewData["Title"] = "Kolekcije";
 }
 
-<section class="section container">
-    <h1>Kolekcije</h1>
+<section class="section-invert about-photo heading-photo">
+    <img class="about-photo-img" src="~/img/kolekcije.jpg" alt="Police s ručno rađenim keramičkim pločicama u raznim bojama i oblicima." loading="lazy">
+    <div class="about-photo-overlay"></div>
+    <div class="container about-photo-content heading-photo-content">
+        <h1>Kolekcije</h1>
+    </div>
 </section>
 
 <section id="oblici" class="section section-alt hairline-top hairline-bottom accent-clay">
@@ -16,40 +20,10 @@
                 <h2>Oblici</h2>
                 <p style="color: var(--ink-soft);">Ručno rađene pločice dostupne u definiranim oblicima, uz mogućnost odabira boja i završnog finiša. Zbog procesa ručne izrade moguće su manje varijacije u dimenzijama i nijansi.</p>
             </div>
-            <figure>
-                <img src="~/img/mermaid.jpeg" alt="Krupni plan glaziranih pločica u obliku riblje ljuske, u tonovima tirkizne i mente." loading="lazy">
-            </figure>
+        
         </div>
 
-        <div class="spec-list">
-            @foreach (var shape in Model.ObliciShapes)
-            {
-                <div class="spec-row">
-                    <span class="spec-name">@shape.Name</span>
-                    <span class="spec-dim"><span class="spec-label">Dimenzija</span>@shape.Dimensions</span>
-                    <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
-                    @if (!string.IsNullOrEmpty(shape.AvailableColors))
-                    {
-                        <span class="spec-colors"><span class="spec-label">Boje iz ponude</span>@shape.AvailableColors</span>
-                    }
-                </div>
-            }
-        </div>
-
-        <div class="shape-grid">
-            <div class="shape-tile">
-                <figure><img src="~/img/arabeskk.jpg" alt="Arabesque pločice u tonu clay rose, oblik i instalirani prostor." loading="lazy"></figure>
-                <figcaption>Arabesque</figcaption>
-            </div>
-            <div class="shape-tile">
-                <figure><img src="~/img/oval.jpg" alt="Oval pločice u salvia i pijesak tonovima, oblik i instalirani prostor." loading="lazy"></figure>
-                <figcaption>Oval</figcaption>
-            </div>
-            <div class="shape-tile">
-                <figure><img src="~/img/linea.jpg" alt="Linea pločice u tonu pijeska, oblik i instalirani prostor." loading="lazy"></figure>
-                <figcaption>Linea</figcaption>
-            </div>
-        </div>
+        @await Html.PartialAsync("_ShapeGrid", Model.ObliciShapes)
     </div>
 </section>
 
@@ -61,40 +35,10 @@
                 <h2>Ručno oslikane</h2>
                 <p style="color: var(--ink-soft);">Pločice s unaprijed osmišljenim motivima i mogućnošću prilagodbe boje i kombinacije motiva. Svaka pločica oslikava se s posebnom pažnjom, ručno, dio po dio, boja po boja.</p>
             </div>
-            <figure>
-                <img src="~/img/cvijece.jpg" alt="Pločice s ručno oslikanim cvjetnim motivima u više boja." loading="lazy">
-            </figure>
+         
         </div>
 
-        <div class="spec-list">
-            @foreach (var shape in Model.OslikaneShapes)
-            {
-                <div class="spec-row">
-                    <span class="spec-name">@shape.Name</span>
-                    <span class="spec-dim"><span class="spec-label">Dimenzija</span>@shape.Dimensions</span>
-                    <span class="spec-price"><span class="spec-label">Cijena</span>@shape.Price</span>
-                    @if (!string.IsNullOrEmpty(shape.AvailableColors))
-                    {
-                        <span class="spec-colors"><span class="spec-label">Boje iz ponude</span>@shape.AvailableColors</span>
-                    }
-                </div>
-            }
-        </div>
-
-        <div class="shape-grid">
-            <div class="shape-tile">
-                <figure><img src="~/img/wave.jpg" alt="Wave pločice u kombinaciji tamnoplave, senf i crvene, oblik i instalirani prostor." loading="lazy"></figure>
-                <figcaption>Wave</figcaption>
-            </div>
-            <div class="shape-tile">
-                <figure><img src="~/img/module.jpg" alt="Module pločice u kombinaciji tamnoplave i bijele, oblik i instalirani prostor." loading="lazy"></figure>
-                <figcaption>Module</figcaption>
-            </div>
-            <div class="shape-tile">
-                <figure><img src="~/img/curve.jpg" alt="Curve pločice u tonu crvene, oblik i instalirani prostor." loading="lazy"></figure>
-                <figcaption>Curve</figcaption>
-            </div>
-        </div>
+        @await Html.PartialAsync("_ShapeGrid", Model.OslikaneShapes)
 
         <p class="coming-soon-note">Moguće su kombinacije raznih oblika. Zatražite svoju digitalnu skicu. Cijena na upit.</p>
     </div>
@@ -108,9 +52,7 @@
                 <h2>Reljefne pločice</h2>
                 <p style="color: var(--ink-soft);">Reljefne pločice i kompleksniji projekti za prostore koji traže izrađeniji, autorski pristup.</p>
             </div>
-            <figure>
-                <img src="~/img/tekstura.jpg" alt="Krupni plan reljefnih glaziranih pločica u smeđim i zlatnim tonovima." loading="lazy">
-            </figure>
+         
         </div>
 
         <div class="spec-list">
@@ -170,3 +112,7 @@
 </section>
 
 @await Html.PartialAsync("_CtaSection", "~/img/rawTiles.jpg")
+
+@section Scripts {
+    <script src="~/js/shape-details.js" asp-append-version="true"></script>
+}

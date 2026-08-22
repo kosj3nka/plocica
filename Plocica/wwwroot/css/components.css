@@ -429,6 +429,10 @@
   background-position: center;
 }
 
+.heading-photo-content {
+  transform: none;
+}
+
 .section-invert .eyebrow { color: rgba(242,240,234,0.6); }
 .section-invert h2 { color: var(--paper); }
 
@@ -762,32 +766,152 @@
   color: var(--line);
 }
 
-/* ---------- Kolekcije gallery stub ---------- */
+/* ---------- Kolekcije: oblik ikone + naziv ---------- */
 
-.shape-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+.shape-icon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-fluid-md) var(--space-fluid-lg);
   margin-top: var(--space-6);
 }
 
-.shape-tile {
-  background: var(--paper);
+.shape-icon-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 9rem;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
 }
 
-.shape-tile figure {
-  margin: 0;
+.shape-icon-tile img,
+.shape-icon-empty {
+  width: 100%;
   aspect-ratio: 1;
-  overflow: hidden;
 }
 
-.shape-tile img { width: 100%; height: 100%; object-fit: cover; }
+.shape-icon-tile img { object-fit: contain; }
 
-.shape-tile figcaption {
-  padding: var(--space-3) var(--space-4);
-  font-size: 0.875rem;
+.shape-icon-empty {
+  border: 1px dashed var(--line);
+  background: var(--paper-2);
+}
+
+.shape-icon-name {
+  margin-top: var(--space-4);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  transition: color 0.15s ease;
+}
+
+.shape-icon-tile:hover .shape-icon-name,
+.shape-icon-tile.is-active .shape-icon-name {
+  color: var(--ink);
+}
+
+/* ---------- Kolekcije: tehničke informacije + primjeri (otvara se klikom na oblik) ---------- */
+
+.shape-details-wrap:has(.shape-details:not([hidden])) {
+  margin-top: var(--space-fluid-sm);
+}
+
+.shape-details {
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-fluid-sm);
+  margin-top: var(--space-6);
+}
+
+.shape-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-fluid-md);
+  align-items: start;
+}
+
+.shape-details-photo {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.shape-details-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.shape-details-info h3 { margin-bottom: var(--space-4); }
+
+.spec-dl { margin: 0; }
+
+.spec-dl > div {
+  display: grid;
+  grid-template-columns: 11ch 1fr;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.spec-dl dt {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.spec-dl dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  white-space: pre-line;
+}
+
+.shape-examples { margin-top: var(--space-fluid-md); }
+
+.shape-examples-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.shape-example {
+  margin: 0;
+  width: 8rem;
+}
+
+.shape-example img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.shape-example figcaption {
+  margin-top: var(--space-3);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+.shape-details-close {
+  margin-top: var(--space-6);
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.shape-details-close:hover { color: var(--ink); }
+
+@media (max-width: 780px) {
+  .shape-details-grid { grid-template-columns: 1fr; }
 }
 
 .coming-soon-note {

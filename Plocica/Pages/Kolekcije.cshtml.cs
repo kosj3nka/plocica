@@ -21,9 +21,10 @@ public class KolekcijeModel : PageModel
 
     public void OnGet()
     {
-        ObliciShapes = _db.Shapes.Where(s => s.Collection == "oblici").OrderBy(s => s.SortOrder).ToList();
-        OslikaneShapes = _db.Shapes.Where(s => s.Collection == "oslikane").OrderBy(s => s.SortOrder).ToList();
-        ReljefneShapes = _db.Shapes.Where(s => s.Collection == "reljefne").OrderBy(s => s.SortOrder).ToList();
+        var shapes = _db.Shapes.Include(s => s.Examples);
+        ObliciShapes = shapes.Where(s => s.Collection == "oblici").OrderBy(s => s.SortOrder).ToList();
+        OslikaneShapes = shapes.Where(s => s.Collection == "oslikane").OrderBy(s => s.SortOrder).ToList();
+        ReljefneShapes = shapes.Where(s => s.Collection == "reljefne").OrderBy(s => s.SortOrder).ToList();
         Colors = _db.Colors.OrderBy(c => c.SortOrder).ToList();
     }
 }

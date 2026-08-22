@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Plocica.Models;
 
 public class Shape
@@ -5,8 +7,12 @@ public class Shape
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;      // "Arabesque"
     public string Collection { get; set; } = string.Empty; // "oblici" | "oslikane" | "reljefne"
-    public string? Thickness { get; set; }                 // debljina, npr. "0,8 cm"
-    public string? Dimensions { get; set; }                 // dimenzija, npr. "14,5 × 14,5 cm"
+    [Column(TypeName = "decimal(6,2)")]
+    public decimal? Thickness { get; set; }                 // debljina, u cm
+    [Column(TypeName = "decimal(6,2)")]
+    public decimal? DimensionHeight { get; set; }            // visina, u cm
+    [Column(TypeName = "decimal(6,2)")]
+    public decimal? DimensionWidth { get; set; }              // širina, u cm
     public string? ImageUrl { get; set; }                    // individualna slika (Blob URL) — ikona u mreži oblika
     public string? PhotoUrl { get; set; }                     // opća fotografija (Blob URL) — prikaz u tehničkim informacijama
     public string? AvailableColors { get; set; }               // dostupne boje — koristi samo kategorija "reljefne"

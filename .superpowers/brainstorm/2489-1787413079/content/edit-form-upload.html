@@ -1,0 +1,108 @@
+<style>
+  .ef-wrap { font-family: "PT Sans Narrow", sans-serif; background:#F2F0EA; padding:28px 32px; border:1px solid #C9C4B8; border-radius:10px; }
+  .ef-back { font-size:0.85rem; color:#55534C; text-decoration:underline; }
+  .ef-title { margin:6px 0 22px; font-size:1.7rem; color:#1A1A17; }
+  .ef-field { margin-bottom:18px; max-width:420px; }
+  .ef-label { display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; color:#55534C; margin-bottom:6px; }
+  .ef-input { width:100%; padding:9px 12px; border:1px solid #C9C4B8; border-radius:7px; background:#fff; font-family:inherit; font-size:0.95rem; color:#1A1A17; }
+
+  .dropzone {
+    border: 2px dashed #C9C4B8;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    max-width: 420px;
+  }
+  .dropzone .thumb {
+    width: 72px; height: 72px; border-radius: 8px; object-fit: cover;
+    background: #E9E6DD; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    color:#55534C;
+  }
+  .dropzone .thumb svg { width:28px; height:28px; }
+  .dropzone .dz-text { font-size:0.85rem; color:#55534C; }
+  .dropzone .dz-text b { color:#1A1A17; }
+
+  .img-rows { max-width: 520px; display:flex; flex-direction:column; gap:8px; margin-top:6px; }
+  .img-row {
+    display:flex; align-items:center; gap:12px;
+    background:#fff; border:1px solid #C9C4B8; border-radius:8px; padding:8px 10px;
+  }
+  .img-row img { width:44px; height:44px; border-radius:6px; object-fit:cover; }
+  .img-row .order { width:48px; padding:5px 6px; border:1px solid #C9C4B8; border-radius:6px; font-size:0.85rem; text-align:center; }
+  .img-row .fname { flex:1; font-size:0.85rem; color:#1A1A17; }
+  .icon-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 10px; border-radius: 7px; border: 1px solid #C9C4B8;
+    background: transparent; color: #1A1A17; font-size: 0.82rem; cursor: pointer;
+  }
+  .icon-btn svg { width: 14px; height: 14px; }
+  .icon-btn.danger { border-color: #C06B4A; color: #C06B4A; }
+  .icon-btn.ghost { border:none; padding:6px; }
+  .ef-actions { margin-top:26px; display:flex; gap:10px; }
+  .icon-btn.primary { background:#1A1A17; border-color:#1A1A17; color:#F2F0EA; padding:9px 16px; }
+</style>
+
+<h2>Edit form — image upload with live preview + tidied image rows</h2>
+<p class="subtitle">Same pattern would apply to Boje (single image), Kolekcija (cover + examples), and Projekti (gallery). Selecting a new file shows an instant thumbnail preview via JS instead of only showing the file name.</p>
+
+<div class="mockup">
+  <div class="mockup-body" style="padding:0">
+    <div class="ef-wrap">
+      <a class="ef-back">← Boje</a>
+      <h2 class="ef-title">Uredi boju</h2>
+
+      <div class="ef-field">
+        <label class="ef-label">Kod</label>
+        <input class="ef-input" value="001" />
+      </div>
+      <div class="ef-field">
+        <label class="ef-label">Naziv</label>
+        <input class="ef-input" value="Terakota" />
+      </div>
+
+      <div class="ef-field">
+        <label class="ef-label">Slika / uzorak</label>
+        <div class="dropzone">
+          <div class="thumb"><img src="" style="display:none" /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="dz-text"><b>Povuci sliku ovdje</b> ili klikni za odabir<br/>PNG/JPG, preporučeno 400×400</div>
+        </div>
+      </div>
+
+      <div class="ef-field" style="max-width:520px">
+        <label class="ef-label">Galerija primjera</label>
+        <div class="img-rows">
+          <div class="img-row">
+            <img src="https://images.unsplash.com/photo-1615529162924-f8605388461d?w=100&h=100&fit=crop" />
+            <span class="fname">primjer-1.jpg</span>
+            <input class="order" value="1" />
+            <button class="icon-btn danger ghost" title="Ukloni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+          </div>
+          <div class="img-row">
+            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=100&h=100&fit=crop" />
+            <span class="fname">primjer-2.jpg</span>
+            <input class="order" value="2" />
+            <button class="icon-btn danger ghost" title="Ukloni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+          </div>
+        </div>
+        <button class="icon-btn" style="margin-top:10px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Dodaj primjer
+        </button>
+      </div>
+
+      <div class="ef-actions">
+        <button class="icon-btn primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+          Spremi
+        </button>
+        <button class="icon-btn">Odustani</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="section">This covers: drag-drop + click-to-browse dropzone with live preview, compact image-row list (thumbnail + filename + order + remove icon) replacing the current plain file-input + checkbox pattern, and icon-labeled Save/Cancel. Sound right, or want changes before I lock in the full spec?</p>

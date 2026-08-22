@@ -34,8 +34,9 @@ public class EditModel : PageModel
         [Required(ErrorMessage = "Odaberite kategoriju.")]
         public string Collection { get; set; } = "oblici";
 
-        public string? Thickness { get; set; }
-        public string? Dimensions { get; set; }
+        public decimal? Thickness { get; set; }
+        public decimal? DimensionHeight { get; set; }
+        public decimal? DimensionWidth { get; set; }
         public string? AvailableColors { get; set; }
         public string? OtherInfo { get; set; }
         public string? Price { get; set; }
@@ -95,7 +96,8 @@ public class EditModel : PageModel
                 Name = shape.Name,
                 Collection = shape.Collection,
                 Thickness = shape.Thickness,
-                Dimensions = shape.Dimensions,
+                DimensionHeight = shape.DimensionHeight,
+                DimensionWidth = shape.DimensionWidth,
                 AvailableColors = shape.AvailableColors,
                 OtherInfo = shape.OtherInfo,
                 Price = shape.Price,
@@ -196,7 +198,8 @@ public class EditModel : PageModel
         shape.Name = Input.Name;
         shape.Collection = Input.Collection;
         shape.Thickness = Input.Thickness;
-        shape.Dimensions = Input.Dimensions;
+        shape.DimensionHeight = Input.DimensionHeight;
+        shape.DimensionWidth = Input.DimensionWidth;
         shape.AvailableColors = Input.AvailableColors;
         shape.OtherInfo = Input.OtherInfo;
         shape.Price = Input.Price;

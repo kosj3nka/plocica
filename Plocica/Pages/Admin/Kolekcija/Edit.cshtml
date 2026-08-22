@@ -29,12 +29,16 @@
         <div class="admin-toggle-panel" data-panel="puna">
             <div class="admin-field-row">
                 <div class="admin-field">
-                    <label asp-for="Input.Thickness">Debljina</label>
-                    <input asp-for="Input.Thickness" placeholder="npr. 0,8 cm" />
+                    <label asp-for="Input.Thickness">Debljina (cm)</label>
+                    <input asp-for="Input.Thickness" type="number" step="0.1" min="0" />
                 </div>
                 <div class="admin-field">
-                    <label asp-for="Input.Dimensions">Dimenzija</label>
-                    <input asp-for="Input.Dimensions" placeholder="npr. 14,5 × 14,5 cm" />
+                    <label asp-for="Input.DimensionHeight">Visina (cm)</label>
+                    <input asp-for="Input.DimensionHeight" type="number" step="0.1" min="0" />
+                </div>
+                <div class="admin-field">
+                    <label asp-for="Input.DimensionWidth">Širina (cm)</label>
+                    <input asp-for="Input.DimensionWidth" type="number" step="0.1" min="0" />
                 </div>
             </div>
 

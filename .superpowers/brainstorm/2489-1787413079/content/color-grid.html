@@ -1,0 +1,122 @@
+<style>
+  .cg-wrap { font-family: "PT Sans Narrow", sans-serif; background:#F2F0EA; padding:28px 32px; border:1px solid #C9C4B8; border-radius:10px; }
+  .cg-title { margin:0 0 4px; font-size:1.7rem; color:#1A1A17; }
+  .cg-sub { font-size:0.85rem; color:#55534C; margin-bottom:20px; }
+
+  .admin-color-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #C9C4B8;
+    border: 1px solid #C9C4B8;
+    max-width: 640px;
+  }
+  .admin-color-chip {
+    aspect-ratio: 1;
+    background: #F2F0EA;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.5em;
+    position: relative;
+    cursor: pointer;
+  }
+  .admin-color-chip .swatch {
+    flex: 1;
+    margin-bottom: 0.5em;
+    border-radius: 3px;
+  }
+  .admin-color-chip .code {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.7rem;
+    color: #55534C;
+  }
+  .del-x {
+    position: absolute; top: 4px; right: 4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #1A1A17; color: #F2F0EA;
+    display: none; align-items: center; justify-content: center;
+    font-size: 10px; line-height: 1;
+  }
+  .admin-color-chip:hover .del-x { display: flex; }
+
+  .add-chip {
+    aspect-ratio: 1;
+    background: #F2F0EA;
+    border: 1px dashed #C9C4B8;
+    display: flex; align-items: center; justify-content: center;
+    color: #55534C; cursor: pointer;
+  }
+  .add-chip svg { width: 22px; height: 22px; }
+  .add-chip:hover { background: #E9E6DD; color: #1A1A17; }
+
+  .picker-pop {
+    position: absolute;
+    top: 50%; left: 105%;
+    background: #fff;
+    border: 1px solid #C9C4B8;
+    border-radius: 10px;
+    padding: 14px;
+    width: 200px;
+    box-shadow: 0 8px 20px rgba(26,26,23,0.15);
+    z-index: 5;
+  }
+  .picker-pop .pp-label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:#55534C; margin-bottom:6px; display:block; }
+  .picker-pop input[type=color] { width:100%; height:36px; border:1px solid #C9C4B8; border-radius:6px; padding:2px; margin-bottom:10px; }
+  .picker-pop input[type=text] { width:100%; padding:7px 9px; border:1px solid #C9C4B8; border-radius:6px; font-family:inherit; }
+</style>
+
+<h2>Boje — direct-edit grid (replaces the list + edit-form pages)</h2>
+<p class="subtitle">Same 7-column grid as the public "Karta boja" section. Each cell only carries a code + a color. Click a cell to open an inline picker; the last cell is always a dashed "+" to add a new one.</p>
+
+<div class="mockup">
+  <div class="mockup-body" style="padding:0">
+    <div class="cg-wrap">
+      <h2 class="cg-title">Boje</h2>
+      <p class="cg-sub">Klikni ćeliju za promjenu boje. Klikni + za dodavanje nove.</p>
+
+      <div class="admin-color-grid">
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#C06B4A"></div><span class="code">001</span></div>
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#7C8A5B"></div><span class="code">002</span></div>
+        <div class="admin-color-chip" style="position:relative">
+          <div class="del-x">×</div>
+          <div class="swatch" style="background:#2E3A56; outline:2px solid #1A1A17; outline-offset:2px;"></div>
+          <span class="code">003</span>
+          <div class="picker-pop">
+            <label class="pp-label">Boja</label>
+            <input type="color" value="#2E3A56" />
+            <label class="pp-label">Kod</label>
+            <input type="text" value="003" />
+          </div>
+        </div>
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#E3B23C"></div><span class="code">004</span></div>
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#C98A94"></div><span class="code">005</span></div>
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#8B7355"></div><span class="code">006</span></div>
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#4A4A45"></div><span class="code">007</span></div>
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#D9CBB8"></div><span class="code">008</span></div>
+        <div class="admin-color-chip"><div class="del-x">×</div><div class="swatch" style="background:#9CAF88"></div><span class="code">009</span></div>
+        <div class="add-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="section">The picker on chip 003 is shown open as an example (native color input + code field, small popover anchored to the cell). Hovering a chip reveals a small × to delete it. Two things I need to confirm:</p>
+<div class="options">
+  <div class="option" data-choice="hex-only" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Hex-only colors</h3>
+      <p>Drop the old "upload a photo instead of a color" option and the separate Name field entirely — every color is just a code + a picked hex value, matching what you described.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="hex-plus-image" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Hex + optional photo override</h3>
+      <p>Keep the picker as the primary way to set a color, but let a cell optionally hold an uploaded photo instead (for textured/glazed colors a flat hex can't represent) — small camera icon in the popover as a secondary action.</p>
+    </div>
+  </div>
+</div>

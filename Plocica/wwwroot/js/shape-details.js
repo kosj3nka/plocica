@@ -29,9 +29,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     });
-
-    scope.querySelectorAll(".shape-details-close").forEach(function (btn) {
-      btn.addEventListener("click", closeAll);
-    });
   });
 });

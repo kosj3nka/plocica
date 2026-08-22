@@ -30,7 +30,7 @@ public static class DbInitializer
     private static IEnumerable<Shape> GetShapes()
     {
         const string obliciOtherInfo = "Zbog procesa ručne izrade moguće su manje varijacije u dimenzijama i nijansi.";
-        const string thickness = "0,8 cm";
+        const decimal thickness = 0.8m;
 
         return new List<Shape>
         {
@@ -39,7 +39,8 @@ public static class DbInitializer
                 Name = "Arabesque",
                 Collection = "oblici",
                 Thickness = thickness,
-                Dimensions = "14,5 × 14,5 cm",
+                DimensionHeight = 14.5m,
+                DimensionWidth = 14.5m,
                 AvailableColors = "Warm Sun, Aqua, Moss, Indigo Gold, Sour Cherry, Clay Rose",
                 OtherInfo = obliciOtherInfo,
                 Price = "300 € / m²",
@@ -50,7 +51,8 @@ public static class DbInitializer
                 Name = "Oval",
                 Collection = "oblici",
                 Thickness = thickness,
-                Dimensions = "17,5 × 5,3 cm",
+                DimensionHeight = 17.5m,
+                DimensionWidth = 5.3m,
                 AvailableColors = "White, Bisque, Beige, Bisque x Beige, Beige x Watergreen, Clay Rose x Moss",
                 OtherInfo = obliciOtherInfo,
                 Price = "315 € / m² jednobojne\n325 € / m² kombinacije dvije boje\nMoguća usluga ljepljenja na mrežice 30 € / m²",
@@ -61,7 +63,8 @@ public static class DbInitializer
                 Name = "Fish scale",
                 Collection = "oblici",
                 Thickness = thickness,
-                Dimensions = "13 × 14,5 cm",
+                DimensionHeight = 13m,
+                DimensionWidth = 14.5m,
                 AvailableColors = "Deep Green, Honey, White, Deep Green x Beige, Clay Rose x Cherry, Cherry x Beige, Aquamarine x Watergreen x Petrolej, Rose x Beige x Green, Cobalt x Sky blue x Bluegrey",
                 OtherInfo = obliciOtherInfo,
                 Price = "310 € / m² jednobojne\n325 € / m² kombinacije dvije boje\n340 € / m² kombinacije tri boje\nMoguća usluga ljepljenja na mrežice 30 € / m²",
@@ -72,7 +75,8 @@ public static class DbInitializer
                 Name = "Linea",
                 Collection = "oblici",
                 Thickness = thickness,
-                Dimensions = "15,5 × 0,8–1 cm",
+                DimensionHeight = 15.5m,
+                DimensionWidth = 0.8m,
                 AvailableColors = "Terra, Honey, White, Bisque, Warm Yellow, Deep Green",
                 OtherInfo = obliciOtherInfo,
                 Price = "340 € / m² jednobojne\nUsluga ljepljenja na mrežice uključena je u cijenu",
@@ -83,7 +87,8 @@ public static class DbInitializer
                 Name = "Wave",
                 Collection = "oslikane",
                 Thickness = thickness,
-                Dimensions = "15,5 × 15,5 cm",
+                DimensionHeight = 15.5m,
+                DimensionWidth = 15.5m,
                 AvailableColors = "Black x White, White x Red matte, Blue x White matte",
                 OtherInfo = obliciOtherInfo,
                 Price = "430 € / m² kombinacija dvije boje\n460 € / m² kombinacije tri do četiri boje\n500 € / m² kombinacije pet do šest boja",
@@ -94,7 +99,8 @@ public static class DbInitializer
                 Name = "Module",
                 Collection = "oslikane",
                 Thickness = thickness,
-                Dimensions = "15,5 × 15,5 cm",
+                DimensionHeight = 15.5m,
+                DimensionWidth = 15.5m,
                 AvailableColors = "White x Red, Blue sky x Brown, White x Cobalt blue",
                 OtherInfo = obliciOtherInfo,
                 Price = "430 € / m² kombinacija dvije boje",
@@ -105,7 +111,8 @@ public static class DbInitializer
                 Name = "Curve",
                 Collection = "oslikane",
                 Thickness = thickness,
-                Dimensions = "20 × 10 cm",
+                DimensionHeight = 20m,
+                DimensionWidth = 10m,
                 AvailableColors = "vidi Karta boja",
                 OtherInfo = obliciOtherInfo,
                 Price = "470 € / m² kombinacija dvije boje + dva motiva",

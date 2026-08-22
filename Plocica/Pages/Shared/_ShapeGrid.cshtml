@@ -1,4 +1,11 @@
 @model List<Plocica.Models.Shape>
+@functions {
+    static string FormatCm(decimal? value)
+    {
+        if (value is null) return string.Empty;
+        return value.Value.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture).Replace('.', ',');
+    }
+}
 
 <div class="shape-icon-grid">
     @foreach (var shape in Model)
@@ -25,57 +32,94 @@
             .OrderBy(g => g.SortOrder)
             .ToList();
 
+        var hasHeight = shape.DimensionHeight.HasValue;
+        var hasWidth = shape.DimensionWidth.HasValue;
+        var hasDimensions = hasHeight || hasWidth;
+        string? dimHeight = hasHeight ? $"{FormatCm(shape.DimensionHeight)} cm" : null;
+        string? dimWidth = hasWidth ? $"{FormatCm(shape.DimensionWidth)} cm" : null;
+        string? dimPlain = hasHeight && hasWidth
+            ? $"{FormatCm(shape.DimensionHeight)} × {FormatCm(shape.DimensionWidth)} cm"
+            : (dimHeight ?? dimWidth);
+
         <div class="shape-details" id="shape-details-@shape.Id" hidden>
             <div class="shape-details-grid">
-                @if (!string.IsNullOrEmpty(shape.PhotoUrl))
+                @if (!string.IsNullOrEmpty(shape.PhotoUrl) || !string.IsNullOrEmpty(shape.Price) || !string.IsNullOrEmpty(shape.OtherInfo))
                 {
-                    <figure class="shape-details-photo">
-                        <img src="@shape.PhotoUrl" alt="@shape.Name u prostoru" loading="lazy">
-                    </figure>
-                }
-                <div class="shape-details-info">
-                    <p class="eyebrow">Tehničke informacije</p>
-                    <h3>@shape.Name</h3>
-                    <dl class="spec-dl">
-                        @if (!string.IsNullOrEmpty(shape.Thickness))
+                    <div class="shape-details-photo-col">
+                        @if (!string.IsNullOrEmpty(shape.PhotoUrl))
                         {
-                            <div><dt>Debljina</dt><dd>@shape.Thickness</dd></div>
-                        }
-                        @if (!string.IsNullOrEmpty(shape.Dimensions))
-                        {
-                            <div><dt>Dimenzija</dt><dd>@shape.Dimensions</dd></div>
-                        }
-                        @if (!string.IsNullOrEmpty(shape.OtherInfo))
-                        {
-                            <div><dt>Ostale info</dt><dd>@shape.OtherInfo</dd></div>
+                            <figure class="shape-details-photo">
+                                <img src="@shape.PhotoUrl" alt="@shape.Name u prostoru" loading="lazy">
+                            </figure>
                         }
                         @if (!string.IsNullOrEmpty(shape.Price))
                         {
-                            <div><dt>Cijena</dt><dd>@shape.Price</dd></div>
+                            <p class="shape-details-price"><span class="eyebrow">Cijena</span>@shape.Price</p>
+                        }
+                        @if (!string.IsNullOrEmpty(shape.OtherInfo))
+                        {
+                            <p class="shape-details-price"><span class="eyebrow">Ostale info</span>@shape.OtherInfo</p>
+                        }
+                    </div>
+                }
+                <div class="shape-details-info">
+                    <div class="shape-details-heading">
+                        <h3>@shape.Name</h3>
+                        <p class="eyebrow">Tehničke informacije</p>
+                    </div>
+                    <dl class="spec-dl">
+                        @if (hasDimensions || shape.Thickness.HasValue)
+                        {
+                            <div>
+                                <dt>Dimenzija</dt>
+                                <dd>
+                                    <div class="shape-dim-row">
+                                        @if (hasHeight && hasWidth && !string.IsNullOrEmpty(shape.ImageUrl))
+                                        {
+                                            <div class="shape-dim">
+                                                <img src="@shape.ImageUrl" alt="@shape.Name oblik" class="shape-dim-icon">
+                                                <span class="shape-dim-vline"></span>
+                                                <span class="shape-dim-vvalue">@dimHeight</span>
+                                                <span class="shape-dim-hline"></span>
+                                                <span class="shape-dim-hvalue">@dimWidth</span>
+                                            </div>
+                                        }
+                                        else if (hasDimensions)
+                                        {
+                                            <span class="shape-dim-plain">@dimPlain</span>
+                                        }
+                                        @if (shape.Thickness.HasValue)
+                                        {
+                                            <div class="shape-thickness">
+                                                <span class="eyebrow">Debljina</span>
+                                                <span>@FormatCm(shape.Thickness) cm</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </dd>
+                            </div>
+                        }
+                        @if (layoutImages.Any())
+                        {
+                            <div>
+                                <dt>Shema slaganja</dt>
+                                <dd>
+                                    <div class="shape-pattern-grid">
+                                        @foreach (var image in layoutImages)
+                                        {
+                                            <img src="@image.ImageUrl" alt="Shema slaganja @shape.Name" class="shape-pattern-img" loading="lazy">
+                                        }
+                                    </div>
+                                </dd>
+                            </div>
                         }
                     </dl>
                 </div>
             </div>
 
-            @if (layoutImages.Any())
-            {
-                <div class="shape-examples">
-                    <p class="eyebrow">Shema slaganja</p>
-                    <div class="shape-examples-grid">
-                        @foreach (var image in layoutImages)
-                        {
-                            <figure class="shape-example">
-                                <img src="@image.ImageUrl" alt="Shema slaganja @shape.Name" loading="lazy">
-                            </figure>
-                        }
-                    </div>
-                </div>
-            }
-
             @if (shape.Examples.Any())
             {
                 <div class="shape-examples">
-                    <p class="eyebrow">Primjeri</p>
                     <div class="shape-examples-grid">
                         @foreach (var example in shape.Examples.OrderBy(e => e.SortOrder))
                         {
@@ -87,8 +131,6 @@
                     </div>
                 </div>
             }
-
-            <button type="button" class="shape-details-close">Zatvori</button>
         </div>
     }
 </div>

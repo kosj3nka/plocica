@@ -366,6 +366,9 @@
   flex-shrink: 0;
 }
 
+#existing-example-list .admin-image-row { flex-wrap: wrap; }
+#existing-example-list .admin-image-row .admin-thumb-preview { width: 56px; height: 56px; margin: 0; flex-shrink: 0; }
+
 .admin-example-field {
   display: flex;
   flex-direction: column;

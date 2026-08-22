@@ -1,0 +1,14 @@
+@model Plocica.Pages.Shared.AdminActionButtonsViewModel
+<div class="admin-row-actions">
+    <a asp-page="Edit" asp-route-id="@Model.EditRouteId" class="icon-btn">
+        <partial name="_AdminIcon" model="@("edit")" />
+        Uredi
+    </a>
+    <form method="post" asp-page-handler="@Model.DeleteHandler" asp-route-id="@Model.DeleteRouteId"
+          class="admin-delete-form" data-confirm="@Model.ConfirmText">
+        <button type="submit" class="icon-btn icon-btn-danger">
+            <partial name="_AdminIcon" model="@("delete")" />
+            Obriši
+        </button>
+    </form>
+</div>

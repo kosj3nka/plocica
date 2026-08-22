@@ -46,11 +46,8 @@
                     <td>@project.Location</td>
                     <td>@project.Images.Count</td>
                     <td>@project.SortOrder</td>
-                    <td class="admin-row-actions">
-                        <a asp-page="Edit" asp-route-id="@project.Id">Uredi</a>
-                        <form method="post" asp-page-handler="Delete" asp-route-id="@project.Id" class="admin-delete-form" data-confirm="Obrisati projekt &quot;@project.Title&quot;?">
-                            <button type="submit" class="admin-delete-btn">Obriši</button>
-                        </form>
+                    <td>
+                        <partial name="_AdminActionButtons" model="@(new AdminActionButtonsViewModel { EditRouteId = project.Id, DeleteRouteId = project.Id, ConfirmText = $"Obrisati projekt \"{project.Title}\"?" })" />
                     </td>
                 </tr>
             }

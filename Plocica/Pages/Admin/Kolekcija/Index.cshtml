@@ -43,11 +43,8 @@
                             </td>
                             <td>@shape.Name</td>
                             <td>@shape.SortOrder</td>
-                            <td class="admin-row-actions">
-                                <a asp-page="Edit" asp-route-id="@shape.Id">Uredi</a>
-                                <form method="post" asp-page-handler="Delete" asp-route-id="@shape.Id" class="admin-delete-form" data-confirm="Obrisati oblik &quot;@shape.Name&quot;?">
-                                    <button type="submit" class="admin-delete-btn">Obriši</button>
-                                </form>
+                            <td>
+                                <partial name="_AdminActionButtons" model="@(new AdminActionButtonsViewModel { EditRouteId = shape.Id, DeleteRouteId = shape.Id, ConfirmText = $"Obrisati oblik \"{shape.Name}\"?" })" />
                             </td>
                         </tr>
                     }
@@ -84,11 +81,8 @@
                             </td>
                             <td>@shape.Name</td>
                             <td>@shape.SortOrder</td>
-                            <td class="admin-row-actions">
-                                <a asp-page="Edit" asp-route-id="@shape.Id">Uredi</a>
-                                <form method="post" asp-page-handler="Delete" asp-route-id="@shape.Id" class="admin-delete-form" data-confirm="Obrisati oblik &quot;@shape.Name&quot;?">
-                                    <button type="submit" class="admin-delete-btn">Obriši</button>
-                                </form>
+                            <td>
+                                <partial name="_AdminActionButtons" model="@(new AdminActionButtonsViewModel { EditRouteId = shape.Id, DeleteRouteId = shape.Id, ConfirmText = $"Obrisati oblik \"{shape.Name}\"?" })" />
                             </td>
                         </tr>
                     }
@@ -114,11 +108,8 @@
                         <tr>
                             <td>@shape.Name</td>
                             <td>@shape.SortOrder</td>
-                            <td class="admin-row-actions">
-                                <a asp-page="Edit" asp-route-id="@shape.Id">Uredi</a>
-                                <form method="post" asp-page-handler="Delete" asp-route-id="@shape.Id" class="admin-delete-form" data-confirm="Obrisati stavku &quot;@shape.Name&quot;?">
-                                    <button type="submit" class="admin-delete-btn">Obriši</button>
-                                </form>
+                            <td>
+                                <partial name="_AdminActionButtons" model="@(new AdminActionButtonsViewModel { EditRouteId = shape.Id, DeleteRouteId = shape.Id, ConfirmText = $"Obrisati stavku \"{shape.Name}\"?" })" />
                             </td>
                         </tr>
                     }

@@ -238,6 +238,33 @@
   text-underline-offset: 2px;
 }
 
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.45em 0.85em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-spring), background var(--dur-fast) var(--ease-spring);
+}
+
+.icon-btn:hover,
+.icon-btn:focus-visible { border-color: var(--ink); background: var(--paper-2); }
+
+.icon-btn-danger { border-color: var(--glz-clay); color: var(--glz-clay); }
+.icon-btn-danger:hover,
+.icon-btn-danger:focus-visible { background: rgba(192, 107, 74, 0.08); border-color: var(--glz-clay); }
+
+.icon-btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.icon-btn-primary:hover,
+.icon-btn-primary:focus-visible { background: color-mix(in srgb, var(--ink) 88%, white); border-color: color-mix(in srgb, var(--ink) 88%, white); }
+
 .admin-thumb { width: 44px; height: 44px; object-fit: cover; display: block; border: 1px solid var(--line); }
 .admin-thumb-empty { background: var(--paper-2); border: 1px dashed var(--line); }
 .admin-thumb-preview { width: 120px; height: 120px; object-fit: cover; border: 1px solid var(--line); margin-bottom: 0.5rem; display: block; }

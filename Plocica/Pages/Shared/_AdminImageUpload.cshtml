@@ -1,0 +1,18 @@
+@model Plocica.Pages.Shared.AdminImageUploadViewModel
+<div class="admin-dropzone" data-admin-upload>
+    <div class="admin-dropzone-thumb">
+        @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
+        {
+            <img src="@Model.ExistingImageUrl" alt="" data-role="preview-img" />
+        }
+        else
+        {
+            <span class="admin-dropzone-thumb-empty" data-role="preview-img"><partial name="_AdminIcon" model="@("upload")" /></span>
+        }
+    </div>
+    <label class="admin-dropzone-drop">
+        <input type="file" name="@Model.InputName" accept="@Model.Accept" data-role="file-input" multiple="@(Model.Multiple ? "multiple" : null)" />
+        <span class="admin-dropzone-text"><b>Povuci sliku ovdje</b> ili klikni za odabir</span>
+        <span class="admin-dropzone-count" data-role="file-count"></span>
+    </label>
+</div>

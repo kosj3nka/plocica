@@ -40,22 +40,14 @@
 
             <div class="admin-field">
                 <label>Skica (ikona u mreži oblika)</label>
-                @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
-                {
-                    <img src="@Model.ExistingImageUrl" alt="" class="admin-thumb-preview" />
-                }
-                <input asp-for="Input.ImageFile" type="file" accept=".jpg,.jpeg,.png,.webp" />
+                <partial name="_AdminImageUpload" model="@(new AdminImageUploadViewModel { InputName = "Input.ImageFile", ExistingImageUrl = Model.ExistingImageUrl })" />
                 <span asp-validation-for="Input.ImageFile" class="admin-field-error"></span>
                 <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB.</p>
             </div>
 
             <div class="admin-field">
                 <label>Opća fotografija</label>
-                @if (!string.IsNullOrEmpty(Model.ExistingPhotoUrl))
-                {
-                    <img src="@Model.ExistingPhotoUrl" alt="" class="admin-thumb-preview" />
-                }
-                <input asp-for="Input.PhotoFile" type="file" accept=".jpg,.jpeg,.png,.webp" />
+                <partial name="_AdminImageUpload" model="@(new AdminImageUploadViewModel { InputName = "Input.PhotoFile", ExistingImageUrl = Model.ExistingPhotoUrl })" />
                 <span asp-validation-for="Input.PhotoFile" class="admin-field-error"></span>
                 <p class="admin-hint">Prikazuje se uz tehničke informacije na javnoj stranici. JPG, PNG ili WEBP, do 5 MB.</p>
             </div>
@@ -86,8 +78,8 @@
                 }
 
                 <div class="admin-field">
-                    <label asp-for="Input.NewLayoutImageFiles">Dodaj fotografije</label>
-                    <input asp-for="Input.NewLayoutImageFiles" type="file" accept=".jpg,.jpeg,.png,.webp" multiple />
+                    <label>Dodaj fotografije</label>
+                    <partial name="_AdminImageUpload" model="@(new AdminImageUploadViewModel { InputName = "Input.NewLayoutImageFiles", Multiple = true })" />
                     <span asp-validation-for="Input.NewLayoutImageFiles" class="admin-field-error"></span>
                     <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB po slici. Moguć višestruki odabir.</p>
                 </div>
@@ -128,7 +120,15 @@
                         </div>
                         <div class="admin-example-field">
                             <label>Fotografija</label>
-                            <input type="file" accept=".jpg,.jpeg,.png,.webp" class="js-new-example-file" />
+                            <div class="admin-dropzone" data-admin-upload>
+                                <div class="admin-dropzone-thumb">
+                                    <span class="admin-dropzone-thumb-empty" data-role="preview-img"><partial name="_AdminIcon" model="@("upload")" /></span>
+                                </div>
+                                <label class="admin-dropzone-drop">
+                                    <input type="file" accept=".jpg,.jpeg,.png,.webp" class="js-new-example-file" data-role="file-input" />
+                                    <span class="admin-dropzone-text"><b>Povuci</b> ili klikni</span>
+                                </label>
+                            </div>
                         </div>
                         <button type="button" class="admin-delete-btn js-remove-example-row">Ukloni</button>
                     </div>
@@ -170,8 +170,8 @@
                 }
 
                 <div class="admin-field">
-                    <label asp-for="Input.NewReljefneImageFiles">Dodaj fotografije</label>
-                    <input asp-for="Input.NewReljefneImageFiles" type="file" accept=".jpg,.jpeg,.png,.webp" multiple />
+                    <label>Dodaj fotografije</label>
+                    <partial name="_AdminImageUpload" model="@(new AdminImageUploadViewModel { InputName = "Input.NewReljefneImageFiles", Multiple = true })" />
                     <span asp-validation-for="Input.NewReljefneImageFiles" class="admin-field-error"></span>
                     <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB po slici. Moguć višestruki odabir.</p>
                 </div>
@@ -202,5 +202,6 @@
 
 @section Scripts {
     <script src="~/js/admin-toggle.js" asp-append-version="true"></script>
+    <script src="~/js/admin-upload.js" asp-append-version="true"></script>
     <script src="~/js/admin.js" asp-append-version="true"></script>
 }

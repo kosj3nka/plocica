@@ -424,3 +424,49 @@
 /* ---------- Ikone ---------- */
 
 .admin-icon { width: 1em; height: 1em; flex-shrink: 0; }
+
+/* ---------- Upload dropzone ---------- */
+
+.admin-dropzone {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 480px;
+}
+
+.admin-dropzone-thumb {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--paper-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-dropzone-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.admin-dropzone-thumb-empty { color: var(--ink-soft); }
+.admin-dropzone-thumb-empty .admin-icon { width: 1.75em; height: 1.75em; }
+
+.admin-dropzone-drop {
+  flex: 1;
+  border: 2px dashed var(--line);
+  border-radius: 8px;
+  padding: 0.9em 1em;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  transition: border-color var(--dur-fast) var(--ease-spring), background var(--dur-fast) var(--ease-spring);
+}
+
+.admin-dropzone-drop:hover,
+.admin-dropzone-drop.is-dragover { border-color: var(--glz-indigo); background: rgba(46, 58, 86, 0.04); }
+
+.admin-dropzone-drop input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+
+.admin-dropzone-text { font-size: 0.875rem; color: var(--ink-soft); }
+.admin-dropzone-text b { color: var(--ink); }
+.admin-dropzone-count { font-size: 0.75rem; color: var(--ink-soft); }

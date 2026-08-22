@@ -58,8 +58,8 @@
         }
 
         <div class="admin-field">
-            <label asp-for="Input.NewImageFiles">Dodaj slike</label>
-            <input asp-for="Input.NewImageFiles" type="file" accept=".jpg,.jpeg,.png,.webp" multiple />
+            <label>Dodaj slike</label>
+            <partial name="_AdminImageUpload" model="@(new AdminImageUploadViewModel { InputName = "Input.NewImageFiles", Multiple = true })" />
             <span asp-validation-for="Input.NewImageFiles" class="admin-field-error"></span>
             <p class="admin-hint">JPG, PNG ili WEBP, do 5 MB po slici. Moguć višestruki odabir.</p>
         </div>
@@ -70,3 +70,7 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script src="~/js/admin-upload.js" asp-append-version="true"></script>
+}

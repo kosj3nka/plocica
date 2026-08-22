@@ -470,3 +470,5 @@
 .admin-dropzone-text { font-size: 0.875rem; color: var(--ink-soft); }
 .admin-dropzone-text b { color: var(--ink); }
 .admin-dropzone-count { font-size: 0.75rem; color: var(--ink-soft); }
+
+.admin-image-delete .admin-icon { color: var(--glz-clay); }

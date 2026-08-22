@@ -61,18 +61,15 @@
                     <div class="admin-image-list">
                         @for (var i = 0; i < Model.Input.ExistingLayoutImages.Count; i++)
                         {
-                            <div class="admin-image-row">
-                                <img src="@Model.Input.ExistingLayoutImages[i].ImageUrl" alt="" class="admin-thumb-preview" />
-                                <input type="hidden" asp-for="Input.ExistingLayoutImages[i].Id" />
-                                <input type="hidden" asp-for="Input.ExistingLayoutImages[i].ImageUrl" />
-                                <label class="admin-image-sort">
-                                    Redoslijed
-                                    <input asp-for="Input.ExistingLayoutImages[i].SortOrder" type="number" />
-                                </label>
-                                <label class="admin-image-delete">
-                                    <input asp-for="Input.ExistingLayoutImages[i].Delete" type="checkbox" /> Obriši
-                                </label>
-                            </div>
+                            <partial name="_AdminImageRow" model="@(new AdminImageRowViewModel {
+                                ImageUrl = Model.Input.ExistingLayoutImages[i].ImageUrl,
+                                Id = Model.Input.ExistingLayoutImages[i].Id,
+                                IdInputName = $"Input.ExistingLayoutImages[{i}].Id",
+                                ImageUrlInputName = $"Input.ExistingLayoutImages[{i}].ImageUrl",
+                                SortOrder = Model.Input.ExistingLayoutImages[i].SortOrder,
+                                SortOrderInputName = $"Input.ExistingLayoutImages[{i}].SortOrder",
+                                DeleteInputName = $"Input.ExistingLayoutImages[{i}].Delete",
+                            })" />
                         }
                     </div>
                 }
@@ -94,18 +91,16 @@
                     <div class="admin-example-list" id="existing-example-list">
                         @for (var i = 0; i < Model.Input.ExistingExamples.Count; i++)
                         {
-                            <div class="admin-example-row">
-                                <img src="@Model.Input.ExistingExamples[i].ImageUrl" alt="" class="admin-thumb-preview" />
-                                <input type="hidden" asp-for="Input.ExistingExamples[i].Id" />
-                                <input type="hidden" asp-for="Input.ExistingExamples[i].ImageUrl" />
-                                <div class="admin-example-field">
-                                    <label>Naziv</label>
-                                    <input asp-for="Input.ExistingExamples[i].Name" />
-                                </div>
-                                <label class="admin-image-delete">
-                                    <input asp-for="Input.ExistingExamples[i].Delete" type="checkbox" /> Obriši
-                                </label>
-                            </div>
+                            <partial name="_AdminImageRow" model="@(new AdminImageRowViewModel {
+                                ImageUrl = Model.Input.ExistingExamples[i].ImageUrl,
+                                Id = Model.Input.ExistingExamples[i].Id,
+                                IdInputName = $"Input.ExistingExamples[{i}].Id",
+                                ImageUrlInputName = $"Input.ExistingExamples[{i}].ImageUrl",
+                                DeleteInputName = $"Input.ExistingExamples[{i}].Delete",
+                                NameInputName = $"Input.ExistingExamples[{i}].Name",
+                                Name = Model.Input.ExistingExamples[i].Name,
+                                ShowSortOrder = false,
+                            })" />
                         }
                     </div>
                 }
@@ -153,18 +148,15 @@
                     <div class="admin-image-list">
                         @for (var i = 0; i < Model.Input.ExistingReljefneImages.Count; i++)
                         {
-                            <div class="admin-image-row">
-                                <img src="@Model.Input.ExistingReljefneImages[i].ImageUrl" alt="" class="admin-thumb-preview" />
-                                <input type="hidden" asp-for="Input.ExistingReljefneImages[i].Id" />
-                                <input type="hidden" asp-for="Input.ExistingReljefneImages[i].ImageUrl" />
-                                <label class="admin-image-sort">
-                                    Redoslijed
-                                    <input asp-for="Input.ExistingReljefneImages[i].SortOrder" type="number" />
-                                </label>
-                                <label class="admin-image-delete">
-                                    <input asp-for="Input.ExistingReljefneImages[i].Delete" type="checkbox" /> Obriši
-                                </label>
-                            </div>
+                            <partial name="_AdminImageRow" model="@(new AdminImageRowViewModel {
+                                ImageUrl = Model.Input.ExistingReljefneImages[i].ImageUrl,
+                                Id = Model.Input.ExistingReljefneImages[i].Id,
+                                IdInputName = $"Input.ExistingReljefneImages[{i}].Id",
+                                ImageUrlInputName = $"Input.ExistingReljefneImages[{i}].ImageUrl",
+                                SortOrder = Model.Input.ExistingReljefneImages[i].SortOrder,
+                                SortOrderInputName = $"Input.ExistingReljefneImages[{i}].SortOrder",
+                                DeleteInputName = $"Input.ExistingReljefneImages[{i}].Delete",
+                            })" />
                         }
                     </div>
                 }

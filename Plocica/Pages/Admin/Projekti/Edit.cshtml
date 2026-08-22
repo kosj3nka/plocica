@@ -40,18 +40,15 @@
                 <div class="admin-image-list">
                     @for (var i = 0; i < Model.Input.ExistingImages.Count; i++)
                     {
-                        <div class="admin-image-row">
-                            <img src="@Model.Input.ExistingImages[i].Url" alt="" class="admin-thumb-preview" />
-                            <input type="hidden" asp-for="Input.ExistingImages[i].Id" />
-                            <input type="hidden" asp-for="Input.ExistingImages[i].Url" />
-                            <label class="admin-image-sort">
-                                Redoslijed
-                                <input asp-for="Input.ExistingImages[i].SortOrder" type="number" />
-                            </label>
-                            <label class="admin-image-delete">
-                                <input asp-for="Input.ExistingImages[i].Delete" type="checkbox" /> Obriši
-                            </label>
-                        </div>
+                        <partial name="_AdminImageRow" model="@(new AdminImageRowViewModel {
+                            ImageUrl = Model.Input.ExistingImages[i].Url,
+                            Id = Model.Input.ExistingImages[i].Id,
+                            IdInputName = $"Input.ExistingImages[{i}].Id",
+                            ImageUrlInputName = $"Input.ExistingImages[{i}].Url",
+                            SortOrder = Model.Input.ExistingImages[i].SortOrder,
+                            SortOrderInputName = $"Input.ExistingImages[{i}].SortOrder",
+                            DeleteInputName = $"Input.ExistingImages[{i}].Delete",
+                        })" />
                     }
                 </div>
             </div>

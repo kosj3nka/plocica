@@ -1,0 +1,25 @@
+@model Plocica.Pages.Shared.AdminImageRowViewModel
+<div class="admin-image-row">
+    <img src="@Model.ImageUrl" alt="" class="admin-thumb-preview" />
+    <input type="hidden" name="@Model.IdInputName" value="@Model.Id" />
+    <input type="hidden" name="@Model.ImageUrlInputName" value="@Model.ImageUrl" />
+    @if (Model.NameInputName is not null)
+    {
+        <div class="admin-example-field">
+            <label>Naziv</label>
+            <input name="@Model.NameInputName" value="@Model.Name" />
+        </div>
+    }
+    @if (Model.ShowSortOrder)
+    {
+        <label class="admin-image-sort">
+            Redoslijed
+            <input type="number" name="@Model.SortOrderInputName" value="@Model.SortOrder" />
+        </label>
+    }
+    <label class="admin-image-delete">
+        <input type="checkbox" name="@Model.DeleteInputName" value="true" />
+        <partial name="_AdminIcon" model="@("delete")" />
+        Obriši
+    </label>
+</div>

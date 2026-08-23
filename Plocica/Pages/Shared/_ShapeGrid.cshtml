@@ -7,7 +7,7 @@
     }
 }
 
-<div class="shape-icon-grid" style="--cols-sm: @GridLayout.BestColumns(Model.Count, 4);">
+<div class="shape-icon-grid" style="--cols-sm: @GridLayout.BestColumns(Model.Count, 4); --cols-md: @GridLayout.BestColumns(Model.Count, 5); --cols-lg: @GridLayout.BestColumns(Model.Count, 7);">
     @foreach (var shape in Model)
     {
         <button type="button" class="shape-icon-tile" aria-expanded="false" aria-controls="shape-details-@shape.Id">

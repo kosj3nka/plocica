@@ -1,83 +1,226 @@
+/* Tighter vertical rhythm between sections on this page than the site
+   default (--space-fluid-xl). Scoped here since onama.css only loads on
+   this page. */
+.section {
+  padding-block: var(--space-fluid-lg);
+}
+
 .about-hero {
   display: grid;
-  gap: var(--space-fluid-sm);
+  gap: var(--space-6);
+  padding-top: var(--space-fluid-sm);
+  padding-bottom: var(--space-fluid-md);
 }
-
-.about-hero figure {
-  margin: 0;
-  aspect-ratio: 21 / 9;
-  overflow: hidden;
-  border: 1px solid var(--line);
-}
-
-.about-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 
 .about-hero .lede {
   max-width: 62ch;
+  margin-inline: auto;
   font-size: 1.1875rem;
   color: var(--ink-soft);
+  text-align: center;
 }
 
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-fluid-md);
-  align-items: center;
+.about-hero .lede strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
 }
 
-.about-grid figure {
+/* Three-photo trio: side photos sit flush with the row, the middle photo
+   hangs its own column below the h1 stacked above it — no manual offsets,
+   the extra column height (h1 + photo) is what makes it "hang lower" than
+   the sides. */
+.about-hero-trio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.about-hero-trio .trio-photo {
+  flex: 1 1 0;
+  min-width: 0;
   margin: 0;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
+  max-height: 50vh;
   overflow: hidden;
   border: 1px solid var(--line);
 }
 
-.about-grid img { width: 100%; height: 100%; object-fit: cover; }
+.about-hero-trio .trio-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-.role-list {
-  list-style: none;
-  margin: var(--space-6) 0 0;
-  padding: 0;
+.trio-photo-left img { object-position: 60% 40%; }
+.trio-photo-right img { object-position: 50% 30%; }
+
+/* vlasniciRad.jpg is a landscape shot — show it at its own ratio (uncropped)
+   instead of forcing it into the same tall portrait frame as the sides. */
+.about-hero-trio .trio-photo-middle {
+  aspect-ratio: 879 / 604;
+  max-height: none;
 }
 
-.role-list li {
-  padding: var(--space-4) 0;
-  border-top: 1px solid var(--line);
+.trio-col-middle {
+  flex: 1.4 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.role-list li:last-child { border-bottom: 1px solid var(--line); }
-
-.role-list .role-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.0625rem;
-  display: block;
-  margin-bottom: 0.3em;
+.trio-col-middle h1 {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  margin: 0 0 var(--space-4);
+  text-transform: uppercase;
 }
 
-.role-list p { margin: 0; color: var(--ink-soft); }
+/* In the column layout the figure's aspect-ratio must drive its height —
+   flex-basis: 0 (from the shared .trio-photo rule) would collapse it to
+   0px here, since the column's own height is auto/indefinite. */
+.trio-col-middle .trio-photo { flex: 0 0 auto; }
+
+@media (max-width: 760px) {
+  .about-hero {
+    padding-block: var(--space-fluid-sm);
+  }
+
+  .about-hero .lede {
+    font-size: 1rem;
+  }
+
+  .about-hero-trio {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  /* Stacked on mobile, three aspect-ratio boxes run far taller than a
+     phone screen (width-driven height, blind to viewport height). Fixed
+     vh heights instead keep the whole trio within roughly one screen. */
+  .about-hero-trio .trio-photo {
+    aspect-ratio: auto;
+    height: 26vh;
+    max-height: 240px;
+  }
+
+  /* Direct children (left/right photos) now stack in a column — same
+     flex-basis: 0 collapse as .trio-col-middle .trio-photo above, so
+     they need the same natural-height override. */
+  .about-hero-trio > .trio-photo { flex: 0 0 auto; }
+
+  /* The middle row widens by exactly one gutter so its photo pokes past
+     the container's right edge, bounded by the known gutter value — no
+     100vw bleed trick, so it can't trigger a horizontal scrollbar. */
+  .trio-col-middle {
+    flex-direction: row;
+    align-items: stretch;
+    gap: var(--space-3);
+    width: calc(100% + var(--gutter));
+  }
+
+  .trio-col-middle h1 {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0;
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+  }
+
+  .trio-col-middle .trio-photo { flex: 1 1 auto; }
+}
 
 .media-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 var(--space-6);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5) var(--space-6);
   margin-top: var(--space-5);
 }
 
-.media-row span {
+.media-row a {
+  display: block;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.media-row a:hover,
+.media-row a:focus-visible {
+  opacity: 1;
+}
+
+.media-row img {
+  display: block;
+  height: 22px;
+  width: auto;
+}
+
+/* dom-na-kvadrat.png is a near-white logo, invisible on the page's paper
+   background as-is — darken it uniformly so it reads without touching the
+   asset itself. */
+.media-row img.media-logo-light {
+  filter: brightness(0.35);
+}
+
+.media-row .media-text-link {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1rem;
   color: var(--ink-soft);
+  text-decoration: none;
 }
 
 .philosophy-lede {
   font-size: 1.0625rem;
 }
 
-@media (max-width: 780px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .about-grid figure { order: -1; }
+.philosophy-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-fluid-md);
+  align-items: center;
+}
+
+.philosophy-row .philosophy-photo {
+  margin: 0;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.philosophy-row .philosophy-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 760px) {
+  .philosophy-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* Pristup intro (about-photo section): on desktop the two clauses split
+   into their own left/right, up/down-offset lines instead of one centered
+   block — the shared .about-photo-content max-width/transform are reset
+   here so they don't fight the split layout. */
+.about-photo-content.pristup-intro {
+  max-width: none;
+  transform: none;
+  gap: var(--space-4);
+}
+
+.pristup-intro .pristup-line {
+  margin: 0;
+  max-width: 34ch;
+}
+
+.pristup-intro .pristup-line-1 {
+  align-self: flex-start;
+  text-align: left;
+  transform: translateY(-1.5rem);
+}
+
+.pristup-intro .pristup-line-2 {
+  align-self: flex-end;
+  text-align: right;
+  transform: translateY(1.5rem);
 }
 
 @media (max-width: 640px) {
@@ -85,7 +228,23 @@
   .about-hero .lede { font-size: 1rem; }
   .philosophy-title { font-size: 1.5rem; }
   .philosophy-lede { font-size: 0.9375rem; }
-  .role-list .role-name { font-size: 1rem; }
-  .role-list p { font-size: 0.9375rem; }
   .media-row span { font-size: 0.9375rem; }
+
+  /* Mobile: drop the desktop split — both lines sit centered together in
+     the vertical middle of the photo, read as one paragraph. */
+  .about-photo-content.pristup-intro {
+    justify-content: center;
+    gap: 0.35em;
+  }
+
+  .pristup-intro .pristup-line {
+    max-width: none;
+  }
+
+  .pristup-intro .pristup-line-1,
+  .pristup-intro .pristup-line-2 {
+    align-self: center;
+    text-align: center;
+    transform: none;
+  }
 }

@@ -72,7 +72,7 @@
                     }
                     @if (reljefneImages.Any())
                     {
-                        <div class="shape-examples-grid spec-gallery">
+                        <div class="shape-examples-grid spec-gallery" style="--cols-lg: @GridLayout.BestColumns(reljefneImages.Count, 5);">
                             @foreach (var image in reljefneImages)
                             {
                                 <figure class="shape-example">
@@ -92,7 +92,7 @@
         <p class="eyebrow">Karta boja</p>
         <p class="quote">Sve pločice iz ponude moguće je izraditi u nekoj od 28 boja iz Karte boja.</p>
 
-        <div class="color-grid">
+        <div class="color-grid" style="--cols-sm: @GridLayout.BestColumns(Model.Colors.Count, 4); --cols-md: @GridLayout.BestColumns(Model.Colors.Count, 4); --cols-lg: @GridLayout.BestColumns(Model.Colors.Count, 7);">
             @foreach (var color in Model.Colors)
             {
                 <div class="color-chip">
@@ -109,10 +109,6 @@
                         <div class="swatch swatch-empty"></div>
                     }
                     <span class="code">@color.Code</span>
-                    @if (!string.IsNullOrEmpty(color.Name))
-                    {
-                        <span class="name">@color.Name</span>
-                    }
                 </div>
             }
         </div>

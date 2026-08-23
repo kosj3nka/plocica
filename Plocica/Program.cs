@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Plocica.Data;
 using Plocica.Services;
 
+System.Net.ServicePointManager.Expect100Continue = false;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

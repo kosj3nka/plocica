@@ -7,7 +7,7 @@
     }
 }
 
-<div class="shape-icon-grid">
+<div class="shape-icon-grid" style="--cols-sm: @GridLayout.BestColumns(Model.Count, 4);">
     @foreach (var shape in Model)
     {
         <button type="button" class="shape-icon-tile" aria-expanded="false" aria-controls="shape-details-@shape.Id">
@@ -104,7 +104,7 @@
                             <div>
                                 <dt>Shema slaganja</dt>
                                 <dd>
-                                    <div class="shape-pattern-grid">
+                                    <div class="shape-pattern-grid" style="--cols-lg: @GridLayout.BestColumns(layoutImages.Count, 2);">
                                         @foreach (var image in layoutImages)
                                         {
                                             <img src="@image.ImageUrl" alt="Shema slaganja @shape.Name" class="shape-pattern-img" loading="lazy">
@@ -120,7 +120,7 @@
             @if (shape.Examples.Any())
             {
                 <div class="shape-examples">
-                    <div class="shape-examples-grid">
+                    <div class="shape-examples-grid" style="--cols-lg: @GridLayout.BestColumns(shape.Examples.Count, 5);">
                         @foreach (var example in shape.Examples.OrderBy(e => e.SortOrder))
                         {
                             <figure class="shape-example">

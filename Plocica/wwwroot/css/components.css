@@ -416,6 +416,13 @@
   transform: translateY(-8%);
 }
 
+@media (max-width: 640px) {
+  .about-intro-sentence,
+  .about-intro-break {
+    display: none;
+  }
+}
+
 /* ---------- Invertirana CTA traka ---------- */
 
 .section-invert {
@@ -582,6 +589,39 @@
   max-width: 58ch;
 }
 
+.faq-hero {
+  padding-top: var(--space-fluid-sm);
+}
+
+.faq-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-fluid-md);
+  align-items: end;
+}
+
+.faq-row .faq-list { max-width: none; }
+
+.faq-photo {
+  margin: 0;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.faq-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 760px) {
+  .faq-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .faq-photo {
+    aspect-ratio: 16 / 10;
+  }
+}
+
 /* ---------- Kolekcije: spec lista + puna karta boja ---------- */
 
 .collection-intro {
@@ -674,8 +714,8 @@
 
 .spec-row {
   display: grid;
-  grid-template-columns: 8ch 1fr 1fr;
-  gap: var(--space-6);
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
   padding: var(--space-5) 0;
   border-bottom: 1px solid var(--line);
   align-items: baseline;
@@ -717,38 +757,35 @@
 }
 
 @media (min-width: 640px) {
-  .spec-row { grid-template-columns: 1fr 1fr 1fr; }
+  .spec-row {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-6);
+  }
   .spec-row .spec-name { grid-column: auto; }
 }
 
 .color-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  grid-template-columns: repeat(var(--cols-sm, 3), 1fr);
+  gap: var(--space-5) var(--space-4);
   margin-top: var(--space-6);
 }
 
 @media (min-width: 560px) {
-  .color-grid { grid-template-columns: repeat(4, 1fr); }
+  .color-grid { grid-template-columns: repeat(var(--cols-md, 4), 1fr); }
 }
 
 @media (min-width: 860px) {
-  .color-grid { grid-template-columns: repeat(7, 1fr); }
+  .color-grid { grid-template-columns: repeat(var(--cols-lg, 7), 1fr); }
 }
 
 .color-chip {
-  aspect-ratio: 1;
-  background: var(--paper);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 0.6em;
 }
 
 .color-chip .swatch {
-  flex: 1;
+  aspect-ratio: 1;
   margin-bottom: 0.6em;
   background-size: cover;
   background-position: center;
@@ -765,12 +802,6 @@
   color: var(--ink-soft);
 }
 
-.color-chip .name {
-  display: block;
-  font-size: 0.6875rem;
-  color: var(--line);
-}
-
 /* ---------- Kolekcije: oblik ikone + naziv ---------- */
 
 .shape-icon-grid {
@@ -779,6 +810,14 @@
   justify-content: center;
   gap: var(--space-fluid-md) var(--space-fluid-lg);
   margin-top: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .shape-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols-sm, 4), 1fr);
+    gap: var(--space-5) var(--space-3);
+  }
 }
 
 .shape-icon-tile {
@@ -791,6 +830,12 @@
   padding: 0;
   font: inherit;
   cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .shape-icon-tile {
+    width: auto;
+  }
 }
 
 .shape-icon-tile img,
@@ -1011,9 +1056,16 @@
 /* ---------- Kolekcije: shema slaganja unutar spec liste ---------- */
 
 .shape-pattern-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
   gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .shape-pattern-grid {
+    grid-template-columns: repeat(var(--cols-lg, 2), 1fr);
+  }
 }
 
 .shape-pattern-img {
@@ -1026,15 +1078,23 @@
 .shape-examples { margin-top: var(--space-fluid-md); }
 
 .shape-examples-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
   gap: var(--space-5);
   margin-top: var(--space-4);
 }
 
+@media (min-width: 640px) {
+  .shape-examples-grid {
+    grid-template-columns: repeat(var(--cols-lg, 4), 1fr);
+  }
+}
+
 .shape-example {
   margin: 0;
-  width: 13rem;
+  width: 100%;
+  max-width: 13rem;
 }
 
 .shape-example img {
@@ -1081,9 +1141,17 @@
 .project {
   padding: var(--space-fluid-lg) 0;
   border-top: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity var(--dur-slow) var(--ease-spring), transform var(--dur-slow) var(--ease-spring);
 }
 
 .project:first-child { border-top: none; }
+
+.project.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .project-header { max-width: 70ch; }
 
@@ -1105,7 +1173,9 @@
 .project-gallery {
   margin-top: var(--space-7);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  /* auto-fit columns, but each one is never narrower than a quarter of the row,
+     so at most 4 photos ever share a row regardless of viewport width */
+  grid-template-columns: repeat(auto-fit, minmax(max(240px, calc((100% - 3px) / 4)), 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
@@ -1116,6 +1186,32 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+.project-gallery img.project-gallery-extra {
+  display: none;
+}
+
+.project-gallery.is-expanded img.project-gallery-extra {
+  display: block;
+}
+
+.project-gallery-more {
+  margin-top: var(--space-4);
+  border: 1px solid var(--line);
+  background: none;
+  padding: 0.75em 1.5em;
+  font: inherit;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.project-gallery-more:hover {
+  background: var(--paper-2);
 }
 
 .project-placeholder {

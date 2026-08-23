@@ -1,8 +1,8 @@
 /* Header, navigacija, footer — vidi docs/06-COPY.md za sadrzaj navigacije */
 
 :root {
-  --header-h: 80px;
-  --header-h-compact: 60px;
+  --header-h: 64px;
+  --header-h-compact: 50px;
 }
 
 .site-header {
@@ -37,13 +37,48 @@
 }
 
 .brand img {
-  height: 40px;
+  height: 34px;
   width: auto;
   transition: height var(--dur-base) var(--ease-spring);
 }
 
 .site-header.is-compact .brand img {
-  height: 44px;
+  height: 38px;
+}
+
+@media (max-width: 860px) {
+  :root {
+    --header-h: 60px;
+    --header-h-compact: 52px;
+  }
+
+  .brand img {
+    height: 32px;
+  }
+
+  .site-header.is-compact .brand img {
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-h: 44px;
+    --header-h-compact: 40px;
+  }
+
+  .brand img {
+    height: 22px;
+  }
+
+  .site-header.is-compact .brand img {
+    height: 22px;
+  }
+
+  .nav-toggle {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .nav-primary {
@@ -72,6 +107,11 @@
 .nav-link:focus-visible {
   border-bottom-color: var(--ink);
   transform: translateY(-1px);
+}
+
+.nav-cta .btn-cta {
+  padding: 0.6em 1.2em;
+  font-size: 0.875rem;
 }
 
 /* Kolekcije dropdown */
@@ -363,6 +403,12 @@
 @media (max-width: 860px) {
   .site-footer > picture {
     width: calc(100% / 3);
+  }
+}
+
+@media (max-width: 640px) {
+  .site-footer > picture {
+    width: 40%;
   }
 }
 

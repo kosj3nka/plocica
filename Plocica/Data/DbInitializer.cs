@@ -19,11 +19,6 @@ public static class DbInitializer
             db.Colors.AddRange(GetColors());
         }
 
-        if (!db.Projects.Any())
-        {
-            db.Projects.AddRange(GetProjects());
-        }
-
         db.SaveChanges();
     }
 
@@ -149,24 +144,4 @@ public static class DbInitializer
         }
     }
 
-    private static IEnumerable<Project> GetProjects()
-    {
-        return new List<Project>
-        {
-            new()
-            {
-                Title = "Kuća Heinzel",
-                Location = "Zgrada Hrvatske izvještajne novinske agencije (HINA), Trg Marka Marulića 16, Zagreb",
-                Text = "Rekonstrukcija originalnih pločica iz 1910. godine. Šest različitih tipova pločica, reljefne, jednobojne, oslikane te tri vrste bordura, zajedno tvore originalnu kompoziciju haustora. Pločice prikazane na fotografijama kombinacija su sačuvanih originala i naših ručno rekonstruiranih replika, izrađenih s ciljem očuvanja izvornog karaktera prostora.",
-                SortOrder = 1,
-            },
-            new()
-            {
-                Title = "Crkva sv. Mirka",
-                Location = "Šestinski vijenac 1, Zagreb",
-                Text = "Rekonstrukcija originalnih keramičkih pločica uz precizno usklađivanje oblika, reljefa i boje. Projekt je uključivao izradu novih matrica i kalupa te brojna testiranja glazura kako bi se što vjernije rekonstruirali izvorni tonovi pločica.",
-                SortOrder = 2,
-            },
-        };
-    }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Plocica.Data;
 
@@ -11,9 +12,11 @@ using Plocica.Data;
 namespace Plocica.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260823153812_RemoveSeededDemoProjects")]
+    partial class RemoveSeededDemoProjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace Plocica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdminUsers", (string)null);
+                    b.ToTable("AdminUsers");
                 });
 
             modelBuilder.Entity("Plocica.Models.ColorItem", b =>
@@ -69,7 +72,7 @@ namespace Plocica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("Plocica.Models.Project", b =>
@@ -96,7 +99,7 @@ namespace Plocica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Plocica.Models.ProjectImage", b =>
@@ -121,7 +124,7 @@ namespace Plocica.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectImages", (string)null);
+                    b.ToTable("ProjectImages");
                 });
 
             modelBuilder.Entity("Plocica.Models.Shape", b =>
@@ -169,7 +172,7 @@ namespace Plocica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shapes", (string)null);
+                    b.ToTable("Shapes");
                 });
 
             modelBuilder.Entity("Plocica.Models.ShapeExample", b =>
@@ -198,7 +201,7 @@ namespace Plocica.Migrations
 
                     b.HasIndex("ShapeId");
 
-                    b.ToTable("ShapeExamples", (string)null);
+                    b.ToTable("ShapeExamples");
                 });
 
             modelBuilder.Entity("Plocica.Models.ShapeGalleryImage", b =>
@@ -227,7 +230,7 @@ namespace Plocica.Migrations
 
                     b.HasIndex("ShapeId");
 
-                    b.ToTable("ShapeGalleryImages", (string)null);
+                    b.ToTable("ShapeGalleryImages");
                 });
 
             modelBuilder.Entity("Plocica.Models.ProjectImage", b =>

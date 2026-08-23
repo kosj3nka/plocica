@@ -4,9 +4,13 @@
     ViewData["Title"] = "Radovi";
 }
 
-<section class="section container">
-    <p class="eyebrow">Custom projekti</p>
-    <h1>Radovi</h1>
+<section class="section-invert about-photo heading-photo">
+    <img class="about-photo-img" src="~/img/lego.jpg" alt="Slog neglaziranih keramičkih pločica s reljefnim kvadratnim uzorkom." loading="lazy">
+    <div class="about-photo-overlay"></div>
+    <div class="container about-photo-content heading-photo-content">
+        <p class="eyebrow">Custom projekti</p>
+        <h1>Radovi</h1>
+    </div>
 </section>
 
 <section class="container">
@@ -26,12 +30,18 @@
 
             @if (project.Images.Any())
             {
+                const int maxVisible = 4;
                 <div class="project-gallery">
-                    @foreach (var image in project.Images)
+                    @for (var j = 0; j < project.Images.Count; j++)
                     {
-                        <img src="@image.Url" alt="@project.Title" loading="lazy">
+                        var image = project.Images[j];
+                        <img src="@image.Url" alt="@project.Title" loading="lazy" class="@(j >= maxVisible ? "project-gallery-extra" : null)">
                     }
                 </div>
+                @if (project.Images.Count > maxVisible)
+                {
+                    <button type="button" class="project-gallery-more" data-gallery-more aria-expanded="false" data-label-more="Prikaži sve fotografije (@project.Images.Count)" data-label-less="Prikaži manje">Prikaži sve fotografije (@project.Images.Count)</button>
+                }
             }
             else
             {
@@ -41,19 +51,10 @@
     }
 </section>
 
-<section class="section section-alt hairline-top">
-    <div class="container">
-        <div class="collection-intro">
-            <div>
-                <p class="eyebrow">Odabir posebnog motiva</p>
-                <h2 style="max-width: 20ch;">Za prostore koji traže više od standardnih rješenja.</h2>
-                <p style="max-width: 54ch; color: var(--ink-soft); font-size: 1.0625rem;">Razvijamo potpuno custom pločice i kolekcije prilagođene projektu. Svaki projekt prolazi zaseban proces razvoja, a rokovi i cijene definiraju se individualno prema kompleksnosti izvedbe.</p>
-            </div>
-            <figure>
-                <img src="~/img/motivCustom.jpg" alt="Ručno oslikane keramičke pločice s ornamentalnim motivom u crvenoj, žutoj i ljubičastoj boji." loading="lazy">
-            </figure>
-        </div>
-    </div>
-</section>
 
 @await Html.PartialAsync("_CtaSection", "~/img/rawTiles.jpg")
+
+@section Scripts {
+    <script src="~/js/project-gallery.js" asp-append-version="true"></script>
+    <script src="~/js/project-reveal.js" asp-append-version="true"></script>
+}

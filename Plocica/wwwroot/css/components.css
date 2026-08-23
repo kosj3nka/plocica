@@ -178,9 +178,11 @@
   .plate-frame .plate-img-wrap { height: min(50vh, 440px); }
   .hero-subline { font-size: 1.25rem; }
 
-  /* zoom the tile photo so 9 of its 19 columns span the narrow viewport,
-     instead of the height-locked scale used above 860px (see .hero-tiles::before) */
-  .hero-tiles::before { background-size: calc(19 / 9 * 100%) auto; }
+  /* zoom the tile photo so 8 of its 19 columns span the narrow viewport width,
+     while height stays locked to 100% so all 6 rows show with no vertical crop
+     — independent axis scaling instead of the aspect-preserving scale used
+     above 860px (see .hero-tiles::before) */
+  .hero-tiles::before { background-size: calc(19 / 8 * 100%) 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -26,6 +26,14 @@
   var cellOpacities = new Map(); // "col_row" -> 0..1
   var rafId = null;
 
+  // Mirrors the .hero-tiles::before breakpoint in components.css: below
+  // 860px the dull background switches from a height-locked scale (full
+  // image width shown, repeated) to a scale showing 8 of the 19 columns
+  // across the viewport width, with height still locked to 100% (all 6
+  // rows, no vertical crop). The canvas grid has to use the same column
+  // count or the hover-reveal drifts off the dull photo underneath it.
+  var MOBILE_QUERY = window.matchMedia("(max-width: 860px)");
+
   // Deterministic per-cell pseudo-random offset in [-1, 1], stable across
   // frames so the splash's uneven edge stays put rather than shimmering.
   function jitter(col, row) {
@@ -47,7 +55,9 @@
     canvas.height = Math.max(1, Math.round(rectHeight * dpr));
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    var renderedImgWidth = img.naturalWidth * (rectHeight / img.naturalHeight);
+    var renderedImgWidth = MOBILE_QUERY.matches
+      ? rectWidth * (COLS / 8)
+      : img.naturalWidth * (rectHeight / img.naturalHeight);
     cellWidth = renderedImgWidth / COLS;
     cellHeight = rectHeight / ROWS;
     splashRadius = RADIUS_FACTOR * Math.sqrt(cellWidth * cellHeight);

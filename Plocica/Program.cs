@@ -1,3 +1,4 @@
+using Azure.Core;
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -32,9 +33,7 @@ builder.Services.AddSingleton(_ =>
                                       ?? throw new InvalidOperationException("Postavi Blob:ConnectionString (lokalno) ili Blob:AccountUrl (produkcija, Managed Identity).");
 
                                   var managedIdentityClientId = config["Blob:ManagedIdentityClientId"];
-                                  var credential = string.IsNullOrWhiteSpace(managedIdentityClientId)
-                                      ? new DefaultAzureCredential()
-                                      : new ManagedIdentityCredential(managedIdentityClientId);
+TokenCredential credential = string.IsNullOrWhiteSpace(managedIdentityClientId) ? new DefaultAzureCredential() : new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(managedIdentityClientId));
 
                                   // Produkcija: bez tajni, autentikacija preko Managed Identity Web App-a.
                                   return new BlobServiceClient(new Uri(accountUrl), credential);
